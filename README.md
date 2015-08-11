@@ -37,7 +37,7 @@ try {
 try {
     cyclone.insert(new InsertQuery.InsertQueryBuilder()
             .into("test")
-            .values("0", "JackWhite20", "000000-000000-000000")
+            .values("0", "JackWhite20", "067e6162-3b6f-4ae2-a171-2470b63dff00")
             .build());
 } catch (SQLException e) {
     e.printStackTrace();
