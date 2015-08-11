@@ -22,10 +22,13 @@ package de.jackwhite20.cyclone;
 import de.jackwhite20.cyclone.builder.create.CreateQuery;
 import de.jackwhite20.cyclone.builder.drop.DropQuery;
 import de.jackwhite20.cyclone.builder.insert.InsertQuery;
+import de.jackwhite20.cyclone.builder.select.SelectQuery;
 import de.jackwhite20.cyclone.db.DBConnection;
+import de.jackwhite20.cyclone.db.DBResult;
 import de.jackwhite20.cyclone.db.settings.DBConnectionSettings;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -63,5 +66,12 @@ public class Cyclone {
         try (Connection con = connection.getConnection()) {
             con.createStatement().execute(query.toString());
         }
+    }
+
+    public DBResult select(SelectQuery query) throws SQLException {
+        Connection con = connection.getConnection();
+        ResultSet resultSet = con.createStatement().executeQuery(query.toString());
+
+        return new DBResult(resultSet, con);
     }
 }

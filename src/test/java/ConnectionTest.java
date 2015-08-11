@@ -21,8 +21,11 @@ import de.jackwhite20.cyclone.Cyclone;
 import de.jackwhite20.cyclone.builder.create.CreateQuery;
 import de.jackwhite20.cyclone.builder.drop.DropQuery;
 import de.jackwhite20.cyclone.builder.insert.InsertQuery;
+import de.jackwhite20.cyclone.builder.select.SelectQuery;
+import de.jackwhite20.cyclone.db.DBResult;
 import de.jackwhite20.cyclone.db.settings.DBConnectionSettings;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -42,6 +45,8 @@ public class ConnectionTest {
                 .database("cyclone")
                 .build());
 
+        System.out.println("Connected!");
+
         try {
             cyclone.create(new CreateQuery.CreateQueryBuilder()
                     .create("test")
@@ -53,15 +58,25 @@ public class ConnectionTest {
             e.printStackTrace();
         }
 
-
         try {
-            for (int i = 0; i < 50; i++) {
+            for (int i = 0; i < 2; i++) {
                 cyclone.insert(new InsertQuery.InsertQueryBuilder()
                         .into("test")
                         .values("0", "Jack", "000000-000000-000000")
                         .build());
             }
 
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            DBResult dbResult = cyclone.select(new SelectQuery.SelectQueryBuilder().select("*").from("test").build());
+            ResultSet set = dbResult.resultSet();
+            while (set.next()) {
+                System.out.println("ID: " + set.getInt("id") + " Name: " + set.getString("name") + " UUID: " + set.getString("uuid"));
+            }
+            dbResult.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
