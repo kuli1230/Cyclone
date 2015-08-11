@@ -1,5 +1,5 @@
 ## Cyclone
-Cyclone is an MySQL util library with integrated HikariCP connection pool.
+Cyclone is an MySQL util library with integrated [HikariCP](http://brettwooldridge.github.io/HikariCP/) connection pool.
 The main feature is the Query Builder System with the Builder design pattern.
 You don't have to write the complete SQL-Query down anymore. You can instead use e.g. the CreateQuery or directly the CreateQueryBuilder to build your query to create a SQL CREATE query. 
 
