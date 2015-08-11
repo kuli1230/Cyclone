@@ -20,6 +20,7 @@
 import de.jackwhite20.cyclone.Cyclone;
 import de.jackwhite20.cyclone.builder.create.CreateQuery;
 import de.jackwhite20.cyclone.builder.drop.DropQuery;
+import de.jackwhite20.cyclone.builder.insert.InsertQuery;
 import de.jackwhite20.cyclone.db.settings.DBConnectionSettings;
 
 import java.sql.SQLException;
@@ -48,6 +49,19 @@ public class ConnectionTest {
                     .primaryKey("id")
                     .values("id int auto_increment", "name varchar(255)", "uuid varchar(255)")
                     .build());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+        try {
+            for (int i = 0; i < 50; i++) {
+                cyclone.insert(new InsertQuery.InsertQueryBuilder()
+                        .into("test")
+                        .values("0", "Jack", "000000-000000-000000")
+                        .build());
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

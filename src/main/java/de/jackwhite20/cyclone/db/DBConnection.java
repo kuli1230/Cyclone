@@ -48,10 +48,10 @@ public class DBConnection {
         hikariConfig.setUsername(settings.getUser());
         hikariConfig.setPassword(settings.getPassword());
         hikariConfig.setPoolName("Cyclone");
+        hikariConfig.setMaximumPoolSize(10);
+        //hikariConfig.setConnectionTestQuery("/* ping */");
 
         this.source = new HikariDataSource(hikariConfig);
-
-        System.out.println("Connected");
     }
 
     private String buildURI() {
