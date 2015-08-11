@@ -74,7 +74,7 @@ public class Cyclone {
         Connection con = connection.getConnection();
         ResultSet resultSet = con.createStatement().executeQuery(query.toString());
 
-        return new DBResult(resultSet, con);
+        return new DBResult(con, resultSet);
     }
 
     public void update(UpdateQuery query) throws SQLException {

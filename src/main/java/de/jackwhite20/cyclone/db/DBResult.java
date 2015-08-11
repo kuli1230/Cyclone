@@ -28,14 +28,14 @@ import java.sql.SQLException;
  */
 public class DBResult {
 
-    private ResultSet resultSet;
-
     private Connection connection;
 
-    public DBResult(ResultSet resultSet, Connection connection) {
+    private ResultSet resultSet;
 
-        this.resultSet = resultSet;
+    public DBResult(Connection connection, ResultSet resultSet) {
+
         this.connection = connection;
+        this.resultSet = resultSet;
     }
 
     public void close() {
