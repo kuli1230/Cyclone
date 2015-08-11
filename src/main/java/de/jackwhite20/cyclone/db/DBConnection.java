@@ -44,17 +44,19 @@ public class DBConnection {
     private void init() {
         HikariConfig hikariConfig = new HikariConfig();
 
-        hikariConfig.setJdbcUrl(buildURI());
+        hikariConfig.setJdbcUrl(uri());
         hikariConfig.setUsername(settings.getUser());
         hikariConfig.setPassword(settings.getPassword());
         hikariConfig.setPoolName("Cyclone");
-        hikariConfig.setMaximumPoolSize(10);
+        hikariConfig.addDataSourceProperty("cachePrepStmts", "true");
+        hikariConfig.addDataSourceProperty("prepStmtCacheSize", "250");
+        hikariConfig.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
         //hikariConfig.setConnectionTestQuery("/* ping */");
 
         this.source = new HikariDataSource(hikariConfig);
     }
 
-    private String buildURI() {
+    private String uri() {
 
         return "jdbc:mysql://" + settings.getHost() + ":" + settings.getPort() + "/" + settings.getDatabase();
     }

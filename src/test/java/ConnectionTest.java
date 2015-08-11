@@ -66,7 +66,6 @@ public class ConnectionTest {
                         .values("0", "Jack", "000000-000000-000000")
                         .build());
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
