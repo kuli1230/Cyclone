@@ -8,7 +8,14 @@ You don't have to write the complete SQL-Query down anymore. You can instead use
 - Checkout/Clone/Download this repo
 - Install it with: ```mvn clean install```
 
-
+**Maven dependency**
+```xml
+<dependency>
+    <groupId>de.jackwhite20</groupId>
+    <artifactId>cyclone</artifactId>
+    <version>0.1-SNAPSHOT</version>
+</dependency>
+```
 
 ## Examples
 
