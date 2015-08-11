@@ -3,7 +3,7 @@ Cyclone is an MySQL util library with integrated [HikariCP](http://brettwooldrid
 The main feature is the Query Builder System with the Builder design pattern.
 You don't have to write the complete SQL-Query down anymore. You can instead use e.g. the CreateQuery or directly the CreateQueryBuilder to build your query to create a SQL CREATE query. 
 
-## Install
+## Installation
 - Install [Maven 3](http://maven.apache.org/download.cgi)
 - Checkout/Clone/Download this repo
 - Install it with: ```mvn clean install```
