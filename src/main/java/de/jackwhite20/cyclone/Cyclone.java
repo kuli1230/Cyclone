@@ -23,6 +23,7 @@ import de.jackwhite20.cyclone.builder.create.CreateQuery;
 import de.jackwhite20.cyclone.builder.drop.DropQuery;
 import de.jackwhite20.cyclone.builder.insert.InsertQuery;
 import de.jackwhite20.cyclone.builder.select.SelectQuery;
+import de.jackwhite20.cyclone.builder.update.UpdateQuery;
 import de.jackwhite20.cyclone.db.DBConnection;
 import de.jackwhite20.cyclone.db.DBResult;
 import de.jackwhite20.cyclone.db.settings.DBConnectionSettings;
@@ -69,9 +70,17 @@ public class Cyclone {
     }
 
     public DBResult select(SelectQuery query) throws SQLException {
+
         Connection con = connection.getConnection();
         ResultSet resultSet = con.createStatement().executeQuery(query.toString());
 
         return new DBResult(resultSet, con);
+    }
+
+    public void update(UpdateQuery query) throws SQLException {
+
+        try (Connection con = connection.getConnection()) {
+            con.createStatement().execute(query.toString());
+        }
     }
 }

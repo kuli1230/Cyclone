@@ -24,15 +24,15 @@ package de.jackwhite20.cyclone.db.settings;
  */
 public class DBConnectionSettings {
 
-    private String host;
+    private String host = "localhost";
 
-    private int port;
+    private int port = 3306;
 
-    private String user;
+    private String user = "root";
 
-    private String password;
+    private String password = "";
 
-    private String database;
+    private String database = "db";
 
     public DBConnectionSettings() {
 

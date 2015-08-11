@@ -22,6 +22,7 @@ import de.jackwhite20.cyclone.builder.create.CreateQuery;
 import de.jackwhite20.cyclone.builder.drop.DropQuery;
 import de.jackwhite20.cyclone.builder.insert.InsertQuery;
 import de.jackwhite20.cyclone.builder.select.SelectQuery;
+import de.jackwhite20.cyclone.builder.update.UpdateQuery;
 import de.jackwhite20.cyclone.db.DBResult;
 import de.jackwhite20.cyclone.db.settings.DBConnectionSettings;
 
@@ -70,6 +71,27 @@ public class ConnectionTest {
             e.printStackTrace();
         }
 
+        selectAll(cyclone);
+
+        System.out.println("Changing...");
+
+        try {
+            cyclone.update(new UpdateQuery.UpdateQueryBuilder().update("test").set("name", "Jacky").where("id", "1").build());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        selectAll(cyclone);
+
+        try {
+            cyclone.drop(new DropQuery.DropQueryBuilder().drop("test").build());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void selectAll(Cyclone cyclone) {
+
         try {
             DBResult dbResult = cyclone.select(new SelectQuery.SelectQueryBuilder().select("*").from("test").build());
             ResultSet set = dbResult.resultSet();
@@ -80,12 +102,5 @@ public class ConnectionTest {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        try {
-            cyclone.drop(new DropQuery.DropQueryBuilder().drop("test").build());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
-
 }
