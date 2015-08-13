@@ -83,7 +83,7 @@ public class Cyclone {
         return new DBResult(con, resultSet);
     }
 
-    public <T> List<T> selectCustom(SelectQuery query, Class<T> clazz) throws SQLException {
+    public <T> List<T> select(SelectQuery query, Class<T> clazz) throws SQLException {
 
         List<T> results = new ArrayList<>();
 

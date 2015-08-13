@@ -115,7 +115,7 @@ public class ConnectionTest {
         }*/
 
         try {
-            List<TestTable> result = cyclone.selectCustom(new SelectQuery.SelectQueryBuilder()
+            List<TestTable> result = cyclone.select(new SelectQuery.SelectQueryBuilder()
                     .select("*")
                     .from("test")
                     .build(), TestTable.class);
