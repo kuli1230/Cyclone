@@ -1,7 +1,8 @@
 ## Cyclone
 Cyclone is an MySQL util library with integrated [HikariCP](http://brettwooldridge.github.io/HikariCP/) connection pool.
 The main feature is the Query Builder System with the Builder design pattern.
-You don't have to write the complete SQL-Query down anymore. You can instead use e.g. the CreateQuery or directly the CreateQueryBuilder to build your query to create a SQL CREATE query. 
+You don't have to write the complete SQL-Query down anymore. You can instead use cool and easy builder.
+Another feature is that you can create classes which are the same as a table and then load results of a "SELECT" into a list of your class and use it, without any parsing of the result set or something like that.
 
 ## Installation
 - Install [Maven 3](http://maven.apache.org/download.cgi)
@@ -72,6 +73,19 @@ try {
                 " UUID: " + set.getString("uuid"));
     }
     dbResult.close();
+} catch (SQLException e) {
+    e.printStackTrace();
+}
+```
+**Custom Select**
+In the TestTable class are 3 fields (id, name and uuid) like the table 'test'.
+```java
+try {
+    List<TestTable> result = cyclone.select(new SelectQuery.SelectQueryBuilder()
+            .select("*")
+            .from("test")
+            .build(), TestTable.class);
+    result.forEach(System.out::println);
 } catch (SQLException e) {
     e.printStackTrace();
 }
