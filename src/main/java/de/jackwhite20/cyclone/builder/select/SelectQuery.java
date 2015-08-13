@@ -44,11 +44,11 @@ public class SelectQuery {
     public String toString() {
 
         StringBuilder sb = new StringBuilder();
-        sb.append("SELECT ").append(select).append(" FROM ").append(table).append(" ");
+        sb.append("SELECT ").append(select).append(" FROM ").append(table);
 
         //TODO: Improve
         if(wheres.size() > 0) {
-            sb.append("WHERE ");
+            sb.append(" WHERE ");
             int pos = 0;
             for (Map.Entry<String, String> entry : wheres.entrySet()) {
                 sb.append(entry.getKey()).append("=").append(entry.getValue()).append(((wheres.size() > 1 && pos < wheres.size() - 1) ? " AND " : ""));

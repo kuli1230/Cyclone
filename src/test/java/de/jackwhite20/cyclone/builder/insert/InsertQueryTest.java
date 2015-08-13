@@ -17,23 +17,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+package de.jackwhite20.cyclone.builder.insert;
+
+import org.junit.Test;
+
+import static org.junit.Assert.*;
+
 /**
  * Created by JackWhite20 on 13.08.2015.
  */
-public class TestTable {
+public class InsertQueryTest {
 
-    private int id;
+    @Test
+    public void testInsertQuery() {
 
-    private String name;
+        String expected = "INSERT INTO test VALUES ('0','Jack','000000-000000-000000');";
+        String actual = new InsertQuery.InsertQueryBuilder()
+                .into("test")
+                .values("0", "Jack", "000000-000000-000000")
+                .build().toString();
 
-    private String uuid;
-
-    @Override
-    public String toString() {
-        return "TestTable{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", uuid='" + uuid + '\'' +
-                '}';
+        assertEquals(expected, actual);
     }
 }

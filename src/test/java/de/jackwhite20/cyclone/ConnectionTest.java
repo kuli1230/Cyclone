@@ -1,4 +1,4 @@
-/*
+package de.jackwhite20.cyclone;/*
  * Copyright (c) 2015 "JackWhite20"
  *
  * This file is part of Cyclone.
@@ -17,7 +17,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import de.jackwhite20.cyclone.Cyclone;
 import de.jackwhite20.cyclone.builder.create.CreateQuery;
 import de.jackwhite20.cyclone.builder.drop.DropQuery;
 import de.jackwhite20.cyclone.builder.insert.InsertQuery;
