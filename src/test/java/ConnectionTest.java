@@ -23,11 +23,10 @@ import de.jackwhite20.cyclone.builder.drop.DropQuery;
 import de.jackwhite20.cyclone.builder.insert.InsertQuery;
 import de.jackwhite20.cyclone.builder.select.SelectQuery;
 import de.jackwhite20.cyclone.builder.update.UpdateQuery;
-import de.jackwhite20.cyclone.db.DBResult;
 import de.jackwhite20.cyclone.db.settings.DBConnectionSettings;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * Created by JackWhite20 on 11.08.2015.
@@ -36,15 +35,15 @@ public class ConnectionTest {
 
     public static void main(String[] args) {
 
-        Cyclone cyclone = new Cyclone();
-
-        cyclone.connect(new DBConnectionSettings.SettingsBuilder()
+        Cyclone cyclone = new Cyclone(new DBConnectionSettings.SettingsBuilder()
                 .host("localhost")
                 .port(3306)
                 .user("root")
                 .password("")
                 .database("cyclone")
                 .build());
+
+        cyclone.connect();
 
         System.out.println("Connected!");
 
@@ -75,7 +74,11 @@ public class ConnectionTest {
         System.out.println("Changing...");
 
         try {
-            cyclone.update(new UpdateQuery.UpdateQueryBuilder().update("test").set("name", "Jacky").where("id", "1").build());
+            cyclone.update(new UpdateQuery.UpdateQueryBuilder()
+                    .update("test")
+                    .set("name", "Jacky")
+                    .where("id", "1")
+                    .build());
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -83,21 +86,41 @@ public class ConnectionTest {
         selectAll(cyclone);
 
         try {
-            cyclone.drop(new DropQuery.DropQueryBuilder().drop("test").build());
+            cyclone.drop(new DropQuery.DropQueryBuilder()
+                    .drop("test")
+                    .build());
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        System.out.println("Finished!");
     }
 
     private static void selectAll(Cyclone cyclone) {
 
-        try {
-            DBResult dbResult = cyclone.select(new SelectQuery.SelectQueryBuilder().select("*").from("test").build());
+/*        try {
+            DBResult dbResult = cyclone.select(new SelectQuery.SelectQueryBuilder()
+                    .select("*")
+                    .from("test")
+                    .build());
+
             ResultSet set = dbResult.resultSet();
             while (set.next()) {
-                System.out.println("ID: " + set.getInt("id") + " Name: " + set.getString("name") + " UUID: " + set.getString("uuid"));
+                System.out.println("ID: " + set.getInt("id") +
+                        " Name: " + set.getString("name") +
+                        " UUID: " + set.getString("uuid"));
             }
             dbResult.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }*/
+
+        try {
+            List<TestTable> result = cyclone.selectCustom(new SelectQuery.SelectQueryBuilder()
+                    .select("*")
+                    .from("test")
+                    .build(), TestTable.class);
+            result.forEach(System.out::println);
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -28,22 +28,28 @@ import de.jackwhite20.cyclone.db.DBConnection;
 import de.jackwhite20.cyclone.db.DBResult;
 import de.jackwhite20.cyclone.db.settings.DBConnectionSettings;
 
+import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by JackWhite20 on 11.08.2015.
  */
 public class Cyclone {
 
+    private DBConnectionSettings settings;
+
     private DBConnection connection;
 
-    public Cyclone() {
-
+    public Cyclone(DBConnectionSettings settings) {
+        this.settings = settings;
     }
 
-    public void connect(DBConnectionSettings settings) {
+    public void connect() {
 
         connection = new DBConnection(settings);
     }
@@ -75,6 +81,49 @@ public class Cyclone {
         ResultSet resultSet = con.createStatement().executeQuery(query.toString());
 
         return new DBResult(con, resultSet);
+    }
+
+    public <T> List<T> selectCustom(SelectQuery query, Class<T> clazz) throws SQLException {
+
+        List<T> results = new ArrayList<>();
+
+        Connection con = null;
+        try {
+            con = connection.getConnection();
+            ResultSet resultSet = con.createStatement().executeQuery(query.toString());
+            ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+
+            int columnCount = resultSetMetaData.getColumnCount();
+
+            List<String> columns = new ArrayList<>(columnCount);
+            for (int i = 1; i < columnCount + 1; i++) {
+                columns.add(resultSetMetaData.getColumnName(i));
+            }
+
+            while (resultSet.next()) {
+                T typeClass = clazz.newInstance();
+
+                for (String column : columns) {
+                    Field f = typeClass.getClass().getDeclaredField(column);
+                    f.setAccessible(true);
+                    f.set(typeClass, resultSet.getObject(column));
+                    f.setAccessible(false);
+                }
+
+                results.add(typeClass);
+            }
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } finally {
+            if(con != null)
+                con.close();
+        }
+
+        return results;
     }
 
     public void update(UpdateQuery query) throws SQLException {
