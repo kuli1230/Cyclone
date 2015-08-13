@@ -78,6 +78,7 @@ try {
 }
 ```
 **Custom Select**
+
 In the TestTable class are 3 fields (id, name and uuid) like the table 'test'.
 ```java
 try {
