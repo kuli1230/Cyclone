@@ -49,7 +49,6 @@ public class ConnectionTest {
         try {
             cyclone.create(new CreateQuery.CreateQueryBuilder()
                     .create("test")
-                    .ifNotExists(true)
                     .primaryKey("id")
                     .values("id int auto_increment", "name varchar(255)", "uuid varchar(255)")
                     .build());

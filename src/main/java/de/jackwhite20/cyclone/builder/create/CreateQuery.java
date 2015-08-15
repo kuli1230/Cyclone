@@ -29,7 +29,7 @@ public class CreateQuery {
 
     private String table;
 
-    private boolean createNotExists;
+    private boolean createNotExists = true;
 
     private List<String> values = new ArrayList<>();
 
