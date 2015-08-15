@@ -39,7 +39,7 @@ cyclone.connect();
 try {
     cyclone.create(new CreateQuery.CreateQueryBuilder()
             .create("test")
-            .ifNotExists(true)
+            .ifNotExists(false)
             .primaryKey("id")
             .values("id int auto_increment", "name varchar(255)", "uuid varchar(255)")
             .build());
@@ -97,6 +97,7 @@ try {
     cyclone.update(new UpdateQuery.UpdateQueryBuilder()
             .update("test")
             .set("name", "Jacky")
+            .set("uuid", "0000")
             .where("id", "1")
             .build());
 } catch (SQLException e) {
