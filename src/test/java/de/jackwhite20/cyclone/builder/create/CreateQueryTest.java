@@ -41,4 +41,18 @@ public class CreateQueryTest {
 
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void testCreateQueryWithoutExists() {
+
+        String expected = "CREATE TABLE test (id int auto_increment,name varchar(255),uuid varchar(255),PRIMARY KEY (id));";
+        String actual = new CreateQuery.CreateQueryBuilder()
+                .create("test")
+                .ifNotExists(false)
+                .primaryKey("id")
+                .values("id int auto_increment", "name varchar(255)", "uuid varchar(255)")
+                .build().toString();
+
+        assertEquals(expected, actual);
+    }
 }

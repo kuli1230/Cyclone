@@ -29,11 +29,23 @@ import static org.junit.Assert.*;
 public class SelectQueryTest {
 
     @Test
-    public void testInsertQuery() {
+    public void testSelectQueryAll() {
 
         String expected = "SELECT * FROM test;";
         String actual = new SelectQuery.SelectQueryBuilder()
                 .select("*")
+                .from("test")
+                .build().toString();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testSelectQueryName() {
+
+        String expected = "SELECT name FROM test;";
+        String actual = new SelectQuery.SelectQueryBuilder()
+                .select("name")
                 .from("test")
                 .build().toString();
 

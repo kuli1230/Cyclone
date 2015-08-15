@@ -29,7 +29,7 @@ import static org.junit.Assert.*;
 public class UpdateQueryTest {
 
     @Test
-    public void testInsertQuery() {
+    public void testUpdateQueryOneSet() {
 
         String expected = "UPDATE test SET name='Jacky' WHERE id='1';";
         String actual = new UpdateQuery.UpdateQueryBuilder()
