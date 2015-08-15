@@ -19,7 +19,6 @@
 
 package de.jackwhite20.cyclone.builder.update;
 
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -50,14 +49,25 @@ public class UpdateQuery {
         StringBuilder sb = new StringBuilder();
         sb.append("UPDATE ").append(table);
 
-        Iterator<Map.Entry<String, String>> valueIterator = values.entrySet().iterator();
-        Iterator<Map.Entry<String, String>> wheresIterator = wheres.entrySet().iterator();
+        //TODO: Improve
+        int i = 0;
+        for (Map.Entry<String, String> entry : values.entrySet()) {
+            if(i == 0)
+                sb.append(" SET ");
 
-        while (valueIterator.hasNext()) {
-            Map.Entry<String, String> values = valueIterator.next();
-            Map.Entry<String, String> wheres = wheresIterator.next();
+            sb.append(entry.getKey()).append("=").append("'").append(entry.getValue()).append("'").append((i < values.size() - 1) ? "," : "");
 
-            sb.append(" SET ").append(values.getKey()).append("=").append("'").append(values.getValue()).append("'").append(" WHERE ").append(wheres.getKey()).append("=").append("'").append(wheres.getValue()).append("'");
+            i++;
+        }
+
+        i = 0;
+        for (Map.Entry<String, String> entry : wheres.entrySet()) {
+            if(i == 0)
+                sb.append(" WHERE ");
+
+            sb.append(entry.getKey()).append("=").append("'").append(entry.getValue()).append("'").append((i < wheres.size() - 1) ? " AND " : "");
+
+            i++;
         }
 
         sb.append(";");

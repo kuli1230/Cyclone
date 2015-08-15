@@ -40,4 +40,18 @@ public class UpdateQueryTest {
 
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void testUpdateQueryMultipleSet() {
+
+        String expected = "UPDATE test SET name='Jacky',uuid='0000' WHERE id='1';";
+        String actual = new UpdateQuery.UpdateQueryBuilder()
+                .update("test")
+                .set("name", "Jacky")
+                .set("uuid", "0000")
+                .where("id", "1")
+                .build().toString();
+
+        assertEquals(expected, actual);
+    }
 }

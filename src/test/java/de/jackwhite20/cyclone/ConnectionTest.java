@@ -75,6 +75,7 @@ public class ConnectionTest {
             cyclone.update(new UpdateQuery.UpdateQueryBuilder()
                     .update("test")
                     .set("name", "Jacky")
+                    .set("uuid", "0000")
                     .where("id", "1")
                     .build());
         } catch (SQLException e) {
