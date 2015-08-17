@@ -31,9 +31,16 @@ public class InsertQuery {
 
     private List<String> values = new ArrayList<>();
 
-    private void addValue(String value) {
+    public InsertQuery(String table, List<String> values) {
 
-        values.add(value);
+        this.table = table;
+        this.values = values;
+    }
+
+    public InsertQuery(Builder builder) {
+
+        this.table = builder.table;
+        this.values = builder.values;
     }
 
     @Override
@@ -56,11 +63,13 @@ public class InsertQuery {
 
     public static class Builder {
 
-        private InsertQuery insertQuery = new InsertQuery();
+        private String table;
+
+        private List<String> values = new ArrayList<>();
 
         public Builder into(String table) {
 
-            insertQuery.table = table;
+            this.table = table;
 
             return this;
         }
@@ -68,7 +77,7 @@ public class InsertQuery {
         public Builder values(String... values) {
 
             for (String value : values) {
-                insertQuery.addValue(value);
+                this.values.add(value);
             }
 
             return this;
@@ -76,7 +85,7 @@ public class InsertQuery {
 
         public InsertQuery build() {
 
-            return insertQuery;
+            return new InsertQuery(this);
         }
     }
 }

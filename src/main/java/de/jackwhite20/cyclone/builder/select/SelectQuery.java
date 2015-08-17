@@ -19,6 +19,8 @@
 
 package de.jackwhite20.cyclone.builder.select;
 
+import de.jackwhite20.cyclone.builder.insert.InsertQuery;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -33,12 +35,23 @@ public class SelectQuery {
 
     private LinkedHashMap<String, String> wheres = new LinkedHashMap<>();
 
-    private void addWheres(String where, String equals) {
+    private String orderBy = null;
 
-        wheres.put(where, equals);
+    public SelectQuery(String select, String table, LinkedHashMap<String, String> wheres, String orderBy) {
+
+        this.select = select;
+        this.table = table;
+        this.wheres = wheres;
+        this.orderBy = orderBy;
     }
 
-    private String orderBy = null;
+    public SelectQuery(Builder builder) {
+
+        this.select = builder.select;
+        this.table = builder.table;
+        this.wheres = builder.wheres;
+        this.orderBy = builder.orderBy;
+    }
 
     @Override
     public String toString() {
@@ -67,40 +80,45 @@ public class SelectQuery {
 
     public static class Builder {
 
-        private SelectQuery selectQuery = new SelectQuery();
+        private String select;
+
+        private String table;
+
+        private LinkedHashMap<String, String> wheres = new LinkedHashMap<>();
+
+        private String orderBy = null;
 
         public Builder select(String select) {
 
-            selectQuery.select = select;
+            this.select = select;
 
             return this;
         }
 
         public Builder from(String table) {
 
-            selectQuery.table = table;
+            this.table = table;
 
             return this;
         }
 
         public Builder where(String where, String value) {
 
-            selectQuery.addWheres(where, value);
+            this.wheres.put(where, value);
 
             return this;
         }
 
         public Builder orderBy(String orderBy) {
 
-            selectQuery.orderBy = orderBy;
+            this.orderBy = orderBy;
 
             return this;
         }
 
         public SelectQuery build() {
 
-            return selectQuery;
+            return new SelectQuery(this);
         }
-
     }
 }

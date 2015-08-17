@@ -33,14 +33,18 @@ public class UpdateQuery {
 
     private LinkedHashMap<String, String> wheres = new LinkedHashMap<>();
 
-    private void addValues(String value, String equals) {
+    public UpdateQuery(String table, LinkedHashMap<String, String> values, LinkedHashMap<String, String> wheres) {
 
-        values.put(value, equals);
+        this.table = table;
+        this.values = values;
+        this.wheres = wheres;
     }
 
-    private void addWheres(String where, String equals) {
+    public UpdateQuery(Builder builder) {
 
-        wheres.put(where, equals);
+        this.table = builder.table;
+        this.values = builder.values;
+        this.wheres = builder.wheres;
     }
 
     @Override
@@ -77,32 +81,36 @@ public class UpdateQuery {
 
     public static class Builder {
 
-        private UpdateQuery updateQuery = new UpdateQuery();
+        private String table;
+
+        private LinkedHashMap<String, String> values = new LinkedHashMap<>();
+
+        private LinkedHashMap<String, String> wheres = new LinkedHashMap<>();
 
         public Builder update(String table) {
 
-            updateQuery.table = table;
+            this.table = table;
 
             return this;
         }
 
         public Builder set(String value, String newValue) {
 
-            updateQuery.addValues(value, newValue);
+            this.values.put(value, newValue);
 
             return this;
         }
 
         public Builder where(String where, String value) {
 
-            updateQuery.addWheres(where, value);
+            this.wheres.put(where, value);
 
             return this;
         }
 
         public UpdateQuery build() {
 
-            return updateQuery;
+            return new UpdateQuery(this);
         }
     }
 }
