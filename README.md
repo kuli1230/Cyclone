@@ -37,7 +37,7 @@ cyclone.connect();
 **Create**
 ```java
 try {
-    cyclone.create(new CreateQuery.CreateQueryBuilder()
+    cyclone.create(new CreateQuery.Builder()
             .create("test")
             .ifNotExists(false)
             .primaryKey("id")
@@ -50,7 +50,7 @@ try {
 **Insert**
 ```java
 try {
-    cyclone.insert(new InsertQuery.InsertQueryBuilder()
+    cyclone.insert(new InsertQuery.Builder()
             .into("test")
             .values("0", "JackWhite20", "067e6162-3b6f-4ae2-a171-2470b63dff00")
             .build());
@@ -61,7 +61,7 @@ try {
 **Select**
 ```java
 try {
-    DBResult dbResult = cyclone.select(new SelectQuery.SelectQueryBuilder()
+    DBResult dbResult = cyclone.select(new SelectQuery.Builder()
             .select("*")
             .from("test")
             .build());
@@ -82,7 +82,7 @@ try {
 In the TestTable class are 3 fields (id, name and uuid) like the table 'test'.
 ```java
 try {
-    List<TestTable> result = cyclone.select(new SelectQuery.SelectQueryBuilder()
+    List<TestTable> result = cyclone.select(new SelectQuery.Builder()
             .select("*")
             .from("test")
             .build(), TestTable.class);
@@ -94,7 +94,7 @@ try {
 **Update**
 ```java
 try {
-    cyclone.update(new UpdateQuery.UpdateQueryBuilder()
+    cyclone.update(new UpdateQuery.Builder()
             .update("test")
             .set("name", "Jacky")
             .set("uuid", "0000")
@@ -107,7 +107,7 @@ try {
 **Drop**
 ```java
 try {
-    cyclone.drop(new DropQuery.DropQueryBuilder()
+    cyclone.drop(new DropQuery.Builder()
             .drop("test")
             .build());
 } catch (SQLException e) {
