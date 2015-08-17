@@ -47,7 +47,7 @@ public class ConnectionTest {
         System.out.println("Connected!");
 
         try {
-            cyclone.create(new CreateQuery.CreateQueryBuilder()
+            cyclone.create(new CreateQuery.Builder()
                     .create("test")
                     .primaryKey("id")
                     .values("id int auto_increment", "name varchar(255)", "uuid varchar(255)")
@@ -58,7 +58,7 @@ public class ConnectionTest {
 
         try {
             for (int i = 0; i < 2; i++) {
-                cyclone.insert(new InsertQuery.InsertQueryBuilder()
+                cyclone.insert(new InsertQuery.Builder()
                         .into("test")
                         .values("0", "Jack", "000000-000000-000000")
                         .build());
@@ -72,7 +72,7 @@ public class ConnectionTest {
         System.out.println("Changing...");
 
         try {
-            cyclone.update(new UpdateQuery.UpdateQueryBuilder()
+            cyclone.update(new UpdateQuery.Builder()
                     .update("test")
                     .set("name", "Jacky")
                     .set("uuid", "0000")
@@ -85,7 +85,7 @@ public class ConnectionTest {
         selectAll(cyclone);
 
         try {
-            cyclone.drop(new DropQuery.DropQueryBuilder()
+            cyclone.drop(new DropQuery.Builder()
                     .drop("test")
                     .build());
         } catch (SQLException e) {
@@ -115,7 +115,7 @@ public class ConnectionTest {
         }*/
 
         try {
-            List<TestTable> result = cyclone.select(new SelectQuery.SelectQueryBuilder()
+            List<TestTable> result = cyclone.select(new SelectQuery.Builder()
                     .select("*")
                     .from("test")
                     .build(), TestTable.class);

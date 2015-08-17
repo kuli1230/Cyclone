@@ -54,18 +54,18 @@ public class InsertQuery {
         return sb.toString();
     }
 
-    public static class InsertQueryBuilder {
+    public static class Builder {
 
         private InsertQuery insertQuery = new InsertQuery();
 
-        public InsertQueryBuilder into(String table) {
+        public Builder into(String table) {
 
             insertQuery.table = table;
 
             return this;
         }
 
-        public InsertQueryBuilder values(String... values) {
+        public Builder values(String... values) {
 
             for (String value : values) {
                 insertQuery.addValue(value);

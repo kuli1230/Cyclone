@@ -31,7 +31,7 @@ public class DropQuery {
         this.table = table;
     }
 
-    public DropQuery(DropQueryBuilder builder) {
+    public DropQuery(Builder builder) {
 
         this.table = builder.table;
     }
@@ -46,11 +46,11 @@ public class DropQuery {
         return sb.toString();
     }
 
-    public static class DropQueryBuilder {
+    public static class Builder {
 
         private String table;
 
-        public DropQueryBuilder drop(String table) {
+        public Builder drop(String table) {
 
             this.table = table;
 

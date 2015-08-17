@@ -75,25 +75,25 @@ public class UpdateQuery {
         return sb.toString();
     }
 
-    public static class UpdateQueryBuilder {
+    public static class Builder {
 
         private UpdateQuery updateQuery = new UpdateQuery();
 
-        public UpdateQueryBuilder update(String table) {
+        public Builder update(String table) {
 
             updateQuery.table = table;
 
             return this;
         }
 
-        public UpdateQueryBuilder set(String value, String newValue) {
+        public Builder set(String value, String newValue) {
 
             updateQuery.addValues(value, newValue);
 
             return this;
         }
 
-        public UpdateQueryBuilder where(String where, String value) {
+        public Builder where(String where, String value) {
 
             updateQuery.addWheres(where, value);
 

@@ -65,32 +65,32 @@ public class SelectQuery {
         return sb.toString();
     }
 
-    public static class SelectQueryBuilder {
+    public static class Builder {
 
         private SelectQuery selectQuery = new SelectQuery();
 
-        public SelectQueryBuilder select(String select) {
+        public Builder select(String select) {
 
             selectQuery.select = select;
 
             return this;
         }
 
-        public SelectQueryBuilder from(String table) {
+        public Builder from(String table) {
 
             selectQuery.table = table;
 
             return this;
         }
 
-        public SelectQueryBuilder where(String where, String value) {
+        public Builder where(String where, String value) {
 
             selectQuery.addWheres(where, value);
 
             return this;
         }
 
-        public SelectQueryBuilder orderBy(String orderBy) {
+        public Builder orderBy(String orderBy) {
 
             selectQuery.orderBy = orderBy;
 

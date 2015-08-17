@@ -43,7 +43,7 @@ public class CreateQuery {
         this.primaryKey = primaryKey;
     }
 
-    public CreateQuery(CreateQueryBuilder builder) {
+    public CreateQuery(Builder builder) {
 
         this.table = builder.table;
         this.createNotExists = builder.createNotExists;
@@ -75,7 +75,7 @@ public class CreateQuery {
         return sb.toString();
     }
 
-    public static class CreateQueryBuilder {
+    public static class Builder {
 
         private String table;
 
@@ -85,28 +85,28 @@ public class CreateQuery {
 
         private String primaryKey = null;
 
-        public CreateQueryBuilder create(String table) {
+        public Builder create(String table) {
 
             this.table = table;
 
             return this;
         }
 
-        public CreateQueryBuilder ifNotExists(boolean value) {
+        public Builder ifNotExists(boolean value) {
 
             this.createNotExists = value;
 
             return this;
         }
 
-        public CreateQueryBuilder primaryKey(String column) {
+        public Builder primaryKey(String column) {
 
             this.primaryKey = column;
 
             return this;
         }
 
-        public CreateQueryBuilder values(String... values) {
+        public Builder values(String... values) {
 
             for (String value : values) {
                 this.values.add(value);
