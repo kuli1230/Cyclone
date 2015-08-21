@@ -41,19 +41,39 @@ import java.util.List;
  */
 public class Cyclone {
 
+    /**
+     * The settings.
+     */
     private DBConnectionSettings settings;
 
+    /**
+     * The connection.
+     */
     private DBConnection connection;
 
+    /**
+     * Create a new Cyclone object.
+     *
+     * @param settings the connection settings.
+     */
     public Cyclone(DBConnectionSettings settings) {
         this.settings = settings;
     }
 
+    /**
+     * Connects to the mysql server.
+     */
     public void connect() {
 
         connection = new DBConnection(settings);
     }
 
+    /**
+     * Creates a table with the specified query.
+     *
+     * @param query the query
+     * @throws SQLException if there is no connection.
+     */
     public void create(CreateQuery query) throws SQLException {
 
         try (Connection con = connection.getConnection()) {
@@ -61,6 +81,12 @@ public class Cyclone {
         }
     }
 
+    /**
+     * Drops a table.
+     *
+     * @param query the query.
+     * @throws SQLException if there is no connection.
+     */
     public void drop(DropQuery query) throws SQLException {
 
         try (Connection con = connection.getConnection()) {
@@ -68,6 +94,12 @@ public class Cyclone {
         }
     }
 
+    /**
+     * Inserts values into an existing table.
+     *
+     * @param query the query.
+     * @throws SQLException if there is no connection.
+     */
     public void insert(InsertQuery query) throws SQLException {
 
         try (Connection con = connection.getConnection()) {
@@ -75,6 +107,13 @@ public class Cyclone {
         }
     }
 
+    /**
+     * Selects data from a table.
+     *
+     * @param query the query.
+     * @return a DBResult object to work with.
+     * @throws SQLException if there is no connection.
+     */
     public DBResult select(SelectQuery query) throws SQLException {
 
         Connection con = connection.getConnection();
@@ -83,6 +122,14 @@ public class Cyclone {
         return new DBResult(con, resultSet);
     }
 
+    /**
+     * Selects data from a table and creates a new instance and set all field from the given class.
+     *
+     * @param query the query.
+     * @param clazz the class.
+     * @return a list from the given class.
+     * @throws SQLException if there is no connection.
+     */
     public <T> List<T> select(SelectQuery query, Class<T> clazz) throws SQLException {
 
         List<T> results = new ArrayList<>();
@@ -126,6 +173,12 @@ public class Cyclone {
         return results;
     }
 
+    /**
+     * Updates data in a table.
+     *
+     * @param query the query.
+     * @throws SQLException if there is no connection.
+     */
     public void update(UpdateQuery query) throws SQLException {
 
         try (Connection con = connection.getConnection()) {
