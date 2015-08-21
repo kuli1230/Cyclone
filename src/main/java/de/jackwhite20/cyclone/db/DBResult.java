@@ -28,8 +28,14 @@ import java.sql.SQLException;
  */
 public class DBResult {
 
+    /**
+     * The connection to the mysql server.
+     */
     private Connection connection;
 
+    /**
+     * The results from a query.
+     */
     private ResultSet resultSet;
 
     public DBResult(Connection connection, ResultSet resultSet) {
@@ -38,6 +44,9 @@ public class DBResult {
         this.resultSet = resultSet;
     }
 
+    /**
+     * Closes the connection and the result set.
+     */
     public void close() {
 
         try {
@@ -48,11 +57,21 @@ public class DBResult {
         }
     }
 
+    /**
+     * Gets the result set.
+     *
+     * @return the result set object.
+     */
     public ResultSet resultSet() {
 
         return resultSet;
     }
 
+    /**
+     * Gets the connection.
+     *
+     * @return the connection object.
+     */
     public Connection connection() {
 
         return connection;
