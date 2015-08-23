@@ -85,6 +85,7 @@ try {
     List<TestTable> result = cyclone.select(new SelectQuery.Builder()
             .select("*")
             .from("test")
+            .limit(2)
             .build(), TestTable.class);
     result.forEach(System.out::println);
 } catch (SQLException e) {
