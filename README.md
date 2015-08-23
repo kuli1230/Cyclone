@@ -66,11 +66,20 @@ try {
             .from("test")
             .build());
 
+	// Example 1
     ResultSet set = dbResult.resultSet();
     while (set.next()) {
         System.out.println("ID: " + set.getInt("id") +
                 " Name: " + set.getString("name") +
                 " UUID: " + set.getString("uuid"));
+    }
+    // Example 2
+    // 'id' is an Integer in the DB, so the return type is automatically an Integer
+    // Same for other types
+    for (DBRow row : dbResult.rows()) {
+    	System.out.println("ID: " + row.get("id") +
+        		" Name: " + row.get("name") + 
+                " UUID: " + row.get("uuid"));
     }
     dbResult.close();
 } catch (SQLException e) {
