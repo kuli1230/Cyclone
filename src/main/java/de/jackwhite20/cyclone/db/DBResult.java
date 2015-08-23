@@ -21,7 +21,10 @@ package de.jackwhite20.cyclone.db;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by JackWhite20 on 11.08.2015.
@@ -38,10 +41,39 @@ public class DBResult {
      */
     private ResultSet resultSet;
 
+    /**
+     * List of all rows.
+     */
+    private List<DBRow> rows = new ArrayList<>();
+
     public DBResult(Connection connection, ResultSet resultSet) {
 
         this.connection = connection;
         this.resultSet = resultSet;
+
+        ResultSetMetaData resultSetMetaData = null;
+        try {
+            resultSetMetaData = this.resultSet.getMetaData();
+            int columnCount = resultSetMetaData.getColumnCount();
+
+            List<String> columns = new ArrayList<>(columnCount);
+            columnCount += 1;
+            for (int i = 1; i < columnCount; i++) {
+                columns.add(resultSetMetaData.getColumnName(i));
+            }
+
+            while (this.resultSet.next()) {
+                DBRow row = new DBRow();
+
+                for (String column : columns) {
+                    row.add(column, this.resultSet.getObject(column));
+                }
+
+                rows.add(row);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -75,5 +107,15 @@ public class DBResult {
     public Connection connection() {
 
         return connection;
+    }
+
+    /**
+     * Gets all rows from the query.
+     *
+     * @return a list with all rows as DBRow objects.
+     */
+    public List<DBRow> rows() {
+
+        return rows;
     }
 }

@@ -22,8 +22,11 @@ import de.jackwhite20.cyclone.builder.drop.DropQuery;
 import de.jackwhite20.cyclone.builder.insert.InsertQuery;
 import de.jackwhite20.cyclone.builder.select.SelectQuery;
 import de.jackwhite20.cyclone.builder.update.UpdateQuery;
+import de.jackwhite20.cyclone.db.DBResult;
+import de.jackwhite20.cyclone.db.DBRow;
 import de.jackwhite20.cyclone.db.settings.DBConnectionSettings;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -97,22 +100,25 @@ public class ConnectionTest {
 
     private static void selectAll(Cyclone cyclone) {
 
-/*        try {
-            DBResult dbResult = cyclone.select(new SelectQuery.SelectQueryBuilder()
+        try {
+            DBResult dbResult = cyclone.select(new SelectQuery.Builder()
                     .select("*")
                     .from("test")
                     .build());
 
-            ResultSet set = dbResult.resultSet();
+/*            ResultSet set = dbResult.resultSet();
             while (set.next()) {
                 System.out.println("ID: " + set.getInt("id") +
                         " Name: " + set.getString("name") +
                         " UUID: " + set.getString("uuid"));
+            }*/
+            for (DBRow row : dbResult.rows()) {
+                System.out.println("ID: " + row.get("id") + " Name: " + row.get("name") + " UUID: " + row.get("uuid"));
             }
             dbResult.close();
         } catch (SQLException e) {
             e.printStackTrace();
-        }*/
+        }
 
         try {
             List<TestTable> result = cyclone.select(new SelectQuery.Builder()
