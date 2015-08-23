@@ -37,12 +37,15 @@ public class SelectQuery {
 
     private String orderBy = null;
 
-    public SelectQuery(String select, String table, LinkedHashMap<String, String> wheres, String orderBy) {
+    private String limit = null;
+
+    public SelectQuery(String select, String table, LinkedHashMap<String, String> wheres, String orderBy, String limit) {
 
         this.select = select;
         this.table = table;
         this.wheres = wheres;
         this.orderBy = orderBy;
+        this.limit = limit;
     }
 
     public SelectQuery(Builder builder) {
@@ -51,6 +54,7 @@ public class SelectQuery {
         this.table = builder.table;
         this.wheres = builder.wheres;
         this.orderBy = builder.orderBy;
+        this.limit = builder.limit;
     }
 
     @Override
@@ -73,6 +77,10 @@ public class SelectQuery {
             sb.append(" ORDER BY ").append(orderBy);
         }
 
+        if(limit != null) {
+            sb.append(" LIMIT ").append(limit);
+        }
+
         sb.append(";");
 
         return sb.toString();
@@ -87,6 +95,8 @@ public class SelectQuery {
         private LinkedHashMap<String, String> wheres = new LinkedHashMap<>();
 
         private String orderBy = null;
+
+        private String limit = null;
 
         public Builder select(String select) {
 
@@ -112,6 +122,20 @@ public class SelectQuery {
         public Builder orderBy(String orderBy) {
 
             this.orderBy = orderBy;
+
+            return this;
+        }
+
+        public Builder limit(String limit) {
+
+            this.limit = limit;
+
+            return this;
+        }
+
+        public Builder limit(int limit) {
+
+            this.limit = "" + limit;
 
             return this;
         }

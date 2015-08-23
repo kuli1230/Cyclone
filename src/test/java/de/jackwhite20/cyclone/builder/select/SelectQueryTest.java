@@ -51,4 +51,17 @@ public class SelectQueryTest {
 
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void testSelectQueryLimit() {
+
+        String expected = "SELECT name FROM test LIMIT 2;";
+        String actual = new SelectQuery.Builder()
+                .select("name")
+                .from("test")
+                .limit(2)
+                .build().toString();
+
+        assertEquals(expected, actual);
+    }
 }

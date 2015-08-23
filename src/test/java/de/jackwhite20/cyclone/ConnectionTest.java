@@ -118,6 +118,7 @@ public class ConnectionTest {
             List<TestTable> result = cyclone.select(new SelectQuery.Builder()
                     .select("*")
                     .from("test")
+                    .limit(1)
                     .build(), TestTable.class);
             result.forEach(System.out::println);
         } catch (SQLException e) {
