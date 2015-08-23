@@ -32,7 +32,7 @@ public class DropQueryTest {
     public void testDropQuery() {
 
         String expected = "DROP TABLE test;";
-        String actual = new DropQuery.DropQueryBuilder()
+        String actual = new DropQuery.Builder()
                 .drop("test")
                 .build().toString();
 

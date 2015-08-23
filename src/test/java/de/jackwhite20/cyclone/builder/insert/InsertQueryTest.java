@@ -32,7 +32,7 @@ public class InsertQueryTest {
     public void testInsertQuery() {
 
         String expected = "INSERT INTO test VALUES ('0','Jack','000000-000000-000000');";
-        String actual = new InsertQuery.InsertQueryBuilder()
+        String actual = new InsertQuery.Builder()
                 .into("test")
                 .values("0", "Jack", "000000-000000-000000")
                 .build().toString();

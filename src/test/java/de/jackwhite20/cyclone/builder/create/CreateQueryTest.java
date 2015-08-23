@@ -32,7 +32,7 @@ public class CreateQueryTest {
     public void testCreateQuery() {
 
         String expected = "CREATE TABLE IF NOT EXISTS test (id int auto_increment,name varchar(255),uuid varchar(255),PRIMARY KEY (id));";
-        String actual = new CreateQuery.CreateQueryBuilder()
+        String actual = new CreateQuery.Builder()
                 .create("test")
                 .ifNotExists(true)
                 .primaryKey("id")
@@ -46,7 +46,7 @@ public class CreateQueryTest {
     public void testCreateQueryWithoutExists() {
 
         String expected = "CREATE TABLE test (id int auto_increment,name varchar(255),uuid varchar(255),PRIMARY KEY (id));";
-        String actual = new CreateQuery.CreateQueryBuilder()
+        String actual = new CreateQuery.Builder()
                 .create("test")
                 .ifNotExists(false)
                 .primaryKey("id")

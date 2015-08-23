@@ -32,7 +32,7 @@ public class SelectQueryTest {
     public void testSelectQueryAll() {
 
         String expected = "SELECT * FROM test;";
-        String actual = new SelectQuery.SelectQueryBuilder()
+        String actual = new SelectQuery.Builder()
                 .select("*")
                 .from("test")
                 .build().toString();
@@ -44,7 +44,7 @@ public class SelectQueryTest {
     public void testSelectQueryName() {
 
         String expected = "SELECT name FROM test;";
-        String actual = new SelectQuery.SelectQueryBuilder()
+        String actual = new SelectQuery.Builder()
                 .select("name")
                 .from("test")
                 .build().toString();

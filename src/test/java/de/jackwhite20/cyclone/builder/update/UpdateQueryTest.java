@@ -32,7 +32,7 @@ public class UpdateQueryTest {
     public void testUpdateQueryOneSet() {
 
         String expected = "UPDATE test SET name='Jacky' WHERE id='1';";
-        String actual = new UpdateQuery.UpdateQueryBuilder()
+        String actual = new UpdateQuery.Builder()
                 .update("test")
                 .set("name", "Jacky")
                 .where("id", "1")
@@ -45,7 +45,7 @@ public class UpdateQueryTest {
     public void testUpdateQueryMultipleSet() {
 
         String expected = "UPDATE test SET name='Jacky',uuid='0000' WHERE id='1';";
-        String actual = new UpdateQuery.UpdateQueryBuilder()
+        String actual = new UpdateQuery.Builder()
                 .update("test")
                 .set("name", "Jacky")
                 .set("uuid", "0000")
