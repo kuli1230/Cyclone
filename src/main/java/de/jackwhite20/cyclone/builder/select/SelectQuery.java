@@ -68,7 +68,7 @@ public class SelectQuery {
             sb.append(" WHERE ");
             int pos = 0;
             for (Map.Entry<String, String> entry : wheres.entrySet()) {
-                sb.append(entry.getKey()).append("=").append(entry.getValue()).append(((wheres.size() > 1 && pos < wheres.size() - 1) ? " AND " : ""));
+                sb.append(entry.getKey()).append("=").append("'").append(entry.getValue()).append("'").append(((wheres.size() > 1 && pos < wheres.size() - 1) ? " AND " : ""));
                 pos++;
             }
         }
