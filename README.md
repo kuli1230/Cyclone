@@ -22,12 +22,13 @@ Another feature is that you can create classes which are the same as a table and
 
 **Initializing**
 ```java
-Cyclone cyclone = new Cyclone(new DBConnectionSettings.SettingsBuilder()
+Cyclone cyclone = new Cyclone(new CycloneSettings.Builder()
                 .host("localhost")
                 .port(3306)
                 .user("root")
                 .password("")
                 .database("cyclone")
+                .poolSize(15)
                 .build());
 ```
 **Connecting**
