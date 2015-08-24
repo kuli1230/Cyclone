@@ -34,17 +34,20 @@ public class CycloneSettings {
 
     private String database = "db";
 
+    private int poolSize = 10;
+
     public CycloneSettings() {
 
     }
 
-    public CycloneSettings(String host, int port, String user, String password, String database) {
+    public CycloneSettings(String host, int port, String user, String password, String database, int poolSize) {
 
         this.host = host;
         this.port = port;
         this.user = user;
         this.password = password;
         this.database = database;
+        this.poolSize = poolSize;
     }
 
     public String getHost() {
@@ -70,6 +73,10 @@ public class CycloneSettings {
     public String getDatabase() {
 
         return database;
+    }
+
+    public int getPoolSize() {
+        return poolSize;
     }
 
     public static class Builder {
@@ -107,6 +114,13 @@ public class CycloneSettings {
         public Builder database(String database) {
 
             settings.database = database;
+
+            return this;
+        }
+
+        public Builder poolSize(int size) {
+
+            settings.poolSize = size;
 
             return this;
         }

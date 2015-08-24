@@ -42,6 +42,7 @@ public class ConnectionTest {
                 .user("root")
                 .password("")
                 .database("cyclone")
+                .poolSize(15)
                 .build());
 
         cyclone.connect();

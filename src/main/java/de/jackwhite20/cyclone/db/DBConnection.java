@@ -36,12 +36,14 @@ public class DBConnection {
     private HikariDataSource source;
 
     public DBConnection(CycloneSettings settings) {
+
         this.settings = settings;
 
         init();
     }
 
     private void init() {
+
         HikariConfig hikariConfig = new HikariConfig();
 
         hikariConfig.setJdbcUrl(uri());
@@ -51,6 +53,7 @@ public class DBConnection {
         hikariConfig.addDataSourceProperty("cachePrepStmts", "true");
         hikariConfig.addDataSourceProperty("prepStmtCacheSize", "250");
         hikariConfig.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
+        hikariConfig.setMaximumPoolSize(settings.getPoolSize());
         //hikariConfig.setConnectionTestQuery("/* ping */");
 
         this.source = new HikariDataSource(hikariConfig);
