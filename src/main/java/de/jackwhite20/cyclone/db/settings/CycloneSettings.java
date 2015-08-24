@@ -22,7 +22,7 @@ package de.jackwhite20.cyclone.db.settings;
 /**
  * Created by JackWhite20 on 11.08.2015.
  */
-public class DBConnectionSettings {
+public class CycloneSettings {
 
     private String host = "localhost";
 
@@ -34,11 +34,11 @@ public class DBConnectionSettings {
 
     private String database = "db";
 
-    public DBConnectionSettings() {
+    public CycloneSettings() {
 
     }
 
-    public DBConnectionSettings(String host, int port, String user, String password, String database) {
+    public CycloneSettings(String host, int port, String user, String password, String database) {
 
         this.host = host;
         this.port = port;
@@ -72,46 +72,46 @@ public class DBConnectionSettings {
         return database;
     }
 
-    public static class SettingsBuilder {
+    public static class Builder {
 
-        private DBConnectionSettings settings = new DBConnectionSettings();
+        private CycloneSettings settings = new CycloneSettings();
 
-        public SettingsBuilder host(String host) {
+        public Builder host(String host) {
 
             settings.host = host;
 
             return this;
         }
 
-        public SettingsBuilder port(int port) {
+        public Builder port(int port) {
 
             settings.port = port;
 
             return this;
         }
 
-        public SettingsBuilder user(String user) {
+        public Builder user(String user) {
 
             settings.user = user;
 
             return this;
         }
 
-        public SettingsBuilder password(String password) {
+        public Builder password(String password) {
 
             settings.password = password;
 
             return this;
         }
 
-        public SettingsBuilder database(String database) {
+        public Builder database(String database) {
 
             settings.database = database;
 
             return this;
         }
 
-        public DBConnectionSettings build() {
+        public CycloneSettings build() {
 
             return settings;
         }

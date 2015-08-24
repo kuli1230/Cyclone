@@ -32,10 +32,9 @@ public class DBRow {
 
         values.put(key, value);
     }
-    
+
     public <T> T get(String key) {
 
         return (T) values.get(key);
     }
-
 }

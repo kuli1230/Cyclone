@@ -24,9 +24,8 @@ import de.jackwhite20.cyclone.builder.select.SelectQuery;
 import de.jackwhite20.cyclone.builder.update.UpdateQuery;
 import de.jackwhite20.cyclone.db.DBResult;
 import de.jackwhite20.cyclone.db.DBRow;
-import de.jackwhite20.cyclone.db.settings.DBConnectionSettings;
+import de.jackwhite20.cyclone.db.settings.CycloneSettings;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -37,7 +36,7 @@ public class ConnectionTest {
 
     public static void main(String[] args) {
 
-        Cyclone cyclone = new Cyclone(new DBConnectionSettings.SettingsBuilder()
+        Cyclone cyclone = new Cyclone(new CycloneSettings.Builder()
                 .host("localhost")
                 .port(3306)
                 .user("root")

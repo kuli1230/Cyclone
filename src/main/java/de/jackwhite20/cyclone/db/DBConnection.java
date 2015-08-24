@@ -21,7 +21,7 @@ package de.jackwhite20.cyclone.db;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import de.jackwhite20.cyclone.db.settings.DBConnectionSettings;
+import de.jackwhite20.cyclone.db.settings.CycloneSettings;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -31,11 +31,11 @@ import java.sql.SQLException;
  */
 public class DBConnection {
 
-    private DBConnectionSettings settings;
+    private CycloneSettings settings;
 
     private HikariDataSource source;
 
-    public DBConnection(DBConnectionSettings settings) {
+    public DBConnection(CycloneSettings settings) {
         this.settings = settings;
 
         init();

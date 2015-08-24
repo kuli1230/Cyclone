@@ -26,7 +26,7 @@ import de.jackwhite20.cyclone.builder.select.SelectQuery;
 import de.jackwhite20.cyclone.builder.update.UpdateQuery;
 import de.jackwhite20.cyclone.db.DBConnection;
 import de.jackwhite20.cyclone.db.DBResult;
-import de.jackwhite20.cyclone.db.settings.DBConnectionSettings;
+import de.jackwhite20.cyclone.db.settings.CycloneSettings;
 
 import java.lang.reflect.Field;
 import java.sql.Connection;
@@ -44,7 +44,7 @@ public class Cyclone {
     /**
      * The settings.
      */
-    private DBConnectionSettings settings;
+    private CycloneSettings settings;
 
     /**
      * The connection.
@@ -56,7 +56,7 @@ public class Cyclone {
      *
      * @param settings the connection settings.
      */
-    public Cyclone(DBConnectionSettings settings) {
+    public Cyclone(CycloneSettings settings) {
         this.settings = settings;
     }
 
