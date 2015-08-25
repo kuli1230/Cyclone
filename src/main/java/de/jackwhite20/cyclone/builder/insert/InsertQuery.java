@@ -19,6 +19,9 @@
 
 package de.jackwhite20.cyclone.builder.insert;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,22 +46,31 @@ public class InsertQuery {
         this.values = builder.values;
     }
 
-    @Override
-    public String toString() {
+    public PreparedStatement query(Connection connection) {
 
         StringBuilder sb = new StringBuilder();
         sb.append("INSERT INTO ").append(table).append(" VALUES ").append("(");
 
         for (int i = 0; i < values.size(); i++) {
             if(i < values.size() - 1)
-                sb.append("'").append(values.get(i)).append("'").append(",");
+                sb.append("?,");
             else
-                sb.append("'").append(values.get(i)).append("'");
+                sb.append("?");
         }
 
         sb.append(")").append(";");
 
-        return sb.toString();
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = connection.prepareStatement(sb.toString());
+            for (int i = 0; i < values.size(); i++) {
+                preparedStatement.setObject(i + 1, values.get(i));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return preparedStatement;
     }
 
     public static class Builder {

@@ -22,8 +22,6 @@ import de.jackwhite20.cyclone.builder.drop.DropQuery;
 import de.jackwhite20.cyclone.builder.insert.InsertQuery;
 import de.jackwhite20.cyclone.builder.select.SelectQuery;
 import de.jackwhite20.cyclone.builder.update.UpdateQuery;
-import de.jackwhite20.cyclone.db.DBResult;
-import de.jackwhite20.cyclone.db.DBRow;
 import de.jackwhite20.cyclone.db.settings.CycloneSettings;
 
 import java.sql.SQLException;
@@ -42,7 +40,7 @@ public class ConnectionTest {
                 .user("root")
                 .password("")
                 .database("cyclone")
-                .poolSize(15)
+                .poolSize(10)
                 .build());
 
         cyclone.connect();
@@ -100,31 +98,48 @@ public class ConnectionTest {
 
     private static void selectAll(Cyclone cyclone) {
 
-        try {
-            DBResult dbResult = cyclone.select(new SelectQuery.Builder()
-                    .select("*")
-                    .from("test")
-                    .build());
+/*        try {
 
-/*            ResultSet set = dbResult.resultSet();
+            List<Long> times = new ArrayList<>();
+            for (int i = 0; i < 1; i++) {
+                long start = System.currentTimeMillis();
+
+                DBResult dbResult = cyclone.select(new SelectQuery.Builder()
+                        .select("*")
+                        .from("test")
+                        .build());
+
+                for (DBRow row : dbResult.rows()) {
+                    System.out.println("ID: " + row.get("id") + " Name: " + row.get("name") + " UUID: " + row.get("uuid"));
+                }
+                dbResult.close();
+
+                times.add(System.currentTimeMillis() - start);
+            }
+
+            long total = 0;
+            for (Long time : times) {
+                total += time;
+            }
+            System.out.println("Average: " + total / times.size());
+
+
+*//*            ResultSet set = dbResult.resultSet();
             while (set.next()) {
                 System.out.println("ID: " + set.getInt("id") +
                         " Name: " + set.getString("name") +
                         " UUID: " + set.getString("uuid"));
-            }*/
-            for (DBRow row : dbResult.rows()) {
-                System.out.println("ID: " + row.get("id") + " Name: " + row.get("name") + " UUID: " + row.get("uuid"));
-            }
-            dbResult.close();
+            }*//*
+
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+        }*/
 
         try {
             List<TestTable> result = cyclone.select(new SelectQuery.Builder()
                     .select("*")
                     .from("test")
-                    .limit(1)
+                    .limit(2)
                     .build(), TestTable.class);
             result.forEach(System.out::println);
         } catch (SQLException e) {

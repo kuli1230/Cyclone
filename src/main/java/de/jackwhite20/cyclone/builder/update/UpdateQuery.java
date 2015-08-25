@@ -19,8 +19,12 @@
 
 package de.jackwhite20.cyclone.builder.update;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.List;
 
 /**
  * Created by JackWhite20 on 11.08.2015.
@@ -47,36 +51,55 @@ public class UpdateQuery {
         this.wheres = builder.wheres;
     }
 
-    @Override
-    public String toString() {
+    public PreparedStatement query(Connection connection) {
 
         StringBuilder sb = new StringBuilder();
         sb.append("UPDATE ").append(table);
 
-        //TODO: Improve
-        int i = 0;
-        for (Map.Entry<String, String> entry : values.entrySet()) {
-            if(i == 0)
-                sb.append(" SET ");
+        if(values.size() > 0) {
+            sb.append(" SET ");
 
-            sb.append(entry.getKey()).append("=").append("'").append(entry.getValue()).append("'").append((i < values.size() - 1) ? "," : "");
+            int i = 0;
+            for (String valueKey : values.keySet()) {
+                sb.append(valueKey).append("=").append("?").append((i < values.size() - 1) ? "," : "");
 
-            i++;
+                i++;
+            }
         }
 
-        i = 0;
-        for (Map.Entry<String, String> entry : wheres.entrySet()) {
-            if(i == 0)
-                sb.append(" WHERE ");
+        if(wheres.size() > 0) {
+            sb.append(" WHERE ");
 
-            sb.append(entry.getKey()).append("=").append("'").append(entry.getValue()).append("'").append((i < wheres.size() - 1) ? " AND " : "");
+            int i = 0;
+            for (String whereKey : wheres.keySet()) {
+                sb.append(whereKey).append("=").append("?").append((i < wheres.size() - 1) ? " AND " : "");
 
-            i++;
+                i++;
+            }
         }
 
         sb.append(";");
 
-        return sb.toString();
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = connection.prepareStatement(sb.toString());
+            List<String> valueList = new ArrayList<>(values.values());
+            int offset = 0;
+            for (int j = 0; j < valueList.size(); j++) {
+                preparedStatement.setObject(j + 1, valueList.get(j));
+
+                offset++;
+            }
+
+            List<String> wheresList = new ArrayList<>(wheres.values());
+            for (int k = 0; k < wheresList.size(); k++) {
+                preparedStatement.setObject(k + offset + 1, wheresList.get(k));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return preparedStatement;
     }
 
     public static class Builder {

@@ -19,10 +19,12 @@
 
 package de.jackwhite20.cyclone.builder.select;
 
-import de.jackwhite20.cyclone.builder.insert.InsertQuery;
-
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.List;
 
 /**
  * Created by JackWhite20 on 11.08.2015.
@@ -57,8 +59,7 @@ public class SelectQuery {
         this.limit = builder.limit;
     }
 
-    @Override
-    public String toString() {
+    public PreparedStatement query(Connection connection) {
 
         StringBuilder sb = new StringBuilder();
         sb.append("SELECT ").append(select).append(" FROM ").append(table);
@@ -67,8 +68,9 @@ public class SelectQuery {
         if(wheres.size() > 0) {
             sb.append(" WHERE ");
             int pos = 0;
-            for (Map.Entry<String, String> entry : wheres.entrySet()) {
-                sb.append(entry.getKey()).append("=").append("'").append(entry.getValue()).append("'").append(((wheres.size() > 1 && pos < wheres.size() - 1) ? " AND " : ""));
+
+            for (String whereKey : wheres.keySet()) {
+                sb.append(whereKey).append("=").append("?").append(((wheres.size() > 1 && pos < wheres.size() - 1) ? " AND " : ""));
                 pos++;
             }
         }
@@ -83,7 +85,18 @@ public class SelectQuery {
 
         sb.append(";");
 
-        return sb.toString();
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = connection.prepareStatement(sb.toString());
+            List<String> wheresList = new ArrayList<>(wheres.values());
+            for (int i = 0; i < wheresList.size(); i++) {
+                preparedStatement.setObject(i + 1, wheresList.get(i));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return preparedStatement;
     }
 
     public static class Builder {

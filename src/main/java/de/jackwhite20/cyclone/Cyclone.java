@@ -103,7 +103,7 @@ public class Cyclone {
     public void insert(InsertQuery query) throws SQLException {
 
         try (Connection con = connection.getConnection()) {
-            con.createStatement().execute(query.toString());
+            query.query(con).executeUpdate();
         }
     }
 
@@ -117,7 +117,7 @@ public class Cyclone {
     public DBResult select(SelectQuery query) throws SQLException {
 
         Connection con = connection.getConnection();
-        ResultSet resultSet = con.createStatement().executeQuery(query.toString());
+        ResultSet resultSet = query.query(con).executeQuery();
 
         return new DBResult(con, resultSet);
     }
@@ -137,7 +137,7 @@ public class Cyclone {
         Connection con = null;
         try {
             con = connection.getConnection();
-            ResultSet resultSet = con.createStatement().executeQuery(query.toString());
+            ResultSet resultSet = query.query(con).executeQuery();
             ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
 
             int columnCount = resultSetMetaData.getColumnCount();
@@ -182,7 +182,7 @@ public class Cyclone {
     public void update(UpdateQuery query) throws SQLException {
 
         try (Connection con = connection.getConnection()) {
-            con.createStatement().execute(query.toString());
+            query.query(con).executeUpdate();
         }
     }
 }
