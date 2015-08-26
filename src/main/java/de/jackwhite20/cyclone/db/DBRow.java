@@ -26,13 +26,28 @@ import java.util.HashMap;
  */
 public class DBRow {
 
+    /**
+     * All values from the row in key-value format.
+     */
     private HashMap<String, Object> values = new HashMap<>();
 
+    /**
+     * Adds a key and the corresponding value to the hashmap.
+     *
+     * @param key the key.
+     * @param value the value.
+     */
     public void add(String key, Object value) {
 
         values.put(key, value);
     }
 
+    /**
+     * Gets the value from the given key.
+     *
+     * @param key the key.
+     * @return the value from the key.
+     */
     public <T> T get(String key) {
 
         return (T) values.get(key);
