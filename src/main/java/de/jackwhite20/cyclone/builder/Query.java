@@ -17,25 +17,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.jackwhite20.cyclone.builder.drop;
-
-import org.junit.Test;
-
-import static org.junit.Assert.*;
+package de.jackwhite20.cyclone.builder;
 
 /**
- * Created by JackWhite20 on 13.08.2015.
+ * Created by JackWhite20 on 26.08.2015.
  */
-public class DropQueryTest {
+public interface Query {
 
-    @Test
-    public void testDropQuery() {
-
-        String expected = "DROP TABLE test;";
-        String actual = new DropQuery.Builder()
-                .drop("test")
-                .build().sql();
-
-        assertEquals(expected, actual);
-    }
+    /**
+     * Gets the intern query as a raw SQL query.
+     *
+     * @return the SQL query.
+     */
+    String sql();
 }

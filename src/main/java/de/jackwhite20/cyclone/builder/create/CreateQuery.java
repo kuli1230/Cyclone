@@ -19,13 +19,15 @@
 
 package de.jackwhite20.cyclone.builder.create;
 
+import de.jackwhite20.cyclone.builder.Query;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by JackWhite20 on 11.08.2015.
  */
-public class CreateQuery {
+public class CreateQuery implements Query {
 
     private String table;
 
@@ -52,7 +54,7 @@ public class CreateQuery {
     }
 
     @Override
-    public String toString() {
+    public String sql() {
 
         StringBuilder sb = new StringBuilder();
         sb.append("CREATE TABLE ").append((createNotExists) ? "IF NOT EXISTS " : "").append(table).append(" (");

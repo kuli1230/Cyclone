@@ -37,7 +37,7 @@ public class CreateQueryTest {
                 .ifNotExists(true)
                 .primaryKey("id")
                 .values("id int auto_increment", "name varchar(255)", "uuid varchar(255)")
-                .build().toString();
+                .build().sql();
 
         assertEquals(expected, actual);
     }
@@ -51,7 +51,7 @@ public class CreateQueryTest {
                 .ifNotExists(false)
                 .primaryKey("id")
                 .values("id int auto_increment", "name varchar(255)", "uuid varchar(255)")
-                .build().toString();
+                .build().sql();
 
         assertEquals(expected, actual);
     }

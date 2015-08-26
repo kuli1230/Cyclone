@@ -19,16 +19,20 @@
 
 package de.jackwhite20.cyclone.builder.insert;
 
+import de.jackwhite20.cyclone.builder.Query;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
  * Created by JackWhite20 on 11.08.2015.
  */
-public class InsertQuery {
+public class InsertQuery implements Query {
 
     private String table;
 
@@ -46,6 +50,7 @@ public class InsertQuery {
         this.values = builder.values;
     }
 
+    @Override
     public String sql() {
 
         StringBuilder sb = new StringBuilder();
@@ -91,9 +96,7 @@ public class InsertQuery {
 
         public Builder values(String... values) {
 
-            for (String value : values) {
-                this.values.add(value);
-            }
+            this.values = Arrays.asList(values);
 
             return this;
         }

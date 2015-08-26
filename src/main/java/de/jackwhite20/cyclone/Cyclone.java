@@ -77,7 +77,7 @@ public class Cyclone {
     public void create(CreateQuery query) throws SQLException {
 
         try (Connection con = connection.getConnection()) {
-            con.createStatement().execute(query.toString());
+            con.createStatement().execute(query.sql());
         }
     }
 
@@ -90,7 +90,7 @@ public class Cyclone {
     public void drop(DropQuery query) throws SQLException {
 
         try (Connection con = connection.getConnection()) {
-            con.createStatement().execute(query.toString());
+            con.createStatement().execute(query.sql());
         }
     }
 

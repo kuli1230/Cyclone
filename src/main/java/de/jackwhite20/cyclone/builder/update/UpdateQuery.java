@@ -19,6 +19,8 @@
 
 package de.jackwhite20.cyclone.builder.update;
 
+import de.jackwhite20.cyclone.builder.Query;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -29,7 +31,7 @@ import java.util.List;
 /**
  * Created by JackWhite20 on 11.08.2015.
  */
-public class UpdateQuery {
+public class UpdateQuery implements Query {
 
     private String table;
 
@@ -51,6 +53,7 @@ public class UpdateQuery {
         this.wheres = builder.wheres;
     }
 
+    @Override
     public String sql() {
 
         StringBuilder sb = new StringBuilder();

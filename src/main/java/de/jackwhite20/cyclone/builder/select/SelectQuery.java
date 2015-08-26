@@ -19,6 +19,8 @@
 
 package de.jackwhite20.cyclone.builder.select;
 
+import de.jackwhite20.cyclone.builder.Query;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -29,7 +31,7 @@ import java.util.List;
 /**
  * Created by JackWhite20 on 11.08.2015.
  */
-public class SelectQuery {
+public class SelectQuery implements Query {
 
     private String select;
 
@@ -59,6 +61,7 @@ public class SelectQuery {
         this.limit = builder.limit;
     }
 
+    @Override
     public String sql() {
 
         StringBuilder sb = new StringBuilder();

@@ -19,10 +19,12 @@
 
 package de.jackwhite20.cyclone.builder.drop;
 
+import de.jackwhite20.cyclone.builder.Query;
+
 /**
  * Created by JackWhite20 on 11.08.2015.
  */
-public class DropQuery {
+public class DropQuery implements Query {
 
     private String table;
 
@@ -37,7 +39,7 @@ public class DropQuery {
     }
 
     @Override
-    public String toString() {
+    public String sql() {
 
         StringBuilder sb = new StringBuilder();
 
