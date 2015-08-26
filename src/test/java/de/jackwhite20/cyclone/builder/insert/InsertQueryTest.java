@@ -31,11 +31,11 @@ public class InsertQueryTest {
     @Test
     public void testInsertQuery() {
 
-        String expected = "INSERT INTO test VALUES ('0','Jack','000000-000000-000000');";
+        String expected = "INSERT INTO test VALUES (?,?,?);";
         String actual = new InsertQuery.Builder()
                 .into("test")
                 .values("0", "Jack", "000000-000000-000000")
-                .build().toString();
+                .build().sql();
 
         assertEquals(expected, actual);
     }

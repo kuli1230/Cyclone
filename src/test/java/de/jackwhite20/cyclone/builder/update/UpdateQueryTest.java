@@ -31,12 +31,12 @@ public class UpdateQueryTest {
     @Test
     public void testUpdateQueryOneSet() {
 
-        String expected = "UPDATE test SET name='Jacky' WHERE id='1';";
+        String expected = "UPDATE test SET name=? WHERE id=?;";
         String actual = new UpdateQuery.Builder()
                 .update("test")
                 .set("name", "Jacky")
                 .where("id", "1")
-                .build().toString();
+                .build().sql();
 
         assertEquals(expected, actual);
     }
@@ -44,13 +44,13 @@ public class UpdateQueryTest {
     @Test
     public void testUpdateQueryMultipleSet() {
 
-        String expected = "UPDATE test SET name='Jacky',uuid='0000' WHERE id='1';";
+        String expected = "UPDATE test SET name=?,uuid=? WHERE id=?;";
         String actual = new UpdateQuery.Builder()
                 .update("test")
                 .set("name", "Jacky")
                 .set("uuid", "0000")
                 .where("id", "1")
-                .build().toString();
+                .build().sql();
 
         assertEquals(expected, actual);
     }

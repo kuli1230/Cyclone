@@ -51,7 +51,7 @@ public class UpdateQuery {
         this.wheres = builder.wheres;
     }
 
-    public PreparedStatement query(Connection connection) {
+    public String sql() {
 
         StringBuilder sb = new StringBuilder();
         sb.append("UPDATE ").append(table);
@@ -78,11 +78,14 @@ public class UpdateQuery {
             }
         }
 
-        sb.append(";");
+        return sb.append(";").toString();
+    }
+
+    public PreparedStatement query(Connection connection) {
 
         PreparedStatement preparedStatement = null;
         try {
-            preparedStatement = connection.prepareStatement(sb.toString());
+            preparedStatement = connection.prepareStatement(sql());
             List<String> valueList = new ArrayList<>(values.values());
             int offset = 0;
             for (int j = 0; j < valueList.size(); j++) {

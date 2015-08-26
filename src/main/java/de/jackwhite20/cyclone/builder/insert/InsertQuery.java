@@ -46,7 +46,7 @@ public class InsertQuery {
         this.values = builder.values;
     }
 
-    public PreparedStatement query(Connection connection) {
+    public String sql() {
 
         StringBuilder sb = new StringBuilder();
         sb.append("INSERT INTO ").append(table).append(" VALUES ").append("(");
@@ -58,11 +58,14 @@ public class InsertQuery {
                 sb.append("?");
         }
 
-        sb.append(")").append(";");
+        return sb.append(")").append(";").toString();
+    }
+
+    public PreparedStatement query(Connection connection) {
 
         PreparedStatement preparedStatement = null;
         try {
-            preparedStatement = connection.prepareStatement(sb.toString());
+            preparedStatement = connection.prepareStatement(sql());
             for (int i = 0; i < values.size(); i++) {
                 preparedStatement.setObject(i + 1, values.get(i));
             }

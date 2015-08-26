@@ -59,7 +59,7 @@ public class SelectQuery {
         this.limit = builder.limit;
     }
 
-    public PreparedStatement query(Connection connection) {
+    public String sql() {
 
         StringBuilder sb = new StringBuilder();
         sb.append("SELECT ").append(select).append(" FROM ").append(table);
@@ -83,11 +83,14 @@ public class SelectQuery {
             sb.append(" LIMIT ").append(limit);
         }
 
-        sb.append(";");
+        return sb.append(";").toString();
+    }
+
+    public PreparedStatement query(Connection connection) {
 
         PreparedStatement preparedStatement = null;
         try {
-            preparedStatement = connection.prepareStatement(sb.toString());
+            preparedStatement = connection.prepareStatement(sql());
             List<String> wheresList = new ArrayList<>(wheres.values());
             for (int i = 0; i < wheresList.size(); i++) {
                 preparedStatement.setObject(i + 1, wheresList.get(i));

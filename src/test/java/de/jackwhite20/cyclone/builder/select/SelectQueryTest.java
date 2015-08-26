@@ -35,7 +35,7 @@ public class SelectQueryTest {
         String actual = new SelectQuery.Builder()
                 .select("*")
                 .from("test")
-                .build().toString();
+                .build().sql();
 
         assertEquals(expected, actual);
     }
@@ -47,7 +47,7 @@ public class SelectQueryTest {
         String actual = new SelectQuery.Builder()
                 .select("name")
                 .from("test")
-                .build().toString();
+                .build().sql();
 
         assertEquals(expected, actual);
     }
@@ -60,7 +60,7 @@ public class SelectQueryTest {
                 .select("name")
                 .from("test")
                 .limit(2)
-                .build().toString();
+                .build().sql();
 
         assertEquals(expected, actual);
     }
