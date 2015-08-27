@@ -3,6 +3,7 @@ Cyclone is an MySQL util library with integrated [HikariCP](http://brettwooldrid
 The main feature is the Query Builder System with the Builder design pattern.
 You don't have to write the complete SQL-Query down anymore. You can instead use cool and easy builder.
 Another feature is that you can create classes which are the same as a table and then load results of a "SELECT" into a list of your class and use it, without any parsing of the result set or something like that.
+You can now also get the row SQL query from all builders with the sql() method after you have called build() with a query.
 
 ## Installation
 - Install [Maven 3](http://maven.apache.org/download.cgi)
