@@ -20,6 +20,7 @@
 package de.jackwhite20.cyclone;
 
 import de.jackwhite20.cyclone.builder.create.CreateQuery;
+import de.jackwhite20.cyclone.builder.delete.DeleteQuery;
 import de.jackwhite20.cyclone.builder.drop.DropQuery;
 import de.jackwhite20.cyclone.builder.insert.InsertQuery;
 import de.jackwhite20.cyclone.builder.select.SelectQuery;
@@ -183,6 +184,19 @@ public class Cyclone {
 
         try (Connection con = connection.getConnection()) {
             query.query(con).executeUpdate();
+        }
+    }
+
+    /**
+     * Deletes rows.
+     *
+     * @param query the query.
+     * @throws SQLException if there is no connection.
+     */
+    public void delete(DeleteQuery query) throws SQLException {
+
+        try (Connection con = connection.getConnection()) {
+            con.createStatement().execute(query.sql());
         }
     }
 }

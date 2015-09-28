@@ -18,6 +18,7 @@ package de.jackwhite20.cyclone;/*
  */
 
 import de.jackwhite20.cyclone.builder.create.CreateQuery;
+import de.jackwhite20.cyclone.builder.delete.DeleteQuery;
 import de.jackwhite20.cyclone.builder.drop.DropQuery;
 import de.jackwhite20.cyclone.builder.insert.InsertQuery;
 import de.jackwhite20.cyclone.builder.select.SelectQuery;
@@ -79,6 +80,16 @@ public class ConnectionTest {
                     .set("uuid", "0000")
                     .where("id", "1")
                     .build());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        selectAll(cyclone);
+
+        System.out.println("Deleting...");
+
+        try {
+            cyclone.delete(new DeleteQuery.Builder().from("test").where("id", "1").build());
         } catch (SQLException e) {
             e.printStackTrace();
         }
