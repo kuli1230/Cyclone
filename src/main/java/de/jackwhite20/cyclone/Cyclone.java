@@ -58,6 +58,7 @@ public class Cyclone {
      * @param settings the connection settings.
      */
     public Cyclone(CycloneSettings settings) {
+
         this.settings = settings;
     }
 
