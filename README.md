@@ -116,6 +116,14 @@ try {
     e.printStackTrace();
 }
 ```
+**Delete**
+```java
+try {
+	cyclone.delete(new DeleteQuery.Builder().from("test").where("id", "1").build());
+} catch (SQLException e) {
+	e.printStackTrace();
+}
+```
 **Drop**
 ```java
 try {
