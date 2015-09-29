@@ -39,15 +39,18 @@ public class SelectQuery implements Query {
 
     private LinkedHashMap<String, String> wheres = new LinkedHashMap<>();
 
+    private List<String> operators = new ArrayList<>();
+
     private String orderBy = null;
 
     private String limit = null;
 
-    public SelectQuery(String select, String table, LinkedHashMap<String, String> wheres, String orderBy, String limit) {
+    public SelectQuery(String select, String table, LinkedHashMap<String, String> wheres, List<String> operators, String orderBy, String limit) {
 
         this.select = select;
         this.table = table;
         this.wheres = wheres;
+        this.operators = operators;
         this.orderBy = orderBy;
         this.limit = limit;
     }
@@ -57,6 +60,7 @@ public class SelectQuery implements Query {
         this.select = builder.select;
         this.table = builder.table;
         this.wheres = builder.wheres;
+        this.operators = builder.operators;
         this.orderBy = builder.orderBy;
         this.limit = builder.limit;
     }
@@ -70,10 +74,10 @@ public class SelectQuery implements Query {
         //TODO: Improve
         if(wheres.size() > 0) {
             sb.append(" WHERE ");
-            int pos = 0;
 
+            int pos = 0;
             for (String whereKey : wheres.keySet()) {
-                sb.append(whereKey).append("=").append("?").append(((wheres.size() > 1 && pos < wheres.size() - 1) ? " AND " : ""));
+                sb.append(whereKey).append(operators.get(pos)).append("?").append(((wheres.size() > 1 && pos < wheres.size() - 1) ? " AND " : ""));
                 pos++;
             }
         }
@@ -113,6 +117,8 @@ public class SelectQuery implements Query {
 
         private LinkedHashMap<String, String> wheres = new LinkedHashMap<>();
 
+        private List<String> operators = new ArrayList<>();
+
         private String orderBy = null;
 
         private String limit = null;
@@ -131,11 +137,17 @@ public class SelectQuery implements Query {
             return this;
         }
 
-        public Builder where(String where, String value) {
+        public Builder where(String where, String operator, String value) {
 
             this.wheres.put(where, value);
+            this.operators.add(operator);
 
             return this;
+        }
+
+        public Builder where(String where, String value) {
+
+            return where(where, "=", value);
         }
 
         public Builder orderBy(String orderBy) {

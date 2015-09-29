@@ -39,11 +39,14 @@ public class UpdateQuery implements Query {
 
     private LinkedHashMap<String, String> wheres = new LinkedHashMap<>();
 
-    public UpdateQuery(String table, LinkedHashMap<String, String> values, LinkedHashMap<String, String> wheres) {
+    private List<String> whereOperators = new ArrayList<>();
+
+    public UpdateQuery(String table, LinkedHashMap<String, String> values, LinkedHashMap<String, String> wheres, List<String> whereOperators) {
 
         this.table = table;
         this.values = values;
         this.wheres = wheres;
+        this.whereOperators = whereOperators;
     }
 
     public UpdateQuery(Builder builder) {
@@ -51,6 +54,7 @@ public class UpdateQuery implements Query {
         this.table = builder.table;
         this.values = builder.values;
         this.wheres = builder.wheres;
+        this.whereOperators = builder.whereOperators;
     }
 
     @Override
@@ -65,7 +69,6 @@ public class UpdateQuery implements Query {
             int i = 0;
             for (String valueKey : values.keySet()) {
                 sb.append(valueKey).append("=").append("?").append((i < values.size() - 1) ? "," : "");
-
                 i++;
             }
         }
@@ -75,8 +78,7 @@ public class UpdateQuery implements Query {
 
             int i = 0;
             for (String whereKey : wheres.keySet()) {
-                sb.append(whereKey).append("=").append("?").append((i < wheres.size() - 1) ? " AND " : "");
-
+                sb.append(whereKey).append(whereOperators.get(i)).append("?").append((i < wheres.size() - 1) ? " AND " : "");
                 i++;
             }
         }
@@ -116,6 +118,8 @@ public class UpdateQuery implements Query {
 
         private LinkedHashMap<String, String> wheres = new LinkedHashMap<>();
 
+        private List<String> whereOperators = new ArrayList<>();
+
         public Builder update(String table) {
 
             this.table = table;
@@ -130,11 +134,17 @@ public class UpdateQuery implements Query {
             return this;
         }
 
-        public Builder where(String where, String value) {
+        public Builder where(String where, String operator, String value) {
 
             this.wheres.put(where, value);
+            this.whereOperators.add(operator);
 
             return this;
+        }
+
+        public Builder where(String where, String value) {
+
+            return where(where, "=", value);
         }
 
         public UpdateQuery build() {

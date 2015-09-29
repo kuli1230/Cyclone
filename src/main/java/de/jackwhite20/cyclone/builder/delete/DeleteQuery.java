@@ -21,7 +21,9 @@ package de.jackwhite20.cyclone.builder.delete;
 
 import de.jackwhite20.cyclone.builder.Query;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -33,16 +35,20 @@ public class DeleteQuery implements Query {
 
     private LinkedHashMap<String, String> wheres = new LinkedHashMap<>();
 
-    public DeleteQuery(String table, LinkedHashMap<String, String> wheres) {
+    private List<String> whereOperators = new ArrayList<>();
+
+    public DeleteQuery(String table, LinkedHashMap<String, String> wheres, List<String> whereOperators) {
 
         this.table = table;
         this.wheres = wheres;
+        this.whereOperators = whereOperators;
     }
 
     public DeleteQuery(Builder builder) {
 
         this.table = builder.table;
         this.wheres = builder.wheres;
+        this.whereOperators = builder.whereOperators;
     }
 
     @Override
@@ -55,10 +61,10 @@ public class DeleteQuery implements Query {
         //TODO: Improve
         if(wheres.size() > 0) {
             sb.append(" WHERE ");
-            int pos = 0;
 
+            int pos = 0;
             for (Map.Entry<String, String> entry : wheres.entrySet()) {
-                sb.append(entry.getKey()).append("=").append("'").append(entry.getValue()).append("'").append(((wheres.size() > 1 && pos < wheres.size() - 1) ? " AND " : ""));
+                sb.append(entry.getKey()).append(whereOperators.get(pos)).append("'").append(entry.getValue()).append("'").append(((wheres.size() > 1 && pos < wheres.size() - 1) ? " AND " : ""));
                 pos++;
             }
         }
@@ -74,6 +80,8 @@ public class DeleteQuery implements Query {
 
         private LinkedHashMap<String, String> wheres = new LinkedHashMap<>();
 
+        private List<String> whereOperators = new ArrayList<>();
+
         public Builder from(String table) {
 
             this.table = table;
@@ -81,11 +89,17 @@ public class DeleteQuery implements Query {
             return this;
         }
 
-        public Builder where(String where, String value) {
+        public Builder where(String where, String operator, String value) {
 
             this.wheres.put(where, value);
+            this.whereOperators.add(operator);
 
             return this;
+        }
+
+        public Builder where(String where, String value) {
+
+            return where(where, "=", value);
         }
 
         public DeleteQuery build() {
