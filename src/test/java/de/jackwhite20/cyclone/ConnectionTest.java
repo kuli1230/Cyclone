@@ -42,6 +42,7 @@ public class ConnectionTest {
                 .password("")
                 .database("cyclone")
                 .poolSize(10)
+                .poolName("Cyclone-Test")
                 .build());
 
         cyclone.connect();

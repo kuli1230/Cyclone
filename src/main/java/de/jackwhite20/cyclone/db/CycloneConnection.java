@@ -39,7 +39,7 @@ public class CycloneConnection {
         }
         config.setUsername(settings.getUser());
         config.setPassword(settings.getPassword());
-        //config.setPoolName("Cyclone");
+        config.setPoolName(settings.getPoolName());
         config.addDataSourceProperty("cachePrepStmts", "true");
         config.addDataSourceProperty("prepStmtCacheSize", "250");
         config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");

@@ -40,11 +40,13 @@ public class CycloneSettings {
 
     private Type type = Type.MY_SQL;
 
+    private String poolName;
+
     public CycloneSettings() {
 
     }
 
-    public CycloneSettings(String host, int port, String user, String password, String database, int poolSize, Type type) {
+    public CycloneSettings(String host, int port, String user, String password, String database, int poolSize, Type type, String poolName) {
 
         this.host = host;
         this.port = port;
@@ -53,6 +55,7 @@ public class CycloneSettings {
         this.database = database;
         this.poolSize = poolSize;
         this.type = type;
+        this.poolName = poolName;
     }
 
     public String getHost() {
@@ -88,6 +91,11 @@ public class CycloneSettings {
     public Type getType() {
 
         return type;
+    }
+
+    public String getPoolName() {
+
+        return poolName;
     }
 
     public static class Builder {
@@ -139,6 +147,13 @@ public class CycloneSettings {
         public Builder type(Type type) {
 
             settings.type = type;
+
+            return this;
+        }
+
+        public Builder poolName(String name) {
+
+            settings.poolName = name;
 
             return this;
         }
