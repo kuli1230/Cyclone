@@ -25,7 +25,7 @@ import de.jackwhite20.cyclone.builder.drop.DropQuery;
 import de.jackwhite20.cyclone.builder.insert.InsertQuery;
 import de.jackwhite20.cyclone.builder.select.SelectQuery;
 import de.jackwhite20.cyclone.builder.update.UpdateQuery;
-import de.jackwhite20.cyclone.db.DBConnection;
+import de.jackwhite20.cyclone.db.CycloneConnection;
 import de.jackwhite20.cyclone.db.DBResult;
 import de.jackwhite20.cyclone.db.settings.CycloneSettings;
 
@@ -50,7 +50,7 @@ public class Cyclone {
     /**
      * The connection.
      */
-    private DBConnection connection;
+    private CycloneConnection connection;
 
     /**
      * Create a new Cyclone object.
@@ -67,7 +67,7 @@ public class Cyclone {
      */
     public void connect() {
 
-        connection = new DBConnection(settings);
+        connection = new CycloneConnection(settings);
     }
 
     /**

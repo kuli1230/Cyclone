@@ -19,6 +19,8 @@
 
 package de.jackwhite20.cyclone.db.settings;
 
+import de.jackwhite20.cyclone.db.Type;
+
 /**
  * Created by JackWhite20 on 11.08.2015.
  */
@@ -36,11 +38,13 @@ public class CycloneSettings {
 
     private int poolSize = 10;
 
+    private Type type = Type.MY_SQL;
+
     public CycloneSettings() {
 
     }
 
-    public CycloneSettings(String host, int port, String user, String password, String database, int poolSize) {
+    public CycloneSettings(String host, int port, String user, String password, String database, int poolSize, Type type) {
 
         this.host = host;
         this.port = port;
@@ -48,6 +52,7 @@ public class CycloneSettings {
         this.password = password;
         this.database = database;
         this.poolSize = poolSize;
+        this.type = type;
     }
 
     public String getHost() {
@@ -76,7 +81,13 @@ public class CycloneSettings {
     }
 
     public int getPoolSize() {
+
         return poolSize;
+    }
+
+    public Type getType() {
+
+        return type;
     }
 
     public static class Builder {
@@ -121,6 +132,13 @@ public class CycloneSettings {
         public Builder poolSize(int size) {
 
             settings.poolSize = size;
+
+            return this;
+        }
+
+        public Builder type(Type type) {
+
+            settings.type = type;
 
             return this;
         }
