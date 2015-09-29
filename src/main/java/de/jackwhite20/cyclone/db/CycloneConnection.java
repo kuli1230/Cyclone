@@ -4,6 +4,7 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import de.jackwhite20.cyclone.db.settings.CycloneSettings;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -36,6 +37,11 @@ public class CycloneConnection {
             config.setJdbcUrl("jdbc:sqlite:" + settings.getDatabase());
             // Is fixing an error for sqllite
             config.setConnectionTestQuery("/* ping */");
+
+            String path = settings.getDatabase().substring(0, settings.getDatabase().lastIndexOf("/"));
+            if (!new File(path).mkdirs()) {
+                System.err.println("Error while creating path to database file! " + path);
+            }
         }
         config.setUsername(settings.getUser());
         config.setPassword(settings.getPassword());
