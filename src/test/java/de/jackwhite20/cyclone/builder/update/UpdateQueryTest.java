@@ -54,4 +54,17 @@ public class UpdateQueryTest {
 
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void testUpdateQueryOperator() {
+
+        String expected = "UPDATE test SET name=? WHERE id<=?;";
+        String actual = new UpdateQuery.Builder()
+                .update("test")
+                .set("name", "Jacky")
+                .where("id", "<=", "1")
+                .build().sql();
+
+        assertEquals(expected, actual);
+    }
 }

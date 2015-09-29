@@ -32,7 +32,24 @@ public class DeleteQueryTest {
     public void testDeleteQuery() {
 
         String expected = "DELETE FROM test WHERE id='1';";
-        String actual = new DeleteQuery.Builder().from("test").where("id", "1").build().sql();
+        String actual = new DeleteQuery.Builder()
+                .from("test")
+                .where("id", "1")
+                .build()
+                .sql();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testDeleteQueryOperator() {
+
+        String expected = "DELETE FROM test WHERE id>='1';";
+        String actual = new DeleteQuery.Builder()
+                .from("test")
+                .where("id", ">=", "1")
+                .build()
+                .sql();
 
         assertEquals(expected, actual);
     }

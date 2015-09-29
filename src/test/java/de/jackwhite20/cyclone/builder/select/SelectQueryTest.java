@@ -64,4 +64,17 @@ public class SelectQueryTest {
 
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void testSelectQueryOperator() {
+
+        String expected = "SELECT name FROM test WHERE id>=?;";
+        String actual = new SelectQuery.Builder()
+                .select("name")
+                .from("test")
+                .where("id", ">=", "1")
+                .build().sql();
+
+        assertEquals(expected, actual);
+    }
 }
