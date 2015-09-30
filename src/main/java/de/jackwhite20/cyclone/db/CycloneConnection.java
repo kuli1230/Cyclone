@@ -39,8 +39,12 @@ public class CycloneConnection {
             config.setConnectionTestQuery("/* ping */");
 
             String path = settings.getDatabase().substring(0, settings.getDatabase().lastIndexOf("/"));
-            if (!new File(path).mkdirs()) {
-                System.err.println("Error while creating path to database file! " + path);
+
+            File pathFile = new File(path);
+            if(!pathFile.exists()) {
+                if (!new File(path).mkdirs()) {
+                    System.err.println("Error while creating path to database file! " + path);
+                }
             }
         }
         config.setUsername(settings.getUser());
