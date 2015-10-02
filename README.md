@@ -35,6 +35,7 @@ Cyclone cyclone = new Cyclone(new CycloneSettings.Builder()
                 .password("")
                 .database("cyclone")
                 .poolSize(15)
+                .poolName("CycloneTest")
                 .build());
                 
 // Set the cyclone instance to database type SQLite
@@ -42,7 +43,7 @@ Cyclone cyclone = new Cyclone(new CycloneSettings.Builder()
 // Directories to the file are created by Cyclone
 Cyclone cyclone = new Cyclone(new CycloneSettings.Builder()
 				.database("data/test.db")
-				.type(Type.SQL_LITE)
+				.type(Type.SQLITE)
 				.build());
 ```
 **Connecting**
@@ -52,11 +53,21 @@ cyclone.connect();
 **Create**
 ```java
 try {
+	// MySQL
     cyclone.create(new CreateQuery.Builder()
             .create("test")
             .ifNotExists(false)
             .primaryKey("id")
             .values("id int auto_increment", "name varchar(255)", "uuid varchar(255)")
+            .build());
+    
+    // SQLite
+    // 'id' is an auto incremented field like in MySQL
+	cyclone.create(new CreateQuery.Builder()
+    		.create("test")
+            .ifNotExists(false)
+            .values("id INTEGER", "name varchar(255)", "uuid varchar(255)")
+            .primaryKey("id")
             .build());
 } catch (SQLException e) {
     e.printStackTrace();
@@ -65,9 +76,17 @@ try {
 **Insert**
 ```java
 try {
+	// MySQL
     cyclone.insert(new InsertQuery.Builder()
             .into("test")
             .values("0", "JackWhite20", "067e6162-3b6f-4ae2-a171-2470b63dff00")
+            .build());
+    
+    // SQLite
+    cyclone.insert(new InsertQuery.Builder()
+    		.into("test")
+            .columns("name", "uuid")
+            .values("JackWhite20", "067e6162-3b6f-4ae2-a171-2470b63dff00")
             .build());
 } catch (SQLException e) {
     e.printStackTrace();
