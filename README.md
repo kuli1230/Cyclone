@@ -1,12 +1,12 @@
 ## Cyclone
-Cyclone is an MySQL and SQLLite util library with integrated [HikariCP](http://brettwooldridge.github.io/HikariCP/) connection pool.
+Cyclone is an MySQL and SQLite util library with integrated [HikariCP](http://brettwooldridge.github.io/HikariCP/) connection pool.
 The main feature is the Query Builder System with the Builder design pattern.
 You don't have to write the complete SQL-Query string down anymore. You can instead use a cool and easy builder API.
 Another feature is that you can create classes which are the same as a table and then load results of a "SELECT" into a list of your class and use it, without any parsing of the result set or something like that.
 You can now also get the row SQL query from all builders with the sql() method after you have called build() with a query.
 
-## Cyclone now has full SQLLite support!
-The only thing that is different to MySQL is that you have to use the 'database' method in the settings builder as a path to a '.db' file and set the type to 'Type.SQL_LITE'.
+## Cyclone now has full SQLite support!
+The only thing that is different to MySQL is that you have to use the 'database' method in the settings builder as a path to a '.db' file and set the type to 'Type.SQ_LITE'.
 The directories to the '.db' file are created from Cyclone automatically.
 
 ## Installation
@@ -37,7 +37,7 @@ Cyclone cyclone = new Cyclone(new CycloneSettings.Builder()
                 .poolSize(15)
                 .build());
                 
-// Set the cyclone instance to database type SQLLite
+// Set the cyclone instance to database type SQLite
 // The 'database' field is now the path to the .db file
 // Directories to the file are created by Cyclone
 Cyclone cyclone = new Cyclone(new CycloneSettings.Builder()
