@@ -123,6 +123,7 @@ try {
 **Custom Select**
 
 In the TestTable class are 3 fields (id, name and uuid) like the table 'test'.
+Remember that you need a default constructor in the class you pass.
 ```java
 try {
     List<TestTable> result = cyclone.select(new SelectQuery.Builder()
