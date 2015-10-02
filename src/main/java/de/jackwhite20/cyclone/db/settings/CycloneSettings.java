@@ -38,7 +38,7 @@ public class CycloneSettings {
 
     private int poolSize = 10;
 
-    private Type type = Type.MY_SQL;
+    private Type type = Type.MYSQL;
 
     private String poolName;
 

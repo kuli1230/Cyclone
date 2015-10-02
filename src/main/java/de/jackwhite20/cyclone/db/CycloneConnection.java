@@ -31,9 +31,9 @@ public class CycloneConnection {
 
         HikariConfig config = new HikariConfig();
         config.setDriverClassName(type.getDriver());
-        if(type == Type.MY_SQL) {
+        if(type == Type.MYSQL) {
             config.setJdbcUrl("jdbc:mysql://" + settings.getHost() + ":" + settings.getPort() + "/" + settings.getDatabase());
-        } else if(type == Type.SQL_LITE) {
+        } else if(type == Type.SQLITE) {
             config.setJdbcUrl("jdbc:sqlite:" + settings.getDatabase());
             // Is fixing an error for sqllite
             config.setConnectionTestQuery("/* ping */");

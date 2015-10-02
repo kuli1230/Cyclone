@@ -24,7 +24,7 @@ package de.jackwhite20.cyclone.db;
  */
 public enum Type {
 
-    MY_SQL("com.mysql.jdbc.Driver"), SQL_LITE("org.sqlite.JDBC");
+    MYSQL("com.mysql.jdbc.Driver"), SQLITE("org.sqlite.JDBC");
 
     private String driver;
 

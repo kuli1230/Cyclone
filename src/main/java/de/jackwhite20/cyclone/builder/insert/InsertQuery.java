@@ -26,7 +26,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -36,17 +35,21 @@ public class InsertQuery implements Query {
 
     private String table;
 
-    private List<String> values = new ArrayList<>();
+    private List<String> columns;
 
-    public InsertQuery(String table, List<String> values) {
+    private List<String> values;
+
+    public InsertQuery(String table, List<String> columns, List<String> values) {
 
         this.table = table;
+        this.columns = columns;
         this.values = values;
     }
 
     public InsertQuery(Builder builder) {
 
         this.table = builder.table;
+        this.columns = builder.columns;
         this.values = builder.values;
     }
 
@@ -54,7 +57,20 @@ public class InsertQuery implements Query {
     public String sql() {
 
         StringBuilder sb = new StringBuilder();
-        sb.append("INSERT INTO ").append(table).append(" VALUES ").append("(");
+        sb.append("INSERT INTO ").append(table);
+
+        if(columns.size() > 0) {
+            sb.append(" (");
+            for (int i = 0; i < columns.size(); i++) {
+                if(i < columns.size() - 1)
+                    sb.append(columns.get(i)).append(",");
+                else
+                    sb.append(columns.get(i));
+            }
+            sb.append(")");
+        }
+
+        sb.append(" VALUES ").append("(");
 
         for (int i = 0; i < values.size(); i++) {
             if(i < values.size() - 1)
@@ -85,11 +101,20 @@ public class InsertQuery implements Query {
 
         private String table;
 
+        private List<String> columns = new ArrayList<>();
+
         private List<String> values = new ArrayList<>();
 
         public Builder into(String table) {
 
             this.table = table;
+
+            return this;
+        }
+
+        public Builder columns(String... columns) {
+
+            this.columns = Arrays.asList(columns);
 
             return this;
         }
