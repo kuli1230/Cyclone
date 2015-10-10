@@ -6,7 +6,7 @@ Another feature is that you can create classes which are the same as a table and
 You can now also get the row SQL query from all builders with the sql() method after you have called build() with a query.
 
 ## Cyclone now has full SQLite support!
-The only thing that is different to MySQL is that you have to use the 'database' method in the settings builder as a path to a '.db' file and set the type to 'Type.SQ_LITE'.
+The only thing that is different to MySQL is that you have to use the 'database' method in the settings builder as a path to a '.db' file and set the type to 'Type.SQLITE'.
 The directories to the '.db' file are created from Cyclone automatically.
 
 ## Installation
