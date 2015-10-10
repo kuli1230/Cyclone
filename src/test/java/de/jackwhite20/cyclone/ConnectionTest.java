@@ -23,10 +23,15 @@ import de.jackwhite20.cyclone.builder.drop.DropQuery;
 import de.jackwhite20.cyclone.builder.insert.InsertQuery;
 import de.jackwhite20.cyclone.builder.select.SelectQuery;
 import de.jackwhite20.cyclone.builder.update.UpdateQuery;
+import de.jackwhite20.cyclone.consumer.CycloneConsumer;
+import de.jackwhite20.cyclone.db.DBResult;
+import de.jackwhite20.cyclone.db.DBRow;
 import de.jackwhite20.cyclone.db.settings.CycloneSettings;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * Created by JackWhite20 on 11.08.2015.
@@ -147,7 +152,29 @@ public class ConnectionTest {
             e.printStackTrace();
         }*/
 
-        try {
+/*        cyclone.select(new SelectQuery.Builder()
+                .select("*")
+                .from("test")
+                .build(), new CycloneConsumer<DBResult>() {
+            @Override
+            public void accept(DBResult result) {
+                try {
+                    for (DBRow row : result.rows()) {
+                        System.out.println("Name: " + row.get("name"));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });*/
+
+        CustomSelectConsumer consumer = new CustomSelectConsumer(0);
+        cyclone.select(new SelectQuery.Builder()
+                .select("*")
+                .from("test")
+                .build(), TestTable.class, consumer);
+
+/*        try {
             List<TestTable> result = cyclone.select(new SelectQuery.Builder()
                     .select("*")
                     .from("test")
@@ -156,6 +183,6 @@ public class ConnectionTest {
             result.forEach(System.out::println);
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 }

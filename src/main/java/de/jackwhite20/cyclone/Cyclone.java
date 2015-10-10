@@ -25,6 +25,7 @@ import de.jackwhite20.cyclone.builder.drop.DropQuery;
 import de.jackwhite20.cyclone.builder.insert.InsertQuery;
 import de.jackwhite20.cyclone.builder.select.SelectQuery;
 import de.jackwhite20.cyclone.builder.update.UpdateQuery;
+import de.jackwhite20.cyclone.consumer.CycloneConsumer;
 import de.jackwhite20.cyclone.db.CycloneConnection;
 import de.jackwhite20.cyclone.db.DBResult;
 import de.jackwhite20.cyclone.db.settings.CycloneSettings;
@@ -36,6 +37,8 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Created by JackWhite20 on 11.08.2015.
@@ -51,6 +54,11 @@ public class Cyclone {
      * The connection.
      */
     private CycloneConnection connection;
+
+    /**
+     * The executor service for async operations.
+     */
+    private ExecutorService executorService = Executors.newCachedThreadPool();
 
     /**
      * Create a new Cyclone object.
@@ -125,7 +133,24 @@ public class Cyclone {
     }
 
     /**
-     * Selects data from a table and creates a new instance and set all field from the given class.
+     * Selects data async from a table an then accepts the consumer.
+     *
+     * @param query the query.
+     * @param consumer the consumer which should be accepted.
+     */
+    public void select(SelectQuery query, CycloneConsumer<DBResult> consumer) {
+
+        executorService.execute(() -> {
+            try {
+                consumer.accept(select(query));
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    /**
+     * Selects data from a table and creates a new instance and set all fields from the given class.
      *
      * @param query the query.
      * @param clazz the class.
@@ -173,6 +198,24 @@ public class Cyclone {
         }
 
         return results;
+    }
+
+    /**
+     * Selects data from a table and creates a new instance and set all fields from the given class.
+     *
+     * @param query the query.
+     * @param clazz the class.
+     * @param consumer the consumer which should be accepted.
+     */
+    public <T> void select(SelectQuery query, Class<T> clazz, CycloneConsumer<List<T>> consumer) {
+
+        executorService.execute(() -> {
+            try {
+                consumer.accept(select(query, clazz));
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     /**
