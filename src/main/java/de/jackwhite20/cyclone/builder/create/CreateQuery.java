@@ -21,7 +21,12 @@ package de.jackwhite20.cyclone.builder.create;
 
 import de.jackwhite20.cyclone.builder.Query;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -35,13 +40,16 @@ public class CreateQuery implements Query {
 
     private List<String> values = new ArrayList<>();
 
+    private HashMap<String, List<String>> options = new HashMap<>();
+
     private String primaryKey = null;
 
-    public CreateQuery(String table, boolean createNotExists, List<String> values, String primaryKey) {
+    public CreateQuery(String table, boolean createNotExists, List<String> values, HashMap<String, List<String>> options, String primaryKey) {
 
         this.table = table;
         this.createNotExists = createNotExists;
         this.values = values;
+        this.options = options;
         this.primaryKey = primaryKey;
     }
 
@@ -51,6 +59,7 @@ public class CreateQuery implements Query {
         this.createNotExists = builder.createNotExists;
         this.primaryKey = builder.primaryKey;
         this.values = builder.values;
+        this.options = builder.options;
     }
 
     @Override
@@ -61,9 +70,9 @@ public class CreateQuery implements Query {
 
         for (int i = 0; i < values.size(); i++) {
             if(i < values.size() - 1)
-                sb.append(values.get(i)).append(",");
+                sb.append(values.get(i)).append(" ").append(String.join(" ", options.get(values.get(i)))).append(",");
             else
-                sb.append(values.get(i));
+                sb.append(values.get(i)).append(" ").append(String.join(" ", options.get(values.get(i))));
         }
 
         if(primaryKey != null) {
@@ -77,6 +86,19 @@ public class CreateQuery implements Query {
         return sb.toString();
     }
 
+    @Override
+    public PreparedStatement query(Connection connection) {
+
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = connection.prepareStatement(sql());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return preparedStatement;
+    }
+
     public static class Builder {
 
         private String table;
@@ -84,6 +106,8 @@ public class CreateQuery implements Query {
         private boolean createNotExists = true;
 
         private List<String> values = new ArrayList<>();
+
+        private HashMap<String, List<String>> options = new HashMap<>();
 
         private String primaryKey = null;
 
@@ -108,11 +132,11 @@ public class CreateQuery implements Query {
             return this;
         }
 
-        public Builder values(String... values) {
+        public Builder value(String value, String... options) {
 
-            for (String value : values) {
-                this.values.add(value);
-            }
+            values.add(value);
+
+            this.options.put(value, Arrays.asList(options));
 
             return this;
         }

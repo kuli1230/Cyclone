@@ -19,6 +19,8 @@
 
 package de.jackwhite20.cyclone;
 
+import de.jackwhite20.cyclone.builder.CustomQuery;
+import de.jackwhite20.cyclone.builder.Query;
 import de.jackwhite20.cyclone.builder.create.CreateQuery;
 import de.jackwhite20.cyclone.builder.delete.DeleteQuery;
 import de.jackwhite20.cyclone.builder.drop.DropQuery;
@@ -31,10 +33,7 @@ import de.jackwhite20.cyclone.db.DBResult;
 import de.jackwhite20.cyclone.db.settings.CycloneSettings;
 
 import java.lang.reflect.Field;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -79,42 +78,67 @@ public class Cyclone {
     }
 
     /**
-     * Creates a table with the specified query.
+     * Executes a SQL raw query sync or async.
      *
-     * @param query the query
+     * @param query the SQL raw query.
+     * @param sync if it should execute sync or async.
      * @throws SQLException if there is no connection.
      */
-    public void create(CreateQuery query) throws SQLException {
+    public void execute(String query, boolean sync) throws SQLException {
 
-        try (Connection con = connection.getConnection()) {
-            con.createStatement().execute(query.sql());
+        execute(new CustomQuery(query), sync);
+    }
+
+    /**
+     * Executes a SQL raw query sync.
+     *
+     * @param query the SQL raw query.
+     * @throws SQLException if there is no connection.
+     */
+    public void execute(String query) throws SQLException {
+
+        execute(query, true);
+    }
+
+    /**
+     * Executes a Query as prepared SQL query sync or async.
+     *
+     * @param query the Query.
+     * @param sync if it should execute sync or async.
+     * @throws SQLException if there is no connection.
+     */
+    public void execute(Query query, boolean sync) throws SQLException {
+
+        if(sync) {
+            try (Connection con = connection.getConnection()) {
+                PreparedStatement preparedStatement = query.query(con);
+                preparedStatement.execute();
+                preparedStatement.close();
+            }
+        }else {
+            executorService.execute(() -> {
+                try {
+                    try (Connection con = connection.getConnection()) {
+                        PreparedStatement preparedStatement = query.query(con);
+                        preparedStatement.execute();
+                        preparedStatement.close();
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            });
         }
     }
 
     /**
-     * Drops a table.
+     * Executes a Query as prepared SQL query sync.
      *
-     * @param query the query.
+     * @param query the Query.
      * @throws SQLException if there is no connection.
      */
-    public void drop(DropQuery query) throws SQLException {
+    public void execute(Query query) throws SQLException {
 
-        try (Connection con = connection.getConnection()) {
-            con.createStatement().execute(query.sql());
-        }
-    }
-
-    /**
-     * Inserts values into an existing table.
-     *
-     * @param query the query.
-     * @throws SQLException if there is no connection.
-     */
-    public void insert(InsertQuery query) throws SQLException {
-
-        try (Connection con = connection.getConnection()) {
-            query.query(con).executeUpdate();
-        }
+        execute(query, true);
     }
 
     /**
@@ -216,31 +240,5 @@ public class Cyclone {
                 e.printStackTrace();
             }
         });
-    }
-
-    /**
-     * Updates data in a table.
-     *
-     * @param query the query.
-     * @throws SQLException if there is no connection.
-     */
-    public void update(UpdateQuery query) throws SQLException {
-
-        try (Connection con = connection.getConnection()) {
-            query.query(con).executeUpdate();
-        }
-    }
-
-    /**
-     * Deletes rows.
-     *
-     * @param query the query.
-     * @throws SQLException if there is no connection.
-     */
-    public void delete(DeleteQuery query) throws SQLException {
-
-        try (Connection con = connection.getConnection()) {
-            con.createStatement().execute(query.sql());
-        }
     }
 }

@@ -43,14 +43,14 @@ public class SQLLiteTest {
         cyclone.connect();
 
         try {
-            cyclone.create(new CreateQuery.Builder().create("test").values("id INTEGER", "name STRING").primaryKey("id").build());
+            cyclone.execute(new CreateQuery.Builder().create("test").value("id", "INTEGER").value("name", "STRING").primaryKey("id").build());
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
         for (int i = 0; i < 6; i++) {
             try {
-                cyclone.insert(new InsertQuery.Builder().into("test").columns("name").values("Peter" + i).build());
+                cyclone.execute(new InsertQuery.Builder().into("test").columns("name").values("Peter" + i).build());
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -59,7 +59,7 @@ public class SQLLiteTest {
         select(cyclone);
 
         try {
-            cyclone.delete(new DeleteQuery.Builder().from("test").where("id", ">", "4").build());
+            cyclone.execute(new DeleteQuery.Builder().from("test").where("id", ">", "4").build());
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -67,7 +67,7 @@ public class SQLLiteTest {
         select(cyclone);
 
         try {
-            cyclone.drop(new DropQuery.Builder().drop("test").build());
+            cyclone.execute(new DropQuery.Builder().drop("test").build());
         } catch (SQLException e) {
             e.printStackTrace();
         }

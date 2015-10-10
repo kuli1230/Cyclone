@@ -21,6 +21,9 @@ package de.jackwhite20.cyclone.builder.delete;
 
 import de.jackwhite20.cyclone.builder.Query;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -64,7 +67,7 @@ public class DeleteQuery implements Query {
 
             int pos = 0;
             for (Map.Entry<String, String> entry : wheres.entrySet()) {
-                sb.append(entry.getKey()).append(whereOperators.get(pos)).append("'").append(entry.getValue()).append("'").append(((wheres.size() > 1 && pos < wheres.size() - 1) ? " AND " : ""));
+                sb.append(entry.getKey()).append(whereOperators.get(pos)).append("?").append(((wheres.size() > 1 && pos < wheres.size() - 1) ? " AND " : ""));
                 pos++;
             }
         }
@@ -72,6 +75,23 @@ public class DeleteQuery implements Query {
         sb.append(";");
 
         return sb.toString();
+    }
+
+    @Override
+    public PreparedStatement query(Connection connection) {
+
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = connection.prepareStatement(sql());
+            List<String> wheresList = new ArrayList<>(wheres.values());
+            for (int i = 0; i < wheresList.size(); i++) {
+                preparedStatement.setObject(i + 1, wheresList.get(i));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return preparedStatement;
     }
 
     public static class Builder {

@@ -31,7 +31,7 @@ public class DeleteQueryTest {
     @Test
     public void testDeleteQuery() {
 
-        String expected = "DELETE FROM test WHERE id='1';";
+        String expected = "DELETE FROM test WHERE id=?;";
         String actual = new DeleteQuery.Builder()
                 .from("test")
                 .where("id", "1")
@@ -44,7 +44,7 @@ public class DeleteQueryTest {
     @Test
     public void testDeleteQueryOperator() {
 
-        String expected = "DELETE FROM test WHERE id>='1';";
+        String expected = "DELETE FROM test WHERE id>=?;";
         String actual = new DeleteQuery.Builder()
                 .from("test")
                 .where("id", ">=", "1")

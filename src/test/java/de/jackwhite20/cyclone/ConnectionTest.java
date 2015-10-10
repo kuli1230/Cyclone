@@ -55,10 +55,12 @@ public class ConnectionTest {
         System.out.println("Connected!");
 
         try {
-            cyclone.create(new CreateQuery.Builder()
+            cyclone.execute(new CreateQuery.Builder()
                     .create("test")
                     .primaryKey("id")
-                    .values("id int auto_increment", "name varchar(255)", "uuid varchar(255)")
+                    .value("id", "int", "auto_increment")
+                    .value("name", "varchar(255)")
+                    .value("uuid", "varchar(255)")
                     .build());
         } catch (SQLException e) {
             e.printStackTrace();
@@ -66,7 +68,7 @@ public class ConnectionTest {
 
         try {
             for (int i = 0; i < 2; i++) {
-                cyclone.insert(new InsertQuery.Builder()
+                cyclone.execute(new InsertQuery.Builder()
                         .into("test")
                         .values("0", "Jack", "000000-000000-000000")
                         .build());
@@ -80,7 +82,7 @@ public class ConnectionTest {
         System.out.println("Changing...");
 
         try {
-            cyclone.update(new UpdateQuery.Builder()
+            cyclone.execute(new UpdateQuery.Builder()
                     .update("test")
                     .set("name", "Jacky")
                     .set("uuid", "0000")
@@ -95,7 +97,7 @@ public class ConnectionTest {
         System.out.println("Deleting...");
 
         try {
-            cyclone.delete(new DeleteQuery.Builder().from("test").where("id", "1").build());
+            cyclone.execute(new DeleteQuery.Builder().from("test").where("id", "1").build());
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -103,7 +105,13 @@ public class ConnectionTest {
         selectAll(cyclone);
 
         try {
-            cyclone.drop(new DropQuery.Builder()
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            cyclone.execute(new DropQuery.Builder()
                     .drop("test")
                     .build());
         } catch (SQLException e) {

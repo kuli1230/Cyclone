@@ -19,6 +19,9 @@
 
 package de.jackwhite20.cyclone.builder;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+
 /**
  * Created by JackWhite20 on 26.08.2015.
  */
@@ -30,4 +33,12 @@ public interface Query {
      * @return the SQL query.
      */
     String sql();
+
+    /**
+     * Gets the prepared statement from the query.
+     *
+     * @param connection the connection.
+     * @return the prepared statement.
+     */
+    PreparedStatement query(Connection connection);
 }

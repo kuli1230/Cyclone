@@ -17,68 +17,40 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.jackwhite20.cyclone.builder.drop;
-
-import de.jackwhite20.cyclone.builder.Query;
+package de.jackwhite20.cyclone.builder;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 /**
- * Created by JackWhite20 on 11.08.2015.
+ * Created by JackWhite20 on 10.10.2015.
  */
-public class DropQuery implements Query {
+public class CustomQuery implements Query {
 
-    private String table;
+    private String sql;
 
-    public DropQuery(String table) {
+    public CustomQuery(String sql) {
 
-        this.table = table;
-    }
-
-    public DropQuery(Builder builder) {
-
-        this.table = builder.table;
+        this.sql = sql;
     }
 
     @Override
     public String sql() {
 
-        StringBuilder sb = new StringBuilder();
-
-        sb.append("DROP TABLE ").append(table).append(";");
-
-        return sb.toString();
+        return sql;
     }
 
     @Override
     public PreparedStatement query(Connection connection) {
 
-        PreparedStatement statement = null;
+        PreparedStatement preparedStatement = null;
         try {
-            statement = connection.prepareStatement(sql());
+            preparedStatement = connection.prepareStatement(sql());
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return statement;
-    }
-
-    public static class Builder {
-
-        private String table;
-
-        public Builder drop(String table) {
-
-            this.table = table;
-
-            return this;
-        }
-
-        public DropQuery build() {
-
-            return new DropQuery(this);
-        }
+        return preparedStatement;
     }
 }
