@@ -31,6 +31,11 @@ public enum Type {
      */
     private String driver;
 
+    /**
+     * A new Type with a full name driver name.
+     *
+     * @param driver the full driver name.
+     */
     Type(String driver) {
 
         this.driver = driver;

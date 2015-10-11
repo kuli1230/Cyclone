@@ -24,5 +24,8 @@ package de.jackwhite20.cyclone.async;
  */
 public interface DispatcherConsumer {
 
+    /**
+     * The execute method which will be called async.
+     */
     void execute();
 }

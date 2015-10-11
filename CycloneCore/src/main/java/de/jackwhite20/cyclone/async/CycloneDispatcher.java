@@ -28,18 +28,35 @@ import java.util.concurrent.Future;
  */
 public class CycloneDispatcher {
 
+    /**
+     * The executor service for the async operations.
+     */
     private ExecutorService executorService = Executors.newCachedThreadPool();
 
+    /**
+     * Dispatches DispatcherConsumer.execute async.
+     *
+     * @param consumer the callback.
+     */
     public void dispatch(DispatcherConsumer consumer) {
 
         executorService.execute(consumer::execute);
     }
 
+    /**
+     * Submits a DispatcherConsumer callback async an returns a future to wait for completion if you want.
+     *
+     * @param consumer the callback.
+     * @return the future.
+     */
     public Future<?> submit(DispatcherConsumer consumer) {
 
         return executorService.submit(consumer::execute);
     }
 
+    /**
+     * Closes the executor service.
+     */
     public void close() {
 
         executorService.shutdown();

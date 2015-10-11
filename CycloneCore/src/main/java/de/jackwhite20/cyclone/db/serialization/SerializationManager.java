@@ -45,13 +45,28 @@ import java.util.Map;
  */
 public class SerializationManager {
 
+    /**
+     * The Cyclne instance.
+     */
     private final Cyclone cyclone;
 
+    /**
+     * Creates a new instance from SerializationManager with the cyclone instance.
+     *
+     * @param cyclone the Cyclone instance.
+     */
     public SerializationManager(Cyclone cyclone) {
 
         this.cyclone = cyclone;
     }
 
+    /**
+     * Creates a SQL table from the given template class.
+     * The template class need the Table annotation and field need the Column annotation.
+     *
+     * @param clazz the template class.
+     * @return true if ot was successful otherwise false.
+     */
     public boolean create(Class<?> clazz) {
 
         if (!clazz.isAnnotationPresent(Table.class)) {
@@ -107,6 +122,15 @@ public class SerializationManager {
         return cyclone.execute(builder.build());
     }
 
+    /**
+     * Selects data from the table given in the template class, the limit, the sort order and conditions.
+     *
+     * @param clazz the template class.
+     * @param limit the limit. -1 if no limit is needed.
+     * @param order the sort order.
+     * @param conditions the conditions for the SQL SELECT.
+     * @return a automatically filled list of the template class type with field set.
+     */
     public <T> List<T> select(Class<T> clazz, int limit, Order order, Condition... conditions) {
 
         if (!clazz.isAnnotationPresent(Table.class)) {
@@ -172,21 +196,51 @@ public class SerializationManager {
         return resultList;
     }
 
+    /**
+     * Selects data from the table given in the template class, the limit is -1, the sort order and conditions.
+     *
+     * @param clazz the template class.
+     * @param order the sort order.
+     * @param conditions the conditions for the SQL SELECT.
+     * @return a automatically filled list of the template class type with field set.
+     */
     public <T> List<T> select(Class<T> clazz, Order order, Condition... conditions) {
 
         return select(clazz, -1, order, conditions);
     }
 
+    /**
+     * Selects data from the table given in the template class, the limit, no order and conditions.
+     *
+     * @param clazz the template class.
+     * @param limit the limit. -1 if no limit is needed.
+     * @param conditions the conditions for the SQL SELECT.
+     * @return a automatically filled list of the template class type with field set.
+     */
     public <T> List<T> select(Class<T> clazz, int limit, Condition... conditions) {
 
         return select(clazz, limit, null, conditions);
     }
 
+    /**
+     * Selects data from the table given in the template class, the limit is -1, no order and conditions.
+     *
+     * @param clazz the template class.
+     * @param conditions the conditions for the SQL SELECT.
+     * @return a automatically filled list of the template class type with field set.
+     */
     public <T> List<T> select(Class<T> clazz, Condition... conditions) {
 
         return select(clazz, -1, null, conditions);
     }
 
+    /**
+     * Drops a SQL table from the given template class.
+     * The template class need the Table annotation and fields need the Column annotation.
+     *
+     * @param clazz the template class.
+     * @return true if ot was successful otherwise false.
+     */
     public boolean drop(Class<?> clazz) {
 
         if (!clazz.isAnnotationPresent(Table.class)) {
@@ -198,6 +252,13 @@ public class SerializationManager {
         return cyclone.execute(new DropQuery.Builder().drop(table.name()).build());
     }
 
+    /**
+     * Inserts the field of the given class as an object into the SQL table from the given class.
+     * The template class need the Table annotation and fields need the Column annotation.
+     *
+     * @param object the class as an object.
+     * @return true if ot was successful otherwise false.
+     */
     public boolean insert(Object object) {
 
         Class<?> clazz = object.getClass();
@@ -234,6 +295,14 @@ public class SerializationManager {
         return cyclone.execute(builder.build());
     }
 
+    /**
+     * Deletes rows from the SQL table given in the template class and the conditions.
+     * The template class need the Table annotation.
+     *
+     * @param clazz the template class.
+     * @param conditions the conditions.
+     * @return true if ot was successful otherwise false.
+     */
     public boolean delete(Class<?> clazz, Condition... conditions) {
 
         if (!clazz.isAnnotationPresent(Table.class)) {
@@ -252,6 +321,17 @@ public class SerializationManager {
         return cyclone.execute(builder.build());
     }
 
+    /**
+     * Updates an SQL table and sets the columns in the setColums array to the values from
+     * the field in the template class where the primary key from the template class matches.
+     *
+     * The template class need the Table annotation and fields need the Column annotation.
+     *
+     * @param object the template class as an object.
+     * @param setColumns the columns that should be updated.
+     * @param conditions the extra conditions.
+     * @return true if ot was successful otherwise false.
+     */
     public boolean update(Object object, String[] setColumns, Condition... conditions) {
 
         Class<?> clazz = object.getClass();
@@ -317,6 +397,14 @@ public class SerializationManager {
         return cyclone.execute(builder.build());
     }
 
+    /**
+     * Updates all colums from an SQL table where the exta conditions matches.
+     * The template class need the Table annotation and fields need the Column annotation.
+     *
+     * @param object the template class as object.
+     * @param conditions the conditions.
+     * @return true if ot was successful otherwise false.
+     */
     public boolean update(Object object, Condition... conditions) {
 
         return update(object, null, conditions);

@@ -110,6 +110,12 @@ public class CycloneSettings {
 
         private CycloneSettings settings = new CycloneSettings();
 
+        /**
+         * Sets the host.
+         *
+         * @param host the host.
+         * @return the Builder.
+         */
         public Builder host(String host) {
 
             settings.host = host;
@@ -117,6 +123,12 @@ public class CycloneSettings {
             return this;
         }
 
+        /**
+         * Sets the port of the server.
+         *
+         * @param port the port.
+         * @return the Builder.
+         */
         public Builder port(int port) {
 
             settings.port = port;
@@ -124,6 +136,12 @@ public class CycloneSettings {
             return this;
         }
 
+        /**
+         * Sets the username from the server.
+         *
+         * @param user the username.
+         * @return the Builder.
+         */
         public Builder user(String user) {
 
             settings.user = user;
@@ -131,6 +149,12 @@ public class CycloneSettings {
             return this;
         }
 
+        /**
+         * Sets the password from the server.
+         *
+         * @param password the password.
+         * @return the Builder.
+         */
         public Builder password(String password) {
 
             settings.password = password;
@@ -138,6 +162,12 @@ public class CycloneSettings {
             return this;
         }
 
+        /**
+         * Sets the database name or the path for sqlite.
+         *
+         * @param database the database name or the path.
+         * @return the Builder.
+         */
         public Builder database(String database) {
 
             settings.database = database;
@@ -145,6 +175,12 @@ public class CycloneSettings {
             return this;
         }
 
+        /**
+         * Sets the pool size from the connection pool.
+         *
+         * @param size the size.
+         * @return the Builder.
+         */
         public Builder poolSize(int size) {
 
             settings.poolSize = size;
@@ -152,6 +188,12 @@ public class CycloneSettings {
             return this;
         }
 
+        /**
+         * Sets the type of the Cyclone instance.
+         *
+         * @param type the type.
+         * @return the Builder.
+         */
         public Builder type(Type type) {
 
             settings.type = type;
@@ -159,6 +201,12 @@ public class CycloneSettings {
             return this;
         }
 
+        /**
+         * Sets the pool name from the connection pool.
+         *
+         * @param name the name.
+         * @return the Builder.
+         */
         public Builder poolName(String name) {
 
             settings.poolName = name;
@@ -166,6 +214,12 @@ public class CycloneSettings {
             return this;
         }
 
+        /**
+         * Sets if exceptions should be thrown.
+         *
+         * @param value true or false.
+         * @return the Builder.
+         */
         public Builder printExceptions(boolean value) {
 
             settings.printExceptions = value;
@@ -173,6 +227,11 @@ public class CycloneSettings {
             return this;
         }
 
+        /**
+         * Gets the finsihed CycloneSettings instance.
+         *
+         * @return the CycloneSettings instance.
+         */
         public CycloneSettings build() {
 
             return settings;

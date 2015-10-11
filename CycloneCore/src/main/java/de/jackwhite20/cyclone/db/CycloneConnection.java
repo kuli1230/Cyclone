@@ -13,12 +13,26 @@ import java.sql.SQLException;
  */
 public class CycloneConnection {
 
+    /**
+     * The database type.
+     */
     private Type type;
 
+    /**
+     * The settings for the Cyclone instance.
+     */
     private CycloneSettings settings;
 
+    /**
+     * The data source.
+     */
     private HikariDataSource dataSource;
 
+    /**
+     * Creates a new CycloneConnection instance with the settings.
+     *
+     * @param settings the settings.
+     */
     public CycloneConnection(CycloneSettings settings) {
 
         this.type = settings.type();
@@ -27,6 +41,9 @@ public class CycloneConnection {
         setup();
     }
 
+    /**
+     * Prepares the connection pool.
+     */
     private void setup() {
 
         HikariConfig config = new HikariConfig();
@@ -58,11 +75,20 @@ public class CycloneConnection {
         dataSource = new HikariDataSource(config);
     }
 
+    /**
+     * Gets a connection from the data source.
+     *
+     * @return the Connection.
+     * @throws SQLException Íf a database access error occurs.
+     */
     public Connection getConnection() throws SQLException {
 
         return dataSource.getConnection();
     }
 
+    /**
+     * Closes the data source and the connection pool.
+     */
     public void close() {
 
         dataSource.close();
