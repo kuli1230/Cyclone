@@ -90,7 +90,7 @@ public class DeleteQuery implements Query {
     }
 
     /**
-     * Represents the builder for an delete query.
+     * Represents the builder for a delete query.
      */
     public static class Builder {
 

@@ -98,7 +98,7 @@ public class CreateQuery implements Query {
     }
 
     /**
-     * Represents the builder for an select query.
+     * Represents the builder for a select query.
      */
     public static class Builder {
 

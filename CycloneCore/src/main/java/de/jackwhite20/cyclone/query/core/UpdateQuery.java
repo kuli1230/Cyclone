@@ -80,6 +80,7 @@ public class UpdateQuery implements Query {
         return sb.append(";").toString();
     }
 
+    @Override
     public PreparedStatement prepareStatement(Connection connection) {
 
         PreparedStatement preparedStatement = null;

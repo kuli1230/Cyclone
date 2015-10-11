@@ -77,6 +77,7 @@ public class InsertQuery implements Query {
         return sb.append(")").append(";").toString();
     }
 
+    @Override
     public PreparedStatement prepareStatement(Connection connection) {
 
         PreparedStatement preparedStatement = null;

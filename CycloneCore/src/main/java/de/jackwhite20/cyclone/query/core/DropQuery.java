@@ -63,7 +63,7 @@ public class DropQuery implements Query {
     }
 
     /**
-     * Represents the builder for an drop query.
+     * Represents the builder for a drop query.
      */
     public static class Builder {
 
