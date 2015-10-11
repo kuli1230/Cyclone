@@ -27,6 +27,8 @@ import java.sql.SQLException;
 
 /**
  * Created by JackWhite20 on 11.08.2015.
+ *
+ * Represents a SQL DROP query.
  */
 public class DropQuery implements Query {
 
@@ -65,10 +67,19 @@ public class DropQuery implements Query {
         return statement;
     }
 
+    /**
+     * Represents the builder for an drop query.
+     */
     public static class Builder {
 
         private String table;
 
+        /**
+         *Sets the table name that will be dropped.
+         *
+         * @param table the name of the table.
+         * @return the builder.
+         */
         public Builder drop(String table) {
 
             this.table = table;
@@ -76,6 +87,11 @@ public class DropQuery implements Query {
             return this;
         }
 
+        /**
+         * Gets the finished DropQuery.
+         *
+         * @return the DropQuery.
+         */
         public DropQuery build() {
 
             return new DropQuery(this);

@@ -21,13 +21,13 @@ package de.jackwhite20.cyclone;
 
 import de.jackwhite20.cyclone.async.CycloneDispatcher;
 import de.jackwhite20.cyclone.async.DispatcherConsumer;
-import de.jackwhite20.cyclone.query.CustomQuery;
-import de.jackwhite20.cyclone.query.Query;
 import de.jackwhite20.cyclone.db.CycloneConnection;
 import de.jackwhite20.cyclone.db.DBResult;
 import de.jackwhite20.cyclone.db.Type;
 import de.jackwhite20.cyclone.db.serialization.SerializationManager;
 import de.jackwhite20.cyclone.db.settings.CycloneSettings;
+import de.jackwhite20.cyclone.query.CustomQuery;
+import de.jackwhite20.cyclone.query.Query;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -37,6 +37,8 @@ import java.util.concurrent.Future;
 
 /**
  * Created by JackWhite20 on 11.08.2015.
+ *
+ * This class has all API functions that Cyclone supports.
  */
 public class Cyclone {
 
@@ -73,7 +75,7 @@ public class Cyclone {
     }
 
     /**
-     * Connects to the mysql server.
+     * Connects with the sql server or database.
      */
     public void connect() {
 
@@ -171,6 +173,11 @@ public class Cyclone {
         return query(new CustomQuery(query));
     }
 
+    /**
+     * Gets the database type of the Cyclone instance.
+     *
+     * @return the type.
+     */
     public Type type() {
 
         return settings.type();

@@ -21,29 +21,44 @@ package de.jackwhite20.cyclone.db.serialization;
 
 /**
  * Created by JackWhite20 on 11.10.2015.
+ *
+ * Represents an order with the column name and the type ('DESC' or 'ASC').
  */
 public class Order {
 
-    private final String row;
+    private final String column;
 
     private final Type type;
 
-    public Order(String row, Type type) {
+    public Order(String column, Type type) {
 
-        this.row = row;
+        this.column = column;
         this.type = type;
     }
 
-    public String row() {
+    /**
+     * Gets the column name.
+     *
+     * @return the column name.
+     */
+    public String column() {
 
-        return row;
+        return column;
     }
 
+    /**
+     * Gets the type.
+     *
+     * @return the type.
+     */
     public Type type() {
 
         return type;
     }
 
+    /**
+     * Represents a SQL order type.
+     */
     public enum Type {
         DESC,
         ASC

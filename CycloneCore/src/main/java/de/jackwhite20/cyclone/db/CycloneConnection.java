@@ -10,6 +10,8 @@ import java.sql.SQLException;
 
 /**
  * Created by JackWhite20 on 29.09.2015.
+ *
+ * Represents a class to get a connection from the connection pool.
  */
 public class CycloneConnection {
 
@@ -50,7 +52,7 @@ public class CycloneConnection {
         config.setDriverClassName(type.getDriver());
         if(type == Type.MYSQL) {
             config.setJdbcUrl("jdbc:mysql://" + settings.host() + ":" + settings.port() + "/" + settings.database());
-        } else if(type == Type.SQLITE) {
+        } else if(type == Type.SQ_LITE) {
             config.setJdbcUrl("jdbc:sqlite:" + settings.database());
             // Is fixing an error for sqllite
             config.setConnectionTestQuery("/* ping */");
@@ -79,7 +81,7 @@ public class CycloneConnection {
      * Gets a connection from the data source.
      *
      * @return the Connection.
-     * @throws SQLException Íf a database access error occurs.
+     * @throws SQLException if a database access error occurs.
      */
     public Connection getConnection() throws SQLException {
 

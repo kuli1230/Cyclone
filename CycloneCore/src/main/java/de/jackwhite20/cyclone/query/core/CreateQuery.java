@@ -31,6 +31,8 @@ import java.util.List;
 
 /**
  * Created by JackWhite20 on 11.08.2015.
+ *
+ * Represents a SQL CREATE query.
  */
 public class CreateQuery implements Query {
 
@@ -104,6 +106,9 @@ public class CreateQuery implements Query {
         return preparedStatement;
     }
 
+    /**
+     * Represents the builder for an select query.
+     */
     public static class Builder {
 
         private String table;
@@ -116,6 +121,12 @@ public class CreateQuery implements Query {
 
         private List<String> primaryKeys = new ArrayList<>();
 
+        /**
+         * Sets the table.
+         *
+         * @param table the table name.
+         * @return the builder.
+         */
         public Builder create(String table) {
 
             this.table = table;
@@ -123,6 +134,12 @@ public class CreateQuery implements Query {
             return this;
         }
 
+        /**
+         * Sets whether 'CREATE IF NOT EXISTS' is added or not.
+         *
+         * @param value true or false.
+         * @return the builder.
+         */
         public Builder ifNotExists(boolean value) {
 
             this.createNotExists = value;
@@ -130,6 +147,12 @@ public class CreateQuery implements Query {
             return this;
         }
 
+        /**
+         * Sets the column for the primary key.
+         *
+         * @param column the column name.
+         * @return the builder.
+         */
         public Builder primaryKey(String column) {
 
             this.primaryKeys.add(column);
@@ -137,6 +160,13 @@ public class CreateQuery implements Query {
             return this;
         }
 
+        /**
+         * Adds a value and it's options.
+         *
+         * @param value the value.
+         * @param options the options.
+         * @return the builder.
+         */
         public Builder value(String value, String... options) {
 
             values.add(value);
@@ -146,6 +176,11 @@ public class CreateQuery implements Query {
             return this;
         }
 
+        /**
+         * Gets the finished CreateQuery.
+         *
+         * @return the CreateQuery.
+         */
         public CreateQuery build() {
 
             return new CreateQuery(this);

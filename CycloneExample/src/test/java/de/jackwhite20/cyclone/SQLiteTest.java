@@ -19,15 +19,11 @@
 
 package de.jackwhite20.cyclone;
 
-import de.jackwhite20.cyclone.query.core.CreateQuery;
-import de.jackwhite20.cyclone.query.core.DeleteQuery;
-import de.jackwhite20.cyclone.query.core.DropQuery;
-import de.jackwhite20.cyclone.query.core.InsertQuery;
-import de.jackwhite20.cyclone.query.core.SelectQuery;
 import de.jackwhite20.cyclone.db.DBResult;
 import de.jackwhite20.cyclone.db.DBRow;
 import de.jackwhite20.cyclone.db.Type;
 import de.jackwhite20.cyclone.db.settings.CycloneSettings;
+import de.jackwhite20.cyclone.query.core.*;
 
 import java.util.List;
 
@@ -38,7 +34,7 @@ public class SQLiteTest {
 
     public static void main(String[] args) {
 
-        Cyclone cyclone = new Cyclone(new CycloneSettings.Builder().database("data/test.db").type(Type.SQLITE).build());
+        Cyclone cyclone = new Cyclone(new CycloneSettings.Builder().database("data/test.db").type(Type.SQ_LITE).build());
         cyclone.connect();
 
         cyclone.execute(new CreateQuery.Builder().create("test").value("id", "INTEGER").value("name", "STRING").primaryKey("id").build());

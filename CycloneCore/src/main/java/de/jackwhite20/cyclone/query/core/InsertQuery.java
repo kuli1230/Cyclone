@@ -30,6 +30,8 @@ import java.util.List;
 
 /**
  * Created by JackWhite20 on 11.08.2015.
+ *
+ * Represents a SQL INSERT query.
  */
 public class InsertQuery implements Query {
 
@@ -97,6 +99,9 @@ public class InsertQuery implements Query {
         return preparedStatement;
     }
 
+    /**
+     * Represents the builder for an insert query.
+     */
     public static class Builder {
 
         private String table;
@@ -105,6 +110,12 @@ public class InsertQuery implements Query {
 
         private List<String> values = new ArrayList<>();
 
+        /**
+         * Sets the table name in which the query will insert.
+         *
+         * @param table the table name.
+         * @return the builder.
+         */
         public Builder into(String table) {
 
             this.table = table;
@@ -112,6 +123,12 @@ public class InsertQuery implements Query {
             return this;
         }
 
+        /**
+         * Adds a parameter list of column names.
+         *
+         * @param columns the column names.
+         * @return the builder.
+         */
         public Builder columns(String... columns) {
 
             this.columns.addAll(Arrays.asList(columns));
@@ -119,6 +136,12 @@ public class InsertQuery implements Query {
             return this;
         }
 
+        /**
+         * Adds a column name.
+         *
+         * @param name the column name.
+         * @return the builder.
+         */
         public Builder column(String name) {
 
             this.columns.add(name);
@@ -126,6 +149,12 @@ public class InsertQuery implements Query {
             return this;
         }
 
+        /**
+         * Adds a parameter list of values.
+         *
+         * @param values the values.
+         * @return the builder.
+         */
         public Builder values(String... values) {
 
             this.values.addAll(Arrays.asList(values));
@@ -133,6 +162,12 @@ public class InsertQuery implements Query {
             return this;
         }
 
+        /**
+         * Adds a value.
+         *
+         * @param value the value.
+         * @return the builder.
+         */
         public Builder value(String value) {
 
             this.values.add(value);
@@ -140,6 +175,11 @@ public class InsertQuery implements Query {
             return this;
         }
 
+        /**
+         * Gets the finished InsertQuery.
+         *
+         * @return the InsertQuery.
+         */
         public InsertQuery build() {
 
             return new InsertQuery(this);

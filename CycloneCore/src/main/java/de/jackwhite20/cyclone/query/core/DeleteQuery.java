@@ -31,6 +31,8 @@ import java.util.Map;
 
 /**
  * Created by JackWhite20 on 28.09.2015.
+ *
+ * Represents a SQL DELETE query.
  */
 public class DeleteQuery implements Query {
 
@@ -94,6 +96,9 @@ public class DeleteQuery implements Query {
         return preparedStatement;
     }
 
+    /**
+     * Represents the builder for an delete query.
+     */
     public static class Builder {
 
         private String table;
@@ -102,6 +107,12 @@ public class DeleteQuery implements Query {
 
         private List<String> whereOperators = new ArrayList<>();
 
+        /**
+         * Sets the table name from which table data will be deleted.
+         *
+         * @param table the table name.
+         * @return the builder.
+         */
         public Builder from(String table) {
 
             this.table = table;
@@ -109,6 +120,14 @@ public class DeleteQuery implements Query {
             return this;
         }
 
+        /**
+         * Adds a where clause with the given parameters.
+         *
+         * @param where the where column name.
+         * @param operator the operator.
+         * @param value the value.
+         * @return the builder.
+         */
         public Builder where(String where, String operator, String value) {
 
             this.wheres.put(where, value);
@@ -117,11 +136,24 @@ public class DeleteQuery implements Query {
             return this;
         }
 
+        /**
+         *
+         * Adds a where clause with the given parameters and the operator '=' as default.
+         *
+         * @param where the where column name.
+         * @param value the value.
+         * @return the builder.
+         */
         public Builder where(String where, String value) {
 
             return where(where, "=", value);
         }
 
+        /**
+         * Gets the finished DeleteQuery.
+         *
+         * @return the DeleteQuery.
+         */
         public DeleteQuery build() {
 
             return new DeleteQuery(this);

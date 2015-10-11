@@ -20,18 +20,13 @@
 package de.jackwhite20.cyclone.db.serialization;
 
 import de.jackwhite20.cyclone.Cyclone;
-import de.jackwhite20.cyclone.query.core.CreateQuery;
-import de.jackwhite20.cyclone.query.core.DeleteQuery;
-import de.jackwhite20.cyclone.query.core.DropQuery;
-import de.jackwhite20.cyclone.query.core.InsertQuery;
-import de.jackwhite20.cyclone.query.core.SelectQuery;
-import de.jackwhite20.cyclone.query.core.UpdateQuery;
 import de.jackwhite20.cyclone.db.DBResult;
 import de.jackwhite20.cyclone.db.DBRow;
 import de.jackwhite20.cyclone.db.Type;
 import de.jackwhite20.cyclone.db.serialization.annotation.Column;
 import de.jackwhite20.cyclone.db.serialization.annotation.Table;
 import de.jackwhite20.cyclone.db.serialization.exception.SQLSerializationException;
+import de.jackwhite20.cyclone.query.core.*;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -42,11 +37,13 @@ import java.util.Map;
 
 /**
  * Created by JackWhite20 on 11.10.2015.
+ *
+ * Represents a class that can be used to serialize classes to eg. tables etc.
  */
 public class SerializationManager {
 
     /**
-     * The Cyclne instance.
+     * The Cyclone instance.
      */
     private final Cyclone cyclone;
 
@@ -105,7 +102,7 @@ public class SerializationManager {
                     if (option == Column.Option.PRIMARY_KEY)
                         continue;
 
-                    if(cyclone.type() == Type.SQLITE && option == Column.Option.AUTO_INCREMENT)
+                    if(cyclone.type() == Type.SQ_LITE && option == Column.Option.AUTO_INCREMENT)
                         continue;
 
                     rowOptionStrings.add(option.sql());
@@ -124,6 +121,7 @@ public class SerializationManager {
 
     /**
      * Selects data from the table given in the template class, the limit, the sort order and conditions.
+     * The template class need the Table annotation and fields need the Column annotation.
      *
      * @param clazz the template class.
      * @param limit the limit. -1 if no limit is needed.
@@ -159,7 +157,7 @@ public class SerializationManager {
         }
 
         if(order != null)
-            builder.orderBy(order.row() + " " + order.type());
+            builder.orderBy(order.column() + " " + order.type());
 
         DBResult result = cyclone.query(builder.build());
 
@@ -198,6 +196,7 @@ public class SerializationManager {
 
     /**
      * Selects data from the table given in the template class, the limit is -1, the sort order and conditions.
+     * The template class need the Table annotation and fields need the Column annotation.
      *
      * @param clazz the template class.
      * @param order the sort order.
@@ -211,6 +210,7 @@ public class SerializationManager {
 
     /**
      * Selects data from the table given in the template class, the limit, no order and conditions.
+     * The template class need the Table annotation and fields need the Column annotation.
      *
      * @param clazz the template class.
      * @param limit the limit. -1 if no limit is needed.
@@ -224,6 +224,7 @@ public class SerializationManager {
 
     /**
      * Selects data from the table given in the template class, the limit is -1, no order and conditions.
+     * The template class need the Table annotation and fields need the Column annotation.
      *
      * @param clazz the template class.
      * @param conditions the conditions for the SQL SELECT.
@@ -236,7 +237,7 @@ public class SerializationManager {
 
     /**
      * Drops a SQL table from the given template class.
-     * The template class need the Table annotation and fields need the Column annotation.
+     * The template class need the Table annotation.
      *
      * @param clazz the template class.
      * @return true if ot was successful otherwise false.
@@ -278,7 +279,7 @@ public class SerializationManager {
                     Column column = field.getAnnotation(Column.class);
                     String name = column.name().equals("") ? field.getName() : column.name();
 
-                    if(cyclone.type() == Type.SQLITE && Column.Option.AUTO_INCREMENT.isOption(column.options()))
+                    if(cyclone.type() == Type.SQ_LITE && Column.Option.AUTO_INCREMENT.isOption(column.options()))
                         continue;
 
                     builder.column(name);
@@ -322,7 +323,7 @@ public class SerializationManager {
     }
 
     /**
-     * Updates an SQL table and sets the columns in the setColums array to the values from
+     * Updates an SQL table and sets the columns in the setColumns array to the values from
      * the field in the template class where the primary key from the template class matches.
      *
      * The template class need the Table annotation and fields need the Column annotation.
@@ -398,7 +399,7 @@ public class SerializationManager {
     }
 
     /**
-     * Updates all colums from an SQL table where the exta conditions matches.
+     * Updates all columns from an SQL table where the extra conditions matches.
      * The template class need the Table annotation and fields need the Column annotation.
      *
      * @param object the template class as object.

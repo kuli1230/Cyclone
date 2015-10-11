@@ -21,15 +21,33 @@ package de.jackwhite20.cyclone.db.serialization;
 
 /**
  * Created by JackWhite20 on 11.10.2015.
+ *
+ * Represents a condition for a query with a column, an operator and a value.
  */
 public class Condition {
 
+    /**
+     * The column name.
+     */
     private final String column;
 
+    /**
+     * The operator to use.
+     */
     private final Operator operator;
 
+    /**
+     * The value for the conidtion.
+     */
     private final String value;
 
+    /**
+     * Creates a new condition with the given values.
+     *
+     * @param column the column name.
+     * @param operator the operator.
+     * @param value the value.
+     */
     public Condition(String column, Operator operator, String value) {
 
         this.column = column;
@@ -37,21 +55,39 @@ public class Condition {
         this.value = value;
     }
 
+    /**
+     * Gets the column name.
+     *
+     * @return the column name.
+     */
     public String column() {
 
         return column;
     }
 
+    /**
+     * Gets the operator.
+     *
+     * @return the operator.
+     */
     public Operator operator() {
 
         return operator;
     }
 
+    /**
+     * Gets the value.
+     *
+     * @return the value.
+     */
     public String value() {
 
         return value;
     }
 
+    /**
+     * Represents an operator like '=', '>', '!=' etc.
+     */
     public enum Operator {
 
         EQUAL("="),
@@ -68,6 +104,11 @@ public class Condition {
             this.sql = sql;
         }
 
+        /**
+         * Gets the SQL string from the operator name.
+         *
+         * @return the SQL string.
+         */
         public String sql() {
 
             return sql;

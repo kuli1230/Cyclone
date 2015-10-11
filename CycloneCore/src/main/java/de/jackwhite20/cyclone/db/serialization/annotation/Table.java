@@ -26,21 +26,40 @@ import java.lang.annotation.Target;
 
 /**
  * Created by JackWhite20 on 10.10.2015.
+ *
+ * The annotation to mark a class as a database table.
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface Table {
 
+    /**
+     * Gets the name from the table.
+     *
+     * @return the name.
+     */
     String name();
 
+    /**
+     * Gets options for the table.
+     *
+     * @return the options.
+     */
     Option[] options() default Option.EMPTY;
 
-
-
+    /**
+     * Represents options that SQL table can have.
+     */
     enum Option {
         EMPTY,
         CREATE_IF_NOT_EXISTS;
 
+        /**
+         * Checks if the current option is in the given option array.
+         *
+         * @param options the options.
+         * @return true if the the options array contains the current option, otherwise false.
+         */
         public boolean isOption(Table.Option[] options) {
 
             for (int i = 0; i < options.length; i++) {

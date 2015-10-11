@@ -21,11 +21,18 @@ package de.jackwhite20.cyclone.db.serialization.exception;
 
 /**
  * Created by JackWhite20 on 10.10.2015.
+ *
+ * Represents an exception that gets threw when a serialization error occurs.
  */
 public class SQLSerializationException extends RuntimeException {
 
     static final long serialVersionUID = -1654564534348664454L;
 
+    /**
+     * Creates an SQLSerializationException instance with the given message.
+     *
+     * @param message the message.
+     */
     public SQLSerializationException(String message) {
 
         super(message);

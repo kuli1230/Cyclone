@@ -23,6 +23,8 @@ import java.util.HashMap;
 
 /**
  * Created by JackWhite20 on 23.08.2015.
+ *
+ * Represents a table row and it's columns.
  */
 public class DBRow {
 

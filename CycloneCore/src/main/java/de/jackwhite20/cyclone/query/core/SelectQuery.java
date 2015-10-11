@@ -30,6 +30,8 @@ import java.util.List;
 
 /**
  * Created by JackWhite20 on 11.08.2015.
+ *
+ * Represents a SQL SELECT query.
  */
 public class SelectQuery implements Query {
 
@@ -100,6 +102,7 @@ public class SelectQuery implements Query {
         return sb.append(";").toString();
     }
 
+    @Override
     public PreparedStatement prepareStatement(Connection connection) {
 
         PreparedStatement preparedStatement = null;
@@ -116,6 +119,9 @@ public class SelectQuery implements Query {
         return preparedStatement;
     }
 
+    /**
+     * Represents the builder for a select query.
+     */
     public static class Builder {
 
         private List<String> selects = new ArrayList<>();
@@ -130,6 +136,12 @@ public class SelectQuery implements Query {
 
         private String limit = null;
 
+        /**
+         * Adds the column which should be selected.
+         *
+         * @param select the column.
+         * @return the builder.
+         */
         public Builder select(String select) {
 
             this.selects.add(select);
@@ -137,6 +149,12 @@ public class SelectQuery implements Query {
             return this;
         }
 
+        /**
+         * Sets the table from which the query will select.
+         *
+         * @param table the table name.
+         * @return the builder.
+         */
         public Builder from(String table) {
 
             this.table = table;
@@ -144,19 +162,41 @@ public class SelectQuery implements Query {
             return this;
         }
 
-        public Builder where(String where, String operator, String value) {
+        /**
+         * Adds a where statement with the given column name, operator and value.
+         *
+         * @param whereColumn the column name.
+         * @param operator the operator.
+         * @param value the value.
+         * @return the builder.
+         */
+        public Builder where(String whereColumn, String operator, String value) {
 
-            this.wheres.put(where, value);
+            this.wheres.put(whereColumn, value);
             this.operators.add(operator);
 
             return this;
         }
 
-        public Builder where(String where, String value) {
+        /**
+         * Adds a where statement with the given column name, value and '=' as operator.
+         *
+         * @param whereColumn the column name.
+         * @param value the value.
+         * @return the builder.
+         */
+        public Builder where(String whereColumn, String value) {
 
-            return where(where, "=", value);
+            return where(whereColumn, "=", value);
         }
 
+        /**
+         * The order statement.
+         * For example 'id ASC'.
+         *
+         * @param orderBy the order by string.
+         * @return the builder.
+         */
         public Builder orderBy(String orderBy) {
 
             this.orderBy = orderBy;
@@ -164,6 +204,12 @@ public class SelectQuery implements Query {
             return this;
         }
 
+        /**
+         * Sets the limit.
+         *
+         * @param limit the limit.
+         * @return the builder.
+         */
         public Builder limit(String limit) {
 
             this.limit = limit;
@@ -171,13 +217,22 @@ public class SelectQuery implements Query {
             return this;
         }
 
+        /**
+         * Sets the limit with an int.
+         *
+         * @param limit the limit as an int.
+         * @return the builder.
+         */
         public Builder limit(int limit) {
 
-            this.limit = "" + limit;
-
-            return this;
+            return limit("" + limit);
         }
 
+        /**
+         * Gets the finished SelectQuery.
+         *
+         * @return the SelectQuery.
+         */
         public SelectQuery build() {
 
             return new SelectQuery(this);

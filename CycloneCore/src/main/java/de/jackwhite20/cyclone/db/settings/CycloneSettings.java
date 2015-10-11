@@ -23,6 +23,8 @@ import de.jackwhite20.cyclone.db.Type;
 
 /**
  * Created by JackWhite20 on 11.08.2015.
+ *
+ * Represents a class for Cyclone to configure the connection pool and internal options.
  */
 public class CycloneSettings {
 
@@ -106,6 +108,9 @@ public class CycloneSettings {
         return printExceptions;
     }
 
+    /**
+     * The builder for CycloneSettings.
+     */
     public static class Builder {
 
         private CycloneSettings settings = new CycloneSettings();
@@ -228,7 +233,7 @@ public class CycloneSettings {
         }
 
         /**
-         * Gets the finsihed CycloneSettings instance.
+         * Gets the finished CycloneSettings instance.
          *
          * @return the CycloneSettings instance.
          */

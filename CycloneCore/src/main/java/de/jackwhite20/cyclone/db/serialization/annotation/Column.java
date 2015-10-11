@@ -26,15 +26,30 @@ import java.lang.annotation.Target;
 
 /**
  * Created by JackWhite20 on 10.10.2015.
+ *
+ * The annotation to mark a field as a column.
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 public @interface Column {
 
+    /**
+     * Gets the column name in the database table.
+     *
+     * @return the column name in the database table.
+     */
     String name() default "";
 
+    /**
+     * Gets the options from the database column.
+     *
+     * @return the column options.
+     */
     Option[] options() default Option.EMPTY;
 
+    /**
+     * Represents an option for a column.
+     */
     enum Option {
         EMPTY(""),
         NOT_NULL("NOT NULL"),
@@ -59,12 +74,21 @@ public @interface Column {
             return false;
         }
 
+        /**
+         * Gets the SQL string from the option type.
+         *
+         * @return the SQL string.
+         */
         public String sql() {
 
             return sql;
         }
     }
 
+    /**
+     * Represents an enum with valid data types and the SQL representation.
+     * Used only internally.
+     */
     enum Type {
         INTEGER("INTEGER", int.class, Integer.class),
         STRING("VARCHAR(255)", String.class),
@@ -87,6 +111,12 @@ public @interface Column {
             this.javaClasses = javaClasses;
         }
 
+        /**
+         * Gets a type from a data type class name.
+         *
+         * @param clazz the class.
+         * @return the type.
+         */
         public static Type typeFromClass(Class<?> clazz) {
 
             for(Type type : Type.values()) {
@@ -100,11 +130,21 @@ public @interface Column {
             return Type.UNKNOWN;
         }
 
+        /**
+         * Gets the SQL string from the type.
+         *
+         * @return the SQL string from the type.
+         */
         public String sqlName() {
 
             return sqlName;
         }
 
+        /**
+         * Gets the corresponding classes.
+         *
+         * @return the classes.
+         */
         public Class<?>[] javaClasses() {
 
             return javaClasses;

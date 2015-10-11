@@ -21,10 +21,12 @@ package de.jackwhite20.cyclone.db;
 
 /**
  * Created by JackWhite20 on 29.09.2015.
+ *
+ * Represents an enum for the supported database types and their driver names.
  */
 public enum Type {
 
-    MYSQL("com.mysql.jdbc.Driver"), SQLITE("org.sqlite.JDBC");
+    MYSQL("com.mysql.jdbc.Driver"), SQ_LITE("org.sqlite.JDBC");
 
     /**
      * The full driver name.

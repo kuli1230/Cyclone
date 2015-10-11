@@ -25,11 +25,21 @@ import java.sql.SQLException;
 
 /**
  * Created by JackWhite20 on 10.10.2015.
+ *
+ * Represents a custom query with a SQL query string as constructor parameter.
  */
 public class CustomQuery implements Query {
 
+    /**
+     * The SQL query string.
+     */
     private String sql;
 
+    /**
+     * Create a new CustomQuery with the given SQL query string.
+     *
+     * @param sql the SQL query string.
+     */
     public CustomQuery(String sql) {
 
         this.sql = sql;

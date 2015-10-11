@@ -30,6 +30,8 @@ import java.util.List;
 
 /**
  * Created by JackWhite20 on 11.08.2015.
+ *
+ * Represents a SQL UPDATE query.
  */
 public class UpdateQuery implements Query {
 
@@ -110,6 +112,9 @@ public class UpdateQuery implements Query {
         return preparedStatement;
     }
 
+    /**
+     * Represents the builder for an update query.
+     */
     public static class Builder {
 
         private String table;
@@ -120,6 +125,12 @@ public class UpdateQuery implements Query {
 
         private List<String> whereOperators = new ArrayList<>();
 
+        /**
+         * Sets the table that will be effected.
+         *
+         * @param table the table name.
+         * @return the builder.
+         */
         public Builder update(String table) {
 
             this.table = table;
@@ -127,13 +138,28 @@ public class UpdateQuery implements Query {
             return this;
         }
 
-        public Builder set(String value, String newValue) {
+        /**
+         * Adds an column name and the new value.
+         *
+         * @param columnName the column name.
+         * @param newValue the new value.
+         * @return the builder.
+         */
+        public Builder set(String columnName, String newValue) {
 
-            this.values.put(value, newValue);
+            this.values.put(columnName, newValue);
 
             return this;
         }
 
+        /**
+         * Adds an where operation with the where column, the value and an operator.
+         *
+         * @param where the where column name.
+         * @param operator the operator.
+         * @param value the value.
+         * @return the builder.
+         */
         public Builder where(String where, String operator, String value) {
 
             this.wheres.put(where, value);
@@ -142,11 +168,23 @@ public class UpdateQuery implements Query {
             return this;
         }
 
+        /**
+         * Adds an where operation with the where column and the value with '=' as operator.
+         *
+         * @param where the where column name.
+         * @param value the value.
+         * @return the builder.
+         */
         public Builder where(String where, String value) {
 
             return where(where, "=", value);
         }
 
+        /**
+         * Gets the finished UpdateQuery.
+         *
+         * @return the UpdateQuery.
+         */
         public UpdateQuery build() {
 
             return new UpdateQuery(this);

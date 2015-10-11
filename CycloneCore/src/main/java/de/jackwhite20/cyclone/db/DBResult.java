@@ -19,25 +19,20 @@
 
 package de.jackwhite20.cyclone.db;
 
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 /**
  * Created by JackWhite20 on 11.08.2015.
+ *
+ * Represents a class to hold the results from a query.
  */
 public class DBResult {
-
-    /**
-     * The results from a prepareStatement.
-     */
-    private ResultSet resultSet;
-
-    /**
-     * The prepared statement.
-     */
-    private PreparedStatement preparedStatement;
 
     /**
      * List of all rows.
@@ -52,12 +47,9 @@ public class DBResult {
      */
     public DBResult(ResultSet resultSet, PreparedStatement preparedStatement) {
 
-        this.resultSet = resultSet;
-        this.preparedStatement = preparedStatement;
-
         ResultSetMetaData resultSetMetaData = null;
         try {
-            resultSetMetaData = this.resultSet.getMetaData();
+            resultSetMetaData = resultSet.getMetaData();
             int columnCount = resultSetMetaData.getColumnCount();
 
             List<String> columns = new ArrayList<>(columnCount);
@@ -66,11 +58,11 @@ public class DBResult {
                 columns.add(resultSetMetaData.getColumnName(i));
             }
 
-            while (this.resultSet.next()) {
+            while (resultSet.next()) {
                 DBRow row = new DBRow();
 
                 for (String column : columns) {
-                    row.add(column, this.resultSet.getObject(column));
+                    row.add(column, resultSet.getObject(column));
                 }
 
                 rows.add(row);

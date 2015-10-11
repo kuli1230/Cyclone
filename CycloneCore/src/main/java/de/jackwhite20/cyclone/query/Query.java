@@ -24,6 +24,8 @@ import java.sql.PreparedStatement;
 
 /**
  * Created by JackWhite20 on 26.08.2015.
+ *
+ * Defines the basic skeleton of a query class.
  */
 public interface Query {
 
