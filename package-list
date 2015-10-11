@@ -1,0 +1,9 @@
+de.jackwhite20.cyclone
+de.jackwhite20.cyclone.async
+de.jackwhite20.cyclone.db
+de.jackwhite20.cyclone.db.serialization
+de.jackwhite20.cyclone.db.serialization.annotation
+de.jackwhite20.cyclone.db.serialization.exception
+de.jackwhite20.cyclone.db.settings
+de.jackwhite20.cyclone.query
+de.jackwhite20.cyclone.query.core
