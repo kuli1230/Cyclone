@@ -42,13 +42,6 @@ public class DeleteQuery implements Query {
 
     private List<String> whereOperators = new ArrayList<>();
 
-    public DeleteQuery(String table, LinkedHashMap<String, String> wheres, List<String> whereOperators) {
-
-        this.table = table;
-        this.wheres = wheres;
-        this.whereOperators = whereOperators;
-    }
-
     public DeleteQuery(Builder builder) {
 
         this.table = builder.table;

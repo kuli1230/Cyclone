@@ -72,7 +72,7 @@ public class MySQLSerializationTest {
         select(cyclone.serializationManager());
         //select(cyclone.getSerializationManager());
 
-        //cyclone.getSerializationManager().update(new TestTable(1, "LOOOL", "1000"));
+        cyclone.serializationManager().update(new TestTable(1, "LOOOL", "1000"));
 
 /*        for (int i = 0; i < 500; i++) {
             cyclone.dispatch(() -> cyclone.getSerializationManager().insert(new TestTable(0, "Test" + new Random().nextInt(1464664), UUID.randomUUID().toString())));

@@ -47,16 +47,6 @@ public class SelectQuery implements Query {
 
     private String limit = null;
 
-    public SelectQuery(List<String> selects, String table, LinkedHashMap<String, String> wheres, List<String> operators, String orderBy, String limit) {
-
-        this.selects = selects;
-        this.table = table;
-        this.wheres = wheres;
-        this.operators = operators;
-        this.orderBy = orderBy;
-        this.limit = limit;
-    }
-
     public SelectQuery(Builder builder) {
 
         this.selects = builder.selects;

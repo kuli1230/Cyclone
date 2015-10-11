@@ -43,14 +43,6 @@ public class UpdateQuery implements Query {
 
     private List<String> whereOperators = new ArrayList<>();
 
-    public UpdateQuery(String table, LinkedHashMap<String, String> values, LinkedHashMap<String, String> wheres, List<String> whereOperators) {
-
-        this.table = table;
-        this.values = values;
-        this.wheres = wheres;
-        this.whereOperators = whereOperators;
-    }
-
     public UpdateQuery(Builder builder) {
 
         this.table = builder.table;

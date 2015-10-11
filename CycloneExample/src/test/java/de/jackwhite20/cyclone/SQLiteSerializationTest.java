@@ -37,6 +37,8 @@ public class SQLiteSerializationTest {
         Cyclone cyclone = new Cyclone(new CycloneSettings.Builder().database("data/test.db").type(Type.SQ_LITE).build());
         cyclone.connect();
 
+        cyclone.dispatch(() -> System.out.println("looool, ich bin async, haha"));
+
         SerializationManager serializationManager = cyclone.serializationManager();
 
         serializationManager.create(TestTable.class);

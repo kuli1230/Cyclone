@@ -41,13 +41,6 @@ public class InsertQuery implements Query {
 
     private List<String> values;
 
-    public InsertQuery(String table, List<String> columns, List<String> values) {
-
-        this.table = table;
-        this.columns = columns;
-        this.values = values;
-    }
-
     public InsertQuery(Builder builder) {
 
         this.table = builder.table;

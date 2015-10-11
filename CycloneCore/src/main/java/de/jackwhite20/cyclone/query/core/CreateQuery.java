@@ -46,15 +46,6 @@ public class CreateQuery implements Query {
 
     private List<String> primaryKeys;
 
-    public CreateQuery(String table, boolean createNotExists, List<String> values, HashMap<String, List<String>> options, List<String> primaryKey) {
-
-        this.table = table;
-        this.createNotExists = createNotExists;
-        this.values = values;
-        this.options = options;
-        this.primaryKeys = primaryKey;
-    }
-
     public CreateQuery(Builder builder) {
 
         this.table = builder.table;

@@ -34,11 +34,6 @@ public class DropQuery implements Query {
 
     private String table;
 
-    public DropQuery(String table) {
-
-        this.table = table;
-    }
-
     public DropQuery(Builder builder) {
 
         this.table = builder.table;
