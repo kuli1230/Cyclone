@@ -24,6 +24,8 @@ import de.jackwhite20.cyclone.db.serialization.annotation.Table;
 
 /**
  * Created by JackWhite20 on 12.10.2015.
+ *
+ * Represents a template class to use with the serialization manager.
  */
 @Table(name = "test", options = { Table.Option.CREATE_IF_NOT_EXISTS })
 public class TestTable {
@@ -44,6 +46,13 @@ public class TestTable {
 
     }
 
+    /**
+     * Constructor to fill the fields.
+     *
+     * @param id an id.
+     * @param name a name.
+     * @param uuid an uuid as string.
+     */
     public TestTable(int id, String name, String uuid) {
 
         this.id = id;

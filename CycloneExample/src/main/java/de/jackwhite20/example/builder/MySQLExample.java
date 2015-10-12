@@ -30,14 +30,20 @@ import java.util.UUID;
 
 /**
  * Created by JackWhite20 on 11.10.2015.
+ *
+ * Represents an example usage for MySQL and Cyclones builder system.
  */
 public class MySQLExample implements Example {
 
+    /**
+     * The Cyclone instance.
+     */
     private Cyclone cyclone;
 
     @Override
     public void setup(String host, int port, String user, String password) {
 
+        // The default Cyclone database type is MYSQL so you don't need to set it especially
         cyclone = new Cyclone(new CycloneSettings.Builder()
                 .host(host)
                 .port(port)

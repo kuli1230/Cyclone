@@ -32,15 +32,26 @@ import java.util.List;
 
 /**
  * Created by JackWhite20 on 12.10.2015.
+ *
+ * Represents an example usage for SQLite and Cyclones builder system.
  */
 public class SQLiteExample implements Example {
 
+    /**
+     * The Cyclone instance.
+     */
     private Cyclone cyclone;
 
     @Override
     public void setup(String host, int port, String user, String password) {
 
-        cyclone = new Cyclone(new CycloneSettings.Builder().database("data/test.db").type(Type.SQ_LITE).build());
+        // Important when you want to use SQLite is that you need to specify the type
+        // The other thing to remember is tha the database name is now the path to the .db file
+        cyclone = new Cyclone(new CycloneSettings.Builder()
+                .database("data/test.db")
+                .type(Type.SQ_LITE)
+                .build());
+
         cyclone.connect();
     }
 
@@ -76,8 +87,8 @@ public class SQLiteExample implements Example {
         DBResult result = lite.query(new SelectQuery.Builder().from("test").select("*").build());
         System.out.println("Selecting..");
 
-        List<DBRow> row = result.rows();
-        for (DBRow dbRow : row) {
+        List<DBRow> rows = result.rows();
+        for (DBRow dbRow : rows) {
             System.out.println(dbRow.get("id") + ":" + dbRow.get("name"));
         }
     }

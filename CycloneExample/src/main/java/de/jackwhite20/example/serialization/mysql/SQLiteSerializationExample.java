@@ -20,21 +20,23 @@
 package de.jackwhite20.example.serialization.mysql;
 
 import de.jackwhite20.cyclone.Cyclone;
+import de.jackwhite20.cyclone.db.Type;
 import de.jackwhite20.cyclone.db.serialization.Condition;
 import de.jackwhite20.cyclone.db.serialization.SerializationManager;
 import de.jackwhite20.cyclone.db.settings.CycloneSettings;
 import de.jackwhite20.example.Example;
 import de.jackwhite20.example.serialization.TestTable;
 
+import java.io.File;
 import java.util.List;
 import java.util.UUID;
 
 /**
  * Created by JackWhite20 on 12.10.2015.
  *
- * Represents an example usage for MySQL and Cyclones serialization system.
+ * Represents an example usage for SQLite and Cyclones serialization system.
  */
-public class MySQLSerializationExample implements Example {
+public class SQLiteSerializationExample implements Example {
 
     /**
      * The Cyclone instance.
@@ -50,14 +52,12 @@ public class MySQLSerializationExample implements Example {
     public void setup(String host, int port, String user, String password) {
 
         // How to initialize Cyclone
+        // Notice that we need to set SQLite as the type
         cyclone = new Cyclone(new CycloneSettings.Builder()
-                .host(host)
-                .port(port)
-                .user(user)
-                .password(password)
-                .database("test")
+                .database("data/test.db")
                 .poolSize(10)
                 .poolName("Cyclone-Test")
+                .type(Type.SQ_LITE)
                 .build());
 
         // Connects the Cyclone instance
@@ -123,6 +123,9 @@ public class MySQLSerializationExample implements Example {
 
         // Closes the connection pool and the async dispatcher
         cyclone.close();
+
+        new File("data/test.db").delete();
+        new File("data").delete();
     }
 
     private void selectAll(SerializationManager serializationManager) {
