@@ -6,7 +6,7 @@ You don't have to write the complete SQL-Query string down anymore. You can inst
 Another big feature is the serialization system. You can create classes, add some annotations and then you can easy for example execute the create method like this: cyclone.serializationManager().create(SomeClass.class);
 The table is automatically created in your database.
 
-With the simple async API from Cyclone you can query your database or anything else async.
+With the simple async API from Cyclone you can query your database or anything else async without blocking your main thread.
 
 You can now also get the row SQL query from all builders with the sql() method after you have called build() with a query.
 
@@ -30,6 +30,8 @@ The directories to the '.db' file are created from Cyclone automatically.
 
 ## Examples
 
+If you want to use the java doc you can browse it [here](http://jackwhite20.github.io/Cyclone/).
+
 **Query builder**
 
 - [MySQL](https://github.com/JackWhite20/Cyclone/blob/master/CycloneExample/src/main/java/de/jackwhite20/example/builder/MySQLExample.java)
@@ -38,7 +40,7 @@ The directories to the '.db' file are created from Cyclone automatically.
 **Serialization**
 
 - [MySQL](https://github.com/JackWhite20/Cyclone/blob/master/CycloneExample/src/main/java/de/jackwhite20/example/serialization/mysql/MySQLSerializationExample.java)
-- SQLite
+- [SQLite](https://github.com/JackWhite20/Cyclone/blob/master/CycloneExample/src/main/java/de/jackwhite20/example/serialization/mysql/SQLiteSerializationExample.java)
 - [Example template class](https://github.com/JackWhite20/Cyclone/blob/master/CycloneExample/src/main/java/de/jackwhite20/example/serialization/TestTable.java)
 
 ## License
