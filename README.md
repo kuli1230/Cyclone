@@ -8,10 +8,10 @@ The table is automatically created in your database.
 
 With the simple async API from Cyclone you can query your database or anything else async without blocking your main thread.
 
-You can now also get the row SQL query from all builders with the sql() method after you have called build() with a query.
+You can now also get the row SQL query from all builders with the sql() method after you have called build() with a query builder.
 
-## Cyclone now has full SQLite support!
-The only thing that is different to MySQL is that you have to use the 'database' method in the settings builder as a path to a '.db' file and set the type to 'Type.SQLITE'.
+## Cyclone has full SQLite support!
+The only thing that is different to MySQL is that you have to use the 'database' method in the settings builder as a path to a '.db' file and set the type to 'Type.SQ_LITE' with the settings builder.
 The directories to the '.db' file are created from Cyclone automatically.
 
 ## Installation
