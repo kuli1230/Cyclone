@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Cyclone.iml" filepath="$PROJECT_DIR$/Cyclone.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CycloneCore/CycloneCore.iml" filepath="$PROJECT_DIR$/CycloneCore/CycloneCore.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CycloneExample/CycloneExample.iml" filepath="$PROJECT_DIR$/CycloneExample/CycloneExample.iml" />
+    </modules>
+  </component>
+</project>
