@@ -7,6 +7,7 @@ Another big feature is the serialization system. You can create classes, add som
 The table is automatically created in your database.
 
 With the simple async API from Cyclone you can query your database or anything else async without blocking your main thread.
+But you can also submit an async operation and wait with the Future to end.
 
 You can now also get the row SQL query from all builders with the sql() method after you have called build() with a query builder.
 
