@@ -41,7 +41,7 @@ If you want to use the java doc you can browse it [here](http://jackwhite20.gith
 **Serialization**
 
 - [MySQL](https://github.com/JackWhite20/Cyclone/blob/master/CycloneExample/src/main/java/de/jackwhite20/example/serialization/mysql/MySQLSerializationExample.java)
-- [SQLite](https://github.com/JackWhite20/Cyclone/blob/master/CycloneExample/src/main/java/de/jackwhite20/example/serialization/mysql/SQLiteSerializationExample.java)
+- [SQLite](https://github.com/JackWhite20/Cyclone/blob/master/CycloneExample/src/main/java/de/jackwhite20/example/serialization/sql/SQLiteSerializationExample.java)
 - [Example template class](https://github.com/JackWhite20/Cyclone/blob/master/CycloneExample/src/main/java/de/jackwhite20/example/serialization/TestTable.java)
 
 ## License
