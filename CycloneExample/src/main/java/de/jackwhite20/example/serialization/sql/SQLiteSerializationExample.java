@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.jackwhite20.example.serialization.mysql;
+package de.jackwhite20.example.serialization.sql;
 
 import de.jackwhite20.cyclone.Cyclone;
 import de.jackwhite20.cyclone.db.Type;

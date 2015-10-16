@@ -22,7 +22,7 @@ package de.jackwhite20.example;
 import de.jackwhite20.example.builder.MySQLExample;
 import de.jackwhite20.example.builder.SQLiteExample;
 import de.jackwhite20.example.serialization.mysql.MySQLSerializationExample;
-import de.jackwhite20.example.serialization.mysql.SQLiteSerializationExample;
+import de.jackwhite20.example.serialization.sql.SQLiteSerializationExample;
 
 import java.util.ArrayList;
 import java.util.List;
