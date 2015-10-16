@@ -49,7 +49,7 @@ public class SQLiteExample implements Example {
         // The other thing to remember is tha the database name is now the path to the .db file
         cyclone = new Cyclone(new CycloneSettings.Builder()
                 .database("data/test.db")
-                .type(Type.SQ_LITE)
+                .type(Type.SQLITE)
                 .build());
 
         cyclone.connect();

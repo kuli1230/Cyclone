@@ -102,7 +102,7 @@ public class SerializationManager {
                     if (option == Column.Option.PRIMARY_KEY)
                         continue;
 
-                    if(cyclone.type() == Type.SQ_LITE && option == Column.Option.AUTO_INCREMENT)
+                    if(cyclone.type() == Type.SQLITE && option == Column.Option.AUTO_INCREMENT)
                         continue;
 
                     rowOptionStrings.add(option.sql());
@@ -279,7 +279,7 @@ public class SerializationManager {
                     Column column = field.getAnnotation(Column.class);
                     String name = column.name().equals("") ? field.getName() : column.name();
 
-                    if(cyclone.type() == Type.SQ_LITE && Column.Option.AUTO_INCREMENT.isOption(column.options()))
+                    if(cyclone.type() == Type.SQLITE && Column.Option.AUTO_INCREMENT.isOption(column.options()))
                         continue;
 
                     builder.column(name);

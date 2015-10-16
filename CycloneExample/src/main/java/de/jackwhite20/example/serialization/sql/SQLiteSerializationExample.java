@@ -57,7 +57,7 @@ public class SQLiteSerializationExample implements Example {
                 .database("data/test.db")
                 .poolSize(10)
                 .poolName("Cyclone-Test")
-                .type(Type.SQ_LITE)
+                .type(Type.SQLITE)
                 .build());
 
         // Connects the Cyclone instance

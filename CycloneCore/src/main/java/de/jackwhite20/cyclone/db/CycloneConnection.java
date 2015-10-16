@@ -52,7 +52,7 @@ public class CycloneConnection {
         config.setDriverClassName(type.getDriver());
         if(type == Type.MYSQL) {
             config.setJdbcUrl("jdbc:mysql://" + settings.host() + ":" + settings.port() + "/" + settings.database());
-        } else if(type == Type.SQ_LITE) {
+        } else if(type == Type.SQLITE) {
             config.setJdbcUrl("jdbc:sqlite:" + settings.database());
             // Is fixing an error for sqllite
             config.setConnectionTestQuery("/* ping */");

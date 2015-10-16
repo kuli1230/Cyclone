@@ -34,7 +34,7 @@ public class SQLiteTest {
 
     public static void main(String[] args) {
 
-        Cyclone cyclone = new Cyclone(new CycloneSettings.Builder().database("data/test.db").type(Type.SQ_LITE).build());
+        Cyclone cyclone = new Cyclone(new CycloneSettings.Builder().database("data/test.db").type(Type.SQLITE).build());
         cyclone.connect();
 
         cyclone.execute(new CreateQuery.Builder().create("test").value("id", "INTEGER").value("name", "STRING").primaryKey("id").build());
