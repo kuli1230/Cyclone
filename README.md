@@ -15,7 +15,9 @@ You can now also get the row SQL query from all builders with the sql() method a
 The only thing that is different to MySQL is that you have to use the 'database' method in the settings builder as a path to a '.db' file and set the type to 'Type.SQLITE' with the settings builder.
 The directories to the '.db' file are created from Cyclone automatically.
 
-## Installation
+## Cyclone is ready to use and tested
+
+**Installation**
 - Install [Maven 3](http://maven.apache.org/download.cgi)
 - Clone/Download this repo
 - Install it with: ```mvn clean install```
