@@ -22,7 +22,7 @@ package de.jackwhite20.cyclone.builder.select;
 import de.jackwhite20.cyclone.query.core.SelectQuery;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by JackWhite20 on 13.08.2015.

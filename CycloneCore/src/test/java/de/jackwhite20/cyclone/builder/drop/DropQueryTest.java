@@ -17,40 +17,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.jackwhite20.cyclone.builder.delete;
+package de.jackwhite20.cyclone.builder.drop;
 
-import de.jackwhite20.cyclone.query.core.DeleteQuery;
+import de.jackwhite20.cyclone.query.core.DropQuery;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
- * Created by JackWhite20 on 28.09.2015.
+ * Created by JackWhite20 on 13.08.2015.
  */
-public class DeleteQueryTest {
+public class DropQueryTest {
 
     @Test
-    public void testDeleteQuery() {
+    public void testDropQuery() {
 
-        String expected = "DELETE FROM test WHERE id=?;";
-        String actual = new DeleteQuery.Builder()
-                .from("test")
-                .where("id", "1")
-                .build()
-                .sql();
-
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    public void testDeleteQueryOperator() {
-
-        String expected = "DELETE FROM test WHERE id>=?;";
-        String actual = new DeleteQuery.Builder()
-                .from("test")
-                .where("id", ">=", "1")
-                .build()
-                .sql();
+        String expected = "DROP TABLE test;";
+        String actual = new DropQuery.Builder()
+                .drop("test")
+                .build().sql();
 
         assertEquals(expected, actual);
     }
