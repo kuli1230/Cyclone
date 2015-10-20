@@ -22,6 +22,7 @@ package de.jackwhite20.example.builder;
 import de.jackwhite20.cyclone.Cyclone;
 import de.jackwhite20.cyclone.db.DBResult;
 import de.jackwhite20.cyclone.db.DBRow;
+import de.jackwhite20.cyclone.db.serialization.Condition;
 import de.jackwhite20.cyclone.db.settings.CycloneSettings;
 import de.jackwhite20.cyclone.query.core.*;
 import de.jackwhite20.example.Example;
@@ -85,7 +86,7 @@ public class MySQLExample implements Example {
                 .update("test")
                 .set("name", "Jacky")
                 .set("uuid", "0000")
-                .where("id", "1")
+                .where(new Condition("id", Condition.Operator.EQUAL, "1"))
                 .build());
 
         selectAll(cyclone);
@@ -93,7 +94,7 @@ public class MySQLExample implements Example {
         System.out.println("Deleting...");
 
         // Sync
-        cyclone.execute(new DeleteQuery.Builder().from("test").where("id", "1").build());
+        cyclone.execute(new DeleteQuery.Builder().from("test").where(new Condition("id", Condition.Operator.EQUAL, "1")).build());
 
         // Async
         //cyclone.dispatch(() -> cyclone.execute(new DeleteQuery.Builder().from("test").where("id", "1").build()));

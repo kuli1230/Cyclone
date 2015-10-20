@@ -153,7 +153,7 @@ public class SerializationManager {
             builder.limit(limit);
 
         for (Condition condition : conditions) {
-            builder.where(condition.column(), condition.operator().sql(), condition.value());
+            builder.where(condition);
         }
 
         if(order != null)
@@ -316,7 +316,7 @@ public class SerializationManager {
         builder.from(table.name());
 
         for (Condition condition : conditions) {
-            builder.where(condition.column(), condition.operator().sql(), condition.value());
+            builder.where(condition);
         }
 
         return cyclone.execute(builder.build());
@@ -387,11 +387,11 @@ public class SerializationManager {
 
         if(conditions.length == 0) {
             for (Map.Entry<String, String> entry : primaryKeys.entrySet()) {
-                builder.where(entry.getKey(), entry.getValue());
+                builder.where(new Condition(entry.getKey(), Condition.Operator.EQUAL, entry.getValue()));
             }
         }else {
             for (Condition condition : conditions) {
-                builder.where(condition.column(), condition.operator().sql(), condition.value());
+                builder.where(condition);
             }
         }
 

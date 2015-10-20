@@ -23,6 +23,7 @@ import de.jackwhite20.cyclone.Cyclone;
 import de.jackwhite20.cyclone.db.DBResult;
 import de.jackwhite20.cyclone.db.DBRow;
 import de.jackwhite20.cyclone.db.Type;
+import de.jackwhite20.cyclone.db.serialization.Condition;
 import de.jackwhite20.cyclone.db.settings.CycloneSettings;
 import de.jackwhite20.cyclone.query.core.*;
 import de.jackwhite20.example.Example;
@@ -69,7 +70,7 @@ public class SQLiteExample implements Example {
         select(cyclone);
 
         System.out.println("Deleting data..");
-        cyclone.execute(new DeleteQuery.Builder().from("test").where("id", ">", "4").build());
+        cyclone.execute(new DeleteQuery.Builder().from("test").where(new Condition("id", Condition.Operator.GREATER, "4")).build());
 
         select(cyclone);
 

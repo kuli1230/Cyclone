@@ -19,6 +19,7 @@
 
 package de.jackwhite20.cyclone.builder.delete;
 
+import de.jackwhite20.cyclone.db.serialization.Condition;
 import de.jackwhite20.cyclone.query.core.DeleteQuery;
 import org.junit.Test;
 
@@ -35,7 +36,7 @@ public class DeleteQueryTest {
         String expected = "DELETE FROM test WHERE id=?;";
         String actual = new DeleteQuery.Builder()
                 .from("test")
-                .where("id", "1")
+                .where(new Condition("id", Condition.Operator.EQUAL, "1"))
                 .build()
                 .sql();
 
@@ -48,7 +49,7 @@ public class DeleteQueryTest {
         String expected = "DELETE FROM test WHERE id>=?;";
         String actual = new DeleteQuery.Builder()
                 .from("test")
-                .where("id", ">=", "1")
+                .where(new Condition("id", Condition.Operator.GREATER_EQUAL, "1"))
                 .build()
                 .sql();
 

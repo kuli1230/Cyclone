@@ -19,6 +19,7 @@
 
 package de.jackwhite20.cyclone.builder.select;
 
+import de.jackwhite20.cyclone.db.serialization.Condition;
 import de.jackwhite20.cyclone.query.core.SelectQuery;
 import org.junit.Test;
 
@@ -73,7 +74,7 @@ public class SelectQueryTest {
         String actual = new SelectQuery.Builder()
                 .select("name")
                 .from("test")
-                .where("id", ">=", "1")
+                .where(new Condition("id", Condition.Operator.GREATER_EQUAL, "1"))
                 .build().sql();
 
         assertEquals(expected, actual);

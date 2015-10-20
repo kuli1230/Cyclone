@@ -17,15 +17,11 @@ package de.jackwhite20.cyclone;/*
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import de.jackwhite20.cyclone.query.core.CreateQuery;
-import de.jackwhite20.cyclone.query.core.DeleteQuery;
-import de.jackwhite20.cyclone.query.core.DropQuery;
-import de.jackwhite20.cyclone.query.core.InsertQuery;
-import de.jackwhite20.cyclone.query.core.SelectQuery;
-import de.jackwhite20.cyclone.query.core.UpdateQuery;
 import de.jackwhite20.cyclone.db.DBResult;
 import de.jackwhite20.cyclone.db.DBRow;
+import de.jackwhite20.cyclone.db.serialization.Condition;
 import de.jackwhite20.cyclone.db.settings.CycloneSettings;
+import de.jackwhite20.cyclone.query.core.*;
 
 /**
  * Created by JackWhite20 on 11.08.2015.
@@ -71,14 +67,14 @@ public class ConnectionTest {
                 .update("test")
                 .set("name", "Jacky")
                 .set("uuid", "0000")
-                .where("id", "1")
+                .where(new Condition("id", Condition.Operator.EQUAL, "1"))
                 .build());
 
         selectAll(cyclone);
 
         System.out.println("Deleting...");
 
-        cyclone.execute(new DeleteQuery.Builder().from("test").where("id", "1").build());
+        cyclone.execute(new DeleteQuery.Builder().from("test").where(new Condition("id", Condition.Operator.EQUAL, "1")).build());
 
         selectAll(cyclone);
 

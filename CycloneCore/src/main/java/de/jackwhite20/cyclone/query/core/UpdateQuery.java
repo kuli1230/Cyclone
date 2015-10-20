@@ -19,6 +19,7 @@
 
 package de.jackwhite20.cyclone.query.core;
 
+import de.jackwhite20.cyclone.db.serialization.Condition;
 import de.jackwhite20.cyclone.query.Query;
 
 import java.sql.Connection;
@@ -146,31 +147,17 @@ public class UpdateQuery implements Query {
         }
 
         /**
-         * Adds an where operation with the where column, the value and an operator.
+         * Adds a where statement with the given condition.
          *
-         * @param where the where column name.
-         * @param operator the operator.
-         * @param value the value.
+         * @param condition the condition.
          * @return the builder.
          */
-        public Builder where(String where, String operator, String value) {
+        public Builder where(Condition condition) {
 
-            this.wheres.put(where, value);
-            this.whereOperators.add(operator);
+            this.wheres.put(condition.column(), condition.value());
+            this.whereOperators.add(condition.operator().sql());
 
             return this;
-        }
-
-        /**
-         * Adds an where operation with the where column and the value with '=' as operator.
-         *
-         * @param where the where column name.
-         * @param value the value.
-         * @return the builder.
-         */
-        public Builder where(String where, String value) {
-
-            return where(where, "=", value);
         }
 
         /**

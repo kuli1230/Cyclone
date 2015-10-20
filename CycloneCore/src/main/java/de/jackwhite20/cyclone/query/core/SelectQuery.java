@@ -19,6 +19,7 @@
 
 package de.jackwhite20.cyclone.query.core;
 
+import de.jackwhite20.cyclone.db.serialization.Condition;
 import de.jackwhite20.cyclone.query.Query;
 
 import java.sql.Connection;
@@ -153,31 +154,17 @@ public class SelectQuery implements Query {
         }
 
         /**
-         * Adds a where statement with the given column name, operator and value.
+         * Adds a where statement with the given condition.
          *
-         * @param whereColumn the column name.
-         * @param operator the operator.
-         * @param value the value.
+         * @param condition the condition.
          * @return the builder.
          */
-        public Builder where(String whereColumn, String operator, String value) {
+        public Builder where(Condition condition) {
 
-            this.wheres.put(whereColumn, value);
-            this.operators.add(operator);
+            this.wheres.put(condition.column(), condition.value());
+            this.operators.add(condition.operator().sql());
 
             return this;
-        }
-
-        /**
-         * Adds a where statement with the given column name, value and '=' as operator.
-         *
-         * @param whereColumn the column name.
-         * @param value the value.
-         * @return the builder.
-         */
-        public Builder where(String whereColumn, String value) {
-
-            return where(whereColumn, "=", value);
         }
 
         /**

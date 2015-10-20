@@ -22,6 +22,7 @@ package de.jackwhite20.cyclone;
 import de.jackwhite20.cyclone.db.DBResult;
 import de.jackwhite20.cyclone.db.DBRow;
 import de.jackwhite20.cyclone.db.Type;
+import de.jackwhite20.cyclone.db.serialization.Condition;
 import de.jackwhite20.cyclone.db.settings.CycloneSettings;
 import de.jackwhite20.cyclone.query.core.*;
 
@@ -45,7 +46,7 @@ public class SQLiteTest {
 
         select(cyclone);
 
-        cyclone.execute(new DeleteQuery.Builder().from("test").where("id", ">", "4").build());
+        cyclone.execute(new DeleteQuery.Builder().from("test").where(new Condition("id", Condition.Operator.GREATER, "4")).build());
 
         select(cyclone);
 

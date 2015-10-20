@@ -19,6 +19,7 @@
 
 package de.jackwhite20.cyclone.builder.update;
 
+import de.jackwhite20.cyclone.db.serialization.Condition;
 import de.jackwhite20.cyclone.query.core.UpdateQuery;
 import org.junit.Test;
 
@@ -36,7 +37,7 @@ public class UpdateQueryTest {
         String actual = new UpdateQuery.Builder()
                 .update("test")
                 .set("name", "Jacky")
-                .where("id", "1")
+                .where(new Condition("id", Condition.Operator.EQUAL, "1"))
                 .build().sql();
 
         assertEquals(expected, actual);
@@ -50,7 +51,7 @@ public class UpdateQueryTest {
                 .update("test")
                 .set("name", "Jacky")
                 .set("uuid", "0000")
-                .where("id", "1")
+                .where(new Condition("id", Condition.Operator.EQUAL, "1"))
                 .build().sql();
 
         assertEquals(expected, actual);
@@ -63,7 +64,7 @@ public class UpdateQueryTest {
         String actual = new UpdateQuery.Builder()
                 .update("test")
                 .set("name", "Jacky")
-                .where("id", "<=", "1")
+                .where(new Condition("id", Condition.Operator.LESS_EQUAL, "1"))
                 .build().sql();
 
         assertEquals(expected, actual);
