@@ -20,6 +20,7 @@
 package de.jackwhite20.cyclone.query.core;
 
 import de.jackwhite20.cyclone.db.serialization.Condition;
+import de.jackwhite20.cyclone.db.serialization.Order;
 import de.jackwhite20.cyclone.query.Query;
 
 import java.sql.Connection;
@@ -168,15 +169,22 @@ public class SelectQuery implements Query {
         }
 
         /**
-         * The order statement.
-         * For example 'id ASC'.
+         * Adds the order statements.
          *
-         * @param orderBy the order by string.
+         * @param orders the orders.
          * @return the builder.
          */
-        public Builder orderBy(String orderBy) {
+        public Builder orderBy(Order... orders) {
 
-            this.orderBy = orderBy;
+            orderBy = "";
+            for (int i = 0; i < orders.length; i++) {
+                Order order = orders[i];
+
+                if(i < orders.length - 1)
+                    this.orderBy += order.column() + " " + order.type().toString() + ",";
+                else
+                    this.orderBy += order.column() + " " + order.type().toString();
+            }
 
             return this;
         }

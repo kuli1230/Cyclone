@@ -157,7 +157,7 @@ public class SerializationManager {
         }
 
         if(order != null)
-            builder.orderBy(order.column() + " " + order.type());
+            builder.orderBy(order);
 
         DBResult result = cyclone.query(builder.build());
 

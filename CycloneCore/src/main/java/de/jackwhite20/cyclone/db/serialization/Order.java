@@ -30,6 +30,12 @@ public class Order {
 
     private final Type type;
 
+    /**
+     * Creates a new order with the given column and type.
+     *
+     * @param column the column name.
+     * @param type the type of the order.
+     */
     public Order(String column, Type type) {
 
         this.column = column;
