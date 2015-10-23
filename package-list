@@ -7,3 +7,8 @@ de.jackwhite20.cyclone.db.serialization.exception
 de.jackwhite20.cyclone.db.settings
 de.jackwhite20.cyclone.query
 de.jackwhite20.cyclone.query.core
+de.jackwhite20.example
+de.jackwhite20.example.builder
+de.jackwhite20.example.serialization
+de.jackwhite20.example.serialization.mysql
+de.jackwhite20.example.serialization.sql
