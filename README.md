@@ -30,6 +30,17 @@ The directories to the '.db' file are created from Cyclone automatically.
 </dependency>
 ```
 
+## Features
+
+- connection pool
+- query builder system
+- raw sql queries
+- serialization system (with annotations)
+- simple API
+- lightweight
+- async API
+- easy query result managing
+
 ## Examples
 
 If you want to use the java doc you can browse it [here](http://jackwhite20.github.io/Cyclone/).
