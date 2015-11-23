@@ -19,7 +19,7 @@
 
 package de.jackwhite20.cyclone.db;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 /**
  * Created by JackWhite20 on 23.08.2015.
@@ -31,7 +31,7 @@ public class DBRow {
     /**
      * All values from the row in key-value format.
      */
-    private HashMap<String, Object> values = new HashMap<>();
+    private LinkedHashMap<String, Object> values = new LinkedHashMap<>();
 
     /**
      * Adds a key and the corresponding value to the hashmap.
@@ -50,20 +50,45 @@ public class DBRow {
      * @param key the key.
      * @return the value from the key.
      */
+    @SuppressWarnings("unchecked")
     public <T> T get(String key) {
 
         return (T) values.get(key);
     }
 
     /**
+     * Gets the value from the given index.
+     * The index is in the same order as selected.
+     *
+     * @param index the index.
+     * @return the value from the index.
+     */
+    @SuppressWarnings("unchecked")
+    public <T> T get(int index) {
+
+        return (T) values.values().toArray()[index];
+    }
+
+    /**
      * Gets an Object with the given key.
      *
      * @param key the key.
-     * @return the Object.
+     * @return the Object from the key.
      */
     public Object getObject(String key) {
 
         return values.get(key);
+    }
+
+    /**
+     * Gets an Object with the given key.
+     *
+     * @param index the index.
+     * @return the Object from the index.
+     */
+    public Object getObject(int index) {
+
+        return values.values().toArray()[index];
     }
 
     /**

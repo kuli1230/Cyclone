@@ -47,9 +47,8 @@ public class DBResult {
      */
     public DBResult(ResultSet resultSet, PreparedStatement preparedStatement) {
 
-        ResultSetMetaData resultSetMetaData = null;
         try {
-            resultSetMetaData = resultSet.getMetaData();
+            ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
             int columnCount = resultSetMetaData.getColumnCount();
 
             List<String> columns = new ArrayList<>(columnCount);
@@ -91,5 +90,16 @@ public class DBResult {
     public List<DBRow> rows() {
 
         return Collections.unmodifiableList(rows);
+    }
+
+    /**
+     * Gets a row from the given index.
+     *
+     * @param index the index.
+     * @return the DBRow instance.
+     */
+    public DBRow row(int index) {
+
+        return rows.get(index);
     }
 }
