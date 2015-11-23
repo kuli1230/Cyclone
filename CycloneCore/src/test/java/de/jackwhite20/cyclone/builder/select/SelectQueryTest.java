@@ -19,6 +19,7 @@
 
 package de.jackwhite20.cyclone.builder.select;
 
+import de.jackwhite20.cyclone.db.Join;
 import de.jackwhite20.cyclone.db.serialization.Condition;
 import de.jackwhite20.cyclone.query.core.SelectQuery;
 import org.junit.Test;
@@ -75,6 +76,19 @@ public class SelectQueryTest {
                 .select("name")
                 .from("test")
                 .where(new Condition("id", Condition.Operator.GREATER_EQUAL, "1"))
+                .build().sql();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testSelectQueryJoin() {
+
+        String expected = "SELECT test.id, test_data.color FROM test JOIN test_data ON test_data.id=test.id;";
+        String actual = new SelectQuery.Builder()
+                .select("test.id, test_data.color")
+                .join(new Join("test_data", "test_data.id", "test.id"))
+                .from("test")
                 .build().sql();
 
         assertEquals(expected, actual);
