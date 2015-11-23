@@ -19,6 +19,7 @@
 
 package de.jackwhite20.cyclone.query.core;
 
+import de.jackwhite20.cyclone.db.Join;
 import de.jackwhite20.cyclone.db.serialization.Condition;
 import de.jackwhite20.cyclone.db.serialization.Order;
 import de.jackwhite20.cyclone.query.Query;
@@ -27,6 +28,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -41,6 +43,8 @@ public class SelectQuery implements Query {
 
     private String table;
 
+    private List<Join> joins = new ArrayList<>();
+
     private LinkedHashMap<String, String> wheres = new LinkedHashMap<>();
 
     private List<String> operators = new ArrayList<>();
@@ -54,6 +58,7 @@ public class SelectQuery implements Query {
         this.selects = builder.selects;
         this.table = builder.table;
         this.wheres = builder.wheres;
+        this.joins = builder.joins;
         this.operators = builder.operators;
         this.orderBy = builder.orderBy;
         this.limit = builder.limit;
@@ -71,6 +76,16 @@ public class SelectQuery implements Query {
                 sb.append(selects.get(i));
         }
         sb.append(" FROM ").append(table);
+
+        if(joins.size() > 0) {
+            for (int i = 0; i < joins.size(); i++) {
+                Join join = joins.get(i);
+                if(i < joins.size() - 1)
+                    sb.append(" JOIN ").append(join.joinTable()).append(" ON ").append(join.onColumn()).append("=").append(join.onValue()).append(",");
+                else
+                    sb.append(" JOIN ").append(join.joinTable()).append(" ON ").append(join.onColumn()).append("=").append(join.onValue());
+            }
+        }
 
         //TODO: Improve
         if(wheres.size() > 0) {
@@ -120,6 +135,8 @@ public class SelectQuery implements Query {
 
         private String table;
 
+        private List<Join> joins = new ArrayList<>();
+
         private LinkedHashMap<String, String> wheres = new LinkedHashMap<>();
 
         private List<String> operators = new ArrayList<>();
@@ -150,6 +167,13 @@ public class SelectQuery implements Query {
         public Builder from(String table) {
 
             this.table = table;
+
+            return this;
+        }
+
+        public Builder join(Join... join) {
+
+            this.joins.addAll(Arrays.asList(join));
 
             return this;
         }
