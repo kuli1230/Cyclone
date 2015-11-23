@@ -19,6 +19,7 @@
 
 package de.jackwhite20.cyclone.builder.select;
 
+import de.jackwhite20.cyclone.db.Function;
 import de.jackwhite20.cyclone.db.Join;
 import de.jackwhite20.cyclone.db.serialization.Condition;
 import de.jackwhite20.cyclone.query.core.SelectQuery;
@@ -90,6 +91,18 @@ public class SelectQueryTest {
                 .join(new Join("test_data", "test_data.id", "test.id"))
                 .from("test")
                 .build().sql();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testSelectQueryFunction() {
+
+        String expected = "SELECT test.id, test_data.color, MIN(test.id) AS average FROM test;";
+        String actual = new SelectQuery.Builder()
+                .select("test.id, test_data.color")
+                .function(new Function(Function.Type.MIN, "test.id", "average"))
+                .from("test").build().sql();
 
         assertEquals(expected, actual);
     }

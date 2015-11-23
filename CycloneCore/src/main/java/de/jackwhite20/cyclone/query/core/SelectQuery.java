@@ -19,6 +19,7 @@
 
 package de.jackwhite20.cyclone.query.core;
 
+import de.jackwhite20.cyclone.db.Function;
 import de.jackwhite20.cyclone.db.Join;
 import de.jackwhite20.cyclone.db.serialization.Condition;
 import de.jackwhite20.cyclone.db.serialization.Order;
@@ -39,7 +40,9 @@ import java.util.List;
  */
 public class SelectQuery implements Query {
 
-    private List<String> selects;
+    private List<String> selects = new ArrayList<>();
+
+    private List<Function> functions = new ArrayList<>();
 
     private String table;
 
@@ -56,6 +59,7 @@ public class SelectQuery implements Query {
     public SelectQuery(Builder builder) {
 
         this.selects = builder.selects;
+        this.functions = builder.functions;
         this.table = builder.table;
         this.wheres = builder.wheres;
         this.joins = builder.joins;
@@ -75,6 +79,18 @@ public class SelectQuery implements Query {
             else
                 sb.append(selects.get(i));
         }
+
+        if(functions.size() > 0) {
+            sb.append(", ");
+            for (int i = 0; i < functions.size(); i++) {
+                Function function = functions.get(i);
+                if (i < functions.size() - 1)
+                    sb.append(function.type().sql()).append("(").append(function.column()).append(")").append((function.as() != null) ? " AS " + function.as() : "").append(",");
+                else
+                    sb.append(function.type().sql()).append("(").append(function.column()).append(")").append((function.as() != null) ? " AS " + function.as() : "");
+            }
+        }
+
         sb.append(" FROM ").append(table);
 
         if(joins.size() > 0) {
@@ -133,6 +149,8 @@ public class SelectQuery implements Query {
 
         private List<String> selects = new ArrayList<>();
 
+        private List<Function> functions = new ArrayList<>();
+
         private String table;
 
         private List<Join> joins = new ArrayList<>();
@@ -159,6 +177,19 @@ public class SelectQuery implements Query {
         }
 
         /**
+         * Adds the functions to the query.
+         *
+         * @param function the functions.
+         * @return the builder.
+         */
+        public Builder function(Function... function) {
+
+            this.functions.addAll(Arrays.asList(function));
+
+            return this;
+        }
+
+        /**
          * Sets the table from which the query will select.
          *
          * @param table the table name.
@@ -171,9 +202,15 @@ public class SelectQuery implements Query {
             return this;
         }
 
-        public Builder join(Join... join) {
+        /**
+         * Adds the joins to the query.
+         *
+         * @param joins the joins.
+         * @return the builder.
+         */
+        public Builder join(Join... joins) {
 
-            this.joins.addAll(Arrays.asList(join));
+            this.joins.addAll(Arrays.asList(joins));
 
             return this;
         }
