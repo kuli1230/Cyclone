@@ -22,6 +22,7 @@ package de.jackwhite20.example.builder;
 import de.jackwhite20.cyclone.Cyclone;
 import de.jackwhite20.cyclone.db.DBResult;
 import de.jackwhite20.cyclone.db.DBRow;
+import de.jackwhite20.cyclone.db.Function;
 import de.jackwhite20.cyclone.db.serialization.Condition;
 import de.jackwhite20.cyclone.db.settings.CycloneSettings;
 import de.jackwhite20.cyclone.query.core.*;
@@ -97,7 +98,14 @@ public class MySQLExample implements Example {
         cyclone.execute(new DeleteQuery.Builder().from("test").where(new Condition("id", Condition.Operator.EQUAL, "1")).build());
 
         // Async
-        //cyclone.dispatch(() -> cyclone.execute(new DeleteQuery.Builder().from("test").where("id", "1").build()));
+        //cyclone.dispatch(() -> cyclone.execute(new DeleteQuery.Builder().from("test").where(new Condition("id", Condition.Operator.EQUAL, "1")).build()));
+
+        // Function example
+        DBResult result = cyclone.query(new SelectQuery.Builder().select("*").from("test").function(new Function(Function.Type.AVG, "id", "average")).build());
+        System.out.println("Average from 'id': " + result.row(0).get("average"));
+
+        // SQL JOIN usage example
+        //cyclone.query(new SelectQuery.Builder().select("*").from("test").join(new Join("test_other", "test_other.id", "test.id")).build());
 
         selectAll(cyclone);
 
