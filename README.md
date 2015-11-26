@@ -36,6 +36,7 @@ The directories to the '.db' file are created from Cyclone automatically.
 - query builder system
 - raw sql queries
 - aggregate functions
+- joins
 - serialization system (with annotations)
 - simple API
 - lightweight
