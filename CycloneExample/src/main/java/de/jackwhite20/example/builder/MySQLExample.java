@@ -56,6 +56,7 @@ public class MySQLExample implements Example {
                 .poolName("Cyclone-Test")
                 .build());
 
+        // Connect to the Database
         cyclone.connect();
 
         System.out.println("Connected!");
@@ -64,6 +65,7 @@ public class MySQLExample implements Example {
     @Override
     public void execute() {
 
+        // Create a new table 'test' with 'id', 'name' and 'uuid'
         cyclone.execute(new CreateQuery.Builder()
                 .create("test")
                 .primaryKey("id")
@@ -72,6 +74,7 @@ public class MySQLExample implements Example {
                 .value("uuid", "varchar(255)")
                 .build());
 
+        // Insert some data
         for (int i = 0; i < 2; i++) {
             cyclone.execute(new InsertQuery.Builder()
                     .into("test")
@@ -83,6 +86,7 @@ public class MySQLExample implements Example {
 
         System.out.println("Changing...");
 
+        // Update table 'test' and set an new 'name' and 'uuid' where the 'id' is '1'
         cyclone.execute(new UpdateQuery.Builder()
                 .update("test")
                 .set("name", "Jacky")
@@ -109,6 +113,10 @@ public class MySQLExample implements Example {
 
         selectAll(cyclone);
 
+        // You can get also the raw SQL query string from a builder
+        //new DropQuery.Builder().drop("test").build().sql();
+
+        // Drop table 'test'
         cyclone.execute(new DropQuery.Builder()
                 .drop("test")
                 .build());
@@ -118,11 +126,13 @@ public class MySQLExample implements Example {
 
     private void selectAll(Cyclone cyclone) {
 
+        // Select all from table 'test'
         DBResult result = cyclone.query(new SelectQuery.Builder()
                 .select("*")
                 .from("test")
                 .build());
 
+        // Iterate through the rows and print these out
         for (DBRow row : result.rows()) {
             int id = row.get("id");
             String customName = row.get("name");
