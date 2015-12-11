@@ -97,9 +97,9 @@ public class SelectQuery implements Query {
             for (int i = 0; i < joins.size(); i++) {
                 Join join = joins.get(i);
                 if(i < joins.size() - 1)
-                    sb.append(" JOIN ").append(join.joinTable()).append(" ON ").append(join.onColumn()).append("=").append(join.onValue()).append(",");
+                    sb.append(" ").append(join.type().sql()).append(" ").append(join.joinTable()).append(" ON ").append(join.onColumn()).append("=").append(join.onValue()).append(",");
                 else
-                    sb.append(" JOIN ").append(join.joinTable()).append(" ON ").append(join.onColumn()).append("=").append(join.onValue());
+                    sb.append(" ").append(join.type().sql()).append(" ").append(join.joinTable()).append(" ON ").append(join.onColumn()).append("=").append(join.onValue());
             }
         }
 

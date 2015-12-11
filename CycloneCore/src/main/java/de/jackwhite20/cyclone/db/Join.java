@@ -7,6 +7,8 @@ package de.jackwhite20.cyclone.db;
  */
 public class Join {
 
+    private Type type;
+
     private String joinTable;
 
     private String onColumn;
@@ -16,15 +18,39 @@ public class Join {
     /**
      * Creates a new SQL JOIN statement with the given values.
      *
+     * @param type the type.
+     * @param joinTable the table.
+     * @param onColumn the column.
+     * @param onValue the value.
+     */
+    public Join(Type type, String joinTable, String onColumn, String onValue) {
+
+        this.type = type;
+        this.joinTable = joinTable;
+        this.onColumn = onColumn;
+        this.onValue = onValue;
+    }
+
+    /**
+     * Creates a new SQL JOIN statement with the given values and LEFT_JOIN as type.
+     *
      * @param joinTable the table.
      * @param onColumn the column.
      * @param onValue the value.
      */
     public Join(String joinTable, String onColumn, String onValue) {
 
-        this.joinTable = joinTable;
-        this.onColumn = onColumn;
-        this.onValue = onValue;
+        this(Type.LEFT_JOIN, joinTable, onColumn, onValue);
+    }
+
+    /**
+     * Gets the type of the join.
+     *
+     * @return the type.
+     */
+    public Type type() {
+
+        return type;
     }
 
     /**
@@ -55,5 +81,23 @@ public class Join {
     public String onValue() {
 
         return onValue;
+    }
+
+    public enum  Type {
+
+        LEFT_JOIN("LEFT JOIN"),
+        RIGHT_JOIN("RIGHT JOIN");
+
+        private String sql;
+
+        Type(String sql) {
+
+            this.sql = sql;
+        }
+
+        public String sql() {
+
+            return sql;
+        }
     }
 }

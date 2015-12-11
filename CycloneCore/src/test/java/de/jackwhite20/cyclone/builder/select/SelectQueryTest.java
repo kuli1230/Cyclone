@@ -85,7 +85,7 @@ public class SelectQueryTest {
     @Test
     public void testSelectQueryJoin() {
 
-        String expected = "SELECT test.id, test_data.color FROM test JOIN test_data ON test_data.id=test.id;";
+        String expected = "SELECT test.id, test_data.color FROM test LEFT JOIN test_data ON test_data.id=test.id;";
         String actual = new SelectQuery.Builder()
                 .select("test.id, test_data.color")
                 .join(new Join("test_data", "test_data.id", "test.id"))
