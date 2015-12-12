@@ -83,6 +83,16 @@ public class DBResult {
     }
 
     /**
+     * Gets the size of the row list.
+     *
+     * @return the size.
+     */
+    public int size() {
+
+        return rows.size();
+    }
+
+    /**
      * Gets all rows from the prepareStatement.
      *
      * @return a list with all rows as DBRow objects.
