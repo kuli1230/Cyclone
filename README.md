@@ -16,12 +16,14 @@ The directories to the '.db' file are created from Cyclone automatically.
 
 ## Cyclone is ready to use and well tested
 
-**Installation**
-- Install [Maven 3](http://maven.apache.org/download.cgi)
-- Clone/Download this repo
-- Install it with: ```mvn clean install```
+**Maven**
+```xml
+<repository>
+	<id>repo-jackwhite20</id>
+	<url>http://repo.quartercode.com/content/groups/public/</url>
+</repository>
+```
 
-**Maven dependency**
 ```xml
 <dependency>
     <groupId>de.jackwhite20</groupId>
