@@ -32,7 +32,7 @@ The directories to the '.db' file are created from Cyclone automatically.
 </dependency>
 ```
 
-If you have troubles with the repo you can easily download this project and install it using mavens _mvn clean install_
+If you have any trouble with the repo you can easily download this project and install it using maven's **mvn clean install**
 
 ## Features
 
