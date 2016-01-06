@@ -40,7 +40,7 @@ If you have any trouble with the repo you can easily download this project and i
 - query builder system
 - raw sql queries
 - aggregate functions
-- joins (multiple types soon)
+- joins
 - serialization system (with annotations)
 - simple API
 - lightweight
