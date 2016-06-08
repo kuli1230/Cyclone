@@ -62,19 +62,21 @@ public class CreateQuery implements Query {
         sb.append("CREATE TABLE ").append((createNotExists) ? "IF NOT EXISTS " : "").append(table).append(" (");
 
         for (int i = 0; i < values.size(); i++) {
-            if(i < values.size() - 1)
+            if(i < values.size() - 1) {
                 sb.append(values.get(i)).append(" ").append(String.join(" ", options.get(values.get(i)))).append(",");
-            else
+            } else {
                 sb.append(values.get(i)).append(" ").append(String.join(" ", options.get(values.get(i))));
+            }
         }
 
         if(primaryKeys.size() > 0) {
             sb.append(",PRIMARY KEY (");
             for (int i = 0; i < primaryKeys.size(); i++) {
-                if(i < primaryKeys.size() - 1)
+                if(i < primaryKeys.size() - 1) {
                     sb.append(primaryKeys.get(i)).append(",");
-                else
+                } else {
                     sb.append(primaryKeys.get(i));
+                }
             }
             sb.append(")");
         }

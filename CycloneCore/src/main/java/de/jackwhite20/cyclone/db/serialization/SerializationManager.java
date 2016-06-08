@@ -76,8 +76,9 @@ public class SerializationManager {
         CreateQuery.Builder builder = new CreateQuery.Builder();
         builder.create(table.name());
 
-        if(Table.Option.CREATE_IF_NOT_EXISTS.isOption(options))
+        if(Table.Option.CREATE_IF_NOT_EXISTS.isOption(options)) {
             builder.ifNotExists(true);
+        }
 
         List<String> primaryKeys = new ArrayList<>();
 
@@ -89,21 +90,24 @@ public class SerializationManager {
 
                 Column.Type type = Column.Type.typeFromClass(field.getType());
 
-                if (type == Column.Type.UNKNOWN)
+                if (type == Column.Type.UNKNOWN) {
                     continue;
+                }
 
-                if (Column.Option.PRIMARY_KEY.isOption(rowOptions))
+                if (Column.Option.PRIMARY_KEY.isOption(rowOptions)) {
                     primaryKeys.add(name);
+                }
 
                 List<String> rowOptionStrings = new ArrayList<>();
                 rowOptionStrings.add(type.sqlName());
-                for (int i = 0; i < rowOptions.length; i++) {
-                    Column.Option option = rowOptions[i];
-                    if (option == Column.Option.PRIMARY_KEY)
+                for (Column.Option option : rowOptions) {
+                    if (option == Column.Option.PRIMARY_KEY) {
                         continue;
+                    }
 
-                    if(cyclone.type() == Type.SQLITE && option == Column.Option.AUTO_INCREMENT)
+                    if (cyclone.type() == Type.SQLITE && option == Column.Option.AUTO_INCREMENT) {
                         continue;
+                    }
 
                     rowOptionStrings.add(option.sql());
                 }
@@ -112,9 +116,7 @@ public class SerializationManager {
             }
         }
 
-        for (String primaryKey : primaryKeys) {
-            builder.primaryKey(primaryKey);
-        }
+        primaryKeys.forEach(builder::primaryKey);
 
         return cyclone.execute(builder.build());
     }
@@ -149,15 +151,17 @@ public class SerializationManager {
 
         builder.from(table.name());
 
-        if(limit > 0)
+        if(limit > 0) {
             builder.limit(limit);
+        }
 
         for (Condition condition : conditions) {
             builder.where(condition);
         }
 
-        if(order != null)
+        if(order != null) {
             builder.orderBy(order);
+        }
 
         DBResult result = cyclone.query(builder.build());
 
@@ -169,14 +173,16 @@ public class SerializationManager {
 
                 for (Field field : classInstance.getClass().getDeclaredFields()) {
                     if(field.isAnnotationPresent(Column.class)) {
-                        if(Modifier.isFinal(field.getModifiers()))
+                        if(Modifier.isFinal(field.getModifiers())) {
                             continue;
+                        }
 
                         Column column = field.getAnnotation(Column.class);
                         String name = column.name().equals("") ? field.getName() : column.name();
 
-                        if(!row.hasKey(name))
+                        if(!row.hasKey(name)) {
                             continue;
+                        }
 
                         field.setAccessible(true);
                         field.set(classInstance, row.getObject(name));
@@ -279,8 +285,9 @@ public class SerializationManager {
                     Column column = field.getAnnotation(Column.class);
                     String name = column.name().equals("") ? field.getName() : column.name();
 
-                    if(cyclone.type() == Type.SQLITE && Column.Option.AUTO_INCREMENT.isOption(column.options()))
+                    if(cyclone.type() == Type.SQLITE && Column.Option.AUTO_INCREMENT.isOption(column.options())) {
                         continue;
+                    }
 
                     builder.column(name);
                     field.setAccessible(true);
@@ -365,14 +372,15 @@ public class SerializationManager {
                     if(setColumns != null) {
                         boolean contains = false;
 
-                        for (int i = 0; i < setColumns.length; i++) {
-                            if (setColumns[i].equals(name)) {
+                        for (String setColumn : setColumns) {
+                            if (setColumn.equals(name)) {
                                 contains = true;
                             }
                         }
 
-                        if(!contains)
+                        if(!contains) {
                             continue;
+                        }
                     }
 
                     field.setAccessible(true);

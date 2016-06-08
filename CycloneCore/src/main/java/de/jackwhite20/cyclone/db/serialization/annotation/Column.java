@@ -66,9 +66,10 @@ public @interface Column {
 
         public boolean isOption(Column.Option[] options) {
 
-            for (int i = 0; i < options.length; i++) {
-                if(options[i] == this)
+            for (Option option : options) {
+                if (option == this) {
                     return true;
+                }
             }
 
             return false;

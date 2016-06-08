@@ -28,14 +28,14 @@
     <groupId>de.jackwhite20</groupId>
     <artifactId>cyclone</artifactId>
     <packaging>pom</packaging>
-    <version>0.1-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <modules>
         <module>CycloneCore</module>
         <module>CycloneExample</module>
     </modules>
 
     <name>Cyclone</name>
-    <description>Cyclone is an MySQL util library with integrated HikariCP connection pool and more.</description>
+    <description>Cyclone is a MySQL and SQLite util library with integrated HikariCP connection pool and more.</description>
     <inceptionYear>2015</inceptionYear>
 
     <developers>
@@ -44,15 +44,4 @@
             <email>silencephil@gmail.com</email>
         </developer>
     </developers>
-
-    <distributionManagement>
-        <repository>
-            <id>quartercode-deployment</id>
-            <url>http://repo.quartercode.com/content/repositories/releases/</url>
-        </repository>
-        <snapshotRepository>
-            <id>quartercode-deployment</id>
-            <url>http://repo.quartercode.com/content/repositories/snapshots/</url>
-        </snapshotRepository>
-    </distributionManagement>
 </project>

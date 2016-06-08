@@ -1,5 +1,5 @@
 ## Cyclone
-Cyclone is an **MySQL** and **SQLite** util library with integrated [HikariCP](http://brettwooldridge.github.io/HikariCP/) connection pool.
+Cyclone is a **MySQL** and **SQLite** util library with integrated [HikariCP](http://brettwooldridge.github.io/HikariCP/) connection pool.
 One of the features is the query builder system with the builder design pattern.
 You don't have to write the complete SQL-Query string down anymore. You can instead use a cool and easy builder API.
 
@@ -14,16 +14,12 @@ You can now also get the row SQL query from all builders with the sql() method a
 The only thing that is different to MySQL is that you have to use the 'database' method in the settings builder as a path to a '.db' file and set the type to 'Type.SQLITE' with the settings builder.
 The directories to the '.db' file are created from Cyclone automatically.
 
-## Cyclone is ready to use and well tested
+**Installation**
+- Install [Maven 3](http://maven.apache.org/download.cgi)
+- Clone/Download this repo
+- Install it with: ```mvn clean install```
 
-**Maven**
-```xml
-<repository>
-	<id>repo-jackwhite20</id>
-	<url>http://repo.quartercode.com/content/groups/public/</url>
-</repository>
-```
-
+**Maven dependency**
 ```xml
 <dependency>
     <groupId>de.jackwhite20</groupId>
@@ -32,7 +28,7 @@ The directories to the '.db' file are created from Cyclone automatically.
 </dependency>
 ```
 
-If you have any trouble with the repo you can easily download this project and install it using maven's **mvn clean install**
+If you don't use maven you can download a release version and include it in your project.
 
 ## Features
 

@@ -42,11 +42,7 @@ public class DropQuery implements Query {
     @Override
     public String sql() {
 
-        StringBuilder sb = new StringBuilder();
-
-        sb.append("DROP TABLE ").append(table).append(";");
-
-        return sb.toString();
+        return "DROP TABLE " + table + ";";
     }
 
     @Override

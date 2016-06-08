@@ -74,20 +74,22 @@ public class SelectQuery implements Query {
         StringBuilder sb = new StringBuilder();
         sb.append("SELECT ");
         for (int i = 0; i < selects.size(); i++) {
-            if(i < selects.size() - 1)
+            if(i < selects.size() - 1) {
                 sb.append(selects.get(i)).append(",");
-            else
+            } else {
                 sb.append(selects.get(i));
+            }
         }
 
         if(functions.size() > 0) {
             sb.append(", ");
             for (int i = 0; i < functions.size(); i++) {
                 Function function = functions.get(i);
-                if (i < functions.size() - 1)
+                if (i < functions.size() - 1) {
                     sb.append(function.type().sql()).append("(").append(function.column()).append(")").append((function.as() != null) ? " AS " + function.as() : "").append(",");
-                else
+                } else {
                     sb.append(function.type().sql()).append("(").append(function.column()).append(")").append((function.as() != null) ? " AS " + function.as() : "");
+                }
             }
         }
 
@@ -96,10 +98,11 @@ public class SelectQuery implements Query {
         if(joins.size() > 0) {
             for (int i = 0; i < joins.size(); i++) {
                 Join join = joins.get(i);
-                if(i < joins.size() - 1)
+                if(i < joins.size() - 1) {
                     sb.append(" ").append(join.type().sql()).append(" ").append(join.joinTable()).append(" ON ").append(join.onColumn()).append("=").append(join.onValue()).append(",");
-                else
+                } else {
                     sb.append(" ").append(join.type().sql()).append(" ").append(join.joinTable()).append(" ON ").append(join.onColumn()).append("=").append(join.onValue());
+                }
             }
         }
 

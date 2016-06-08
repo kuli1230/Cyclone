@@ -133,10 +133,12 @@ public class Cyclone {
             PreparedStatement preparedStatement = query.prepareStatement(con);
             preparedStatement.execute();
             preparedStatement.close();
+
             return true;
         } catch (SQLException e) {
-            if(settings.printExceptions())
+            if(settings.printExceptions()) {
                 e.printStackTrace();
+            }
 
             return false;
         }
@@ -153,10 +155,12 @@ public class Cyclone {
         try (Connection con = connection.getConnection()) {
             PreparedStatement preparedStatement = query.prepareStatement(con);
             ResultSet resultSet = preparedStatement.executeQuery();
+
             return new DBResult(resultSet, preparedStatement);
         } catch (SQLException e) {
-            if(settings.printExceptions())
+            if(settings.printExceptions()) {
                 e.printStackTrace();
+            }
 
             return null;
         }

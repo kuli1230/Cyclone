@@ -57,10 +57,11 @@ public class InsertQuery implements Query {
         if(columns.size() > 0) {
             sb.append(" (");
             for (int i = 0; i < columns.size(); i++) {
-                if(i < columns.size() - 1)
+                if(i < columns.size() - 1) {
                     sb.append(columns.get(i)).append(",");
-                else
+                }else {
                     sb.append(columns.get(i));
+                }
             }
             sb.append(")");
         }
